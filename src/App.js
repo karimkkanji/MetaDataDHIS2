@@ -26,7 +26,7 @@ class App extends Component {
       <div>
         <Navbar item="Data Elements"/>
         <Tabpane />
-        <ButtonGroup/>
+        <ButtonGroup pageNavigated="datasets"/>
         <BasicExample />
         
       </div>

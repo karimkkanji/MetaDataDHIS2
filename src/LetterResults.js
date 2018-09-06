@@ -12,56 +12,66 @@ class LetterResults extends Component {
     return (
         <div className="container letterResults">
     <ListGroup>
-  <ListGroupItem header={this.props.letter} href="#"> 
-  Item Description<br/>
+  <ListGroupItem header={this.props.letter} href="#">
+      <ButtonToolbar bsClass="pull-right">
+          <ButtonGroup>
+              <Button>View</Button>
+          </ButtonGroup>&nbsp;
+          <ButtonGroup>
+              <Button>Print</Button>
+          </ButtonGroup>&nbsp;
+          <ButtonGroup>
+              <Button>Share</Button>
+          </ButtonGroup>
+      </ButtonToolbar>
+      Item Description<br/>
   <Label bsStyle="default">Danger</Label> <Label bsStyle="info">Danger</Label>
-  <ButtonToolbar bsStyle="pull-right">
-  <ButtonGroup>
-    <Button>View</Button>
-  </ButtonGroup>
-  <ButtonGroup>
-    <Button>Print</Button>
-  </ButtonGroup>
-  <ButtonGroup>
-    <Button>Share</Button>
-  </ButtonGroup>
-</ButtonToolbar>
   </ListGroupItem>
-
   <ListGroupItem header={this.props.letter}  href="#" >
-  <ButtonToolbar bsStyle="text-right">
-  <ButtonGroup>
-    <Button>View</Button>
-  </ButtonGroup>
-
-  <ButtonGroup>
-    <Button>Print</Button>
-  </ButtonGroup>
-
-  <ButtonGroup>
-    <Button>Share</Button>
-  </ButtonGroup>
-</ButtonToolbar>
+      <ButtonToolbar bsClass="pull-right">
+          <ButtonGroup>
+              <Button>View</Button>
+          </ButtonGroup>&nbsp;
+          <ButtonGroup>
+              <Button>Print</Button>
+          </ButtonGroup>&nbsp;
+          <ButtonGroup>
+              <Button>Share</Button>
+          </ButtonGroup>
+      </ButtonToolbar>
   Item Description<br/>
   <Label bsStyle="success">Danger</Label> <Label bsStyle="warning">Danger</Label>
   </ListGroupItem>
   <ListGroupItem header={this.props.letter}  href="#">
-  <ButtonToolbar bsStyle="text-right">
-  <ButtonGroup>
-    <Button>View</Button>
-  </ButtonGroup>
-
-  <ButtonGroup>
-    <Button>Print</Button>
-  </ButtonGroup>
-
-  <ButtonGroup>
-    <Button>Share</Button>
-  </ButtonGroup>
-</ButtonToolbar>
+      <ButtonToolbar bsClass="pull-right">
+          <ButtonGroup>
+              <Button>View</Button>
+          </ButtonGroup>&nbsp;
+          <ButtonGroup>
+              <Button>Print</Button>
+          </ButtonGroup>&nbsp;
+          <ButtonGroup>
+              <Button>Share</Button>
+          </ButtonGroup>
+      </ButtonToolbar>
   Item Description<br/>
   <Label bsStyle="primary">Primary</Label> <Label bsStyle="danger">Danger</Label>
   </ListGroupItem>
+  <ListGroupItem header={this.props.letter}  href="#">
+            <ButtonToolbar bsClass="pull-right">
+                <ButtonGroup>
+                    <Button>View</Button>
+                </ButtonGroup>&nbsp;
+                <ButtonGroup>
+                    <Button>Print</Button>
+                </ButtonGroup>&nbsp;
+                <ButtonGroup>
+                    <Button>Share</Button>
+                </ButtonGroup>
+            </ButtonToolbar>
+            Item Description<br/>
+            <Label bsStyle="primary">Primary</Label> <Label bsStyle="danger">Danger</Label>
+        </ListGroupItem>
 </ListGroup>
 </div>
     );
