@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListGroup} from 'react-bootstrap';
+import {Col, ListGroup} from 'react-bootstrap';
 import {Label} from 'react-bootstrap';
 import {ListGroupItem} from 'react-bootstrap';
 import {ButtonGroup} from 'react-bootstrap';
@@ -8,9 +8,13 @@ import {Button} from 'react-bootstrap';
 import './Tabpane.css';
 
 class LetterResults extends Component {
+    constructor(props) {
+        super(props);
+    }
     render(){
     return (
         <div className="container letterResults">
+            <Col xs={11} md={11}>
     <ListGroup>
   <ListGroupItem header={this.props.letter} href="#">
       <ButtonToolbar bsClass="pull-right">
@@ -73,6 +77,7 @@ class LetterResults extends Component {
             <Label bsStyle="primary">Primary</Label> <Label bsStyle="danger">Danger</Label>
         </ListGroupItem>
 </ListGroup>
+            </Col>
 </div>
     );
 }

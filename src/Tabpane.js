@@ -3,28 +3,18 @@ import './Tabpane.css';
 import {Nav, NavItem,Col,Row, Tab} from 'react-bootstrap';
 import ButtonGroup from "./ButtonGroup";
 import './Tabpane.css';
-import Alert from './Alert';
-import LetterResults from './LetterResults';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-const BasicExample = () => (
-    <Router>
-        <div>
-            <Route exact path="/" component={Start} />
-            <Route path="/programs" component={Start} />
-            <Route path="/dataelements" component={Start} />
-            <Route path="/datasets" component={Start} />
-            <Route path="/indicators" component={Start} />
-            <Route path="/:getVal/:getLetter" component={Letter} />
-        </div>
-    </Router>
-);
-const Start = () => {
-    return <Alert title="Hello there!" message="Click any letter here to see the definitons" />
-};
-const Letter = ({match}) => {
-    return <LetterResults letter={match.params.getLetter}/>
-};
 class Tabpane extends Component {
+    constructor(props){
+        super(props);
+        this.handleChangeState = this.handleChangeState.bind(this);
+    }
+
+    handleChangeState(message) {
+        this.InputChange(message);
+    }
+    InputChange = (params) => {
+        this.props.changeHandler(params);
+    };
     render() {
     return (
       <div className="tabpanebody">
@@ -42,7 +32,7 @@ class Tabpane extends Component {
                   <Col sm={12}>
                       <div className={"container content"}>
                       <Tab.Content animation>
-                          <Tab.Pane eventKey="first"><ButtonGroup/></Tab.Pane>
+                          <Tab.Pane eventKey="first"><button onClick={this.handleChangeState.bind(this,"false")}>Click me</button><ButtonGroup/></Tab.Pane>
                           <Tab.Pane eventKey="second"><ButtonGroup/></Tab.Pane>
                           <Tab.Pane eventKey="third"><ButtonGroup/></Tab.Pane>
                           <Tab.Pane eventKey="fourth"><ButtonGroup/></Tab.Pane>

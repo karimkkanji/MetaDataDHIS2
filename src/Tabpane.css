@@ -1,6 +1,9 @@
 .tabpanebody{
     margin-top: 100px;
 }
+.detailsMoreBody{
+    margin-top: 100px;
+}
 .alertHome{
     margin-top: 70px;
 }
@@ -12,4 +15,7 @@ margin-top: 20px;
 }
 .content{
     margin-top: 20px;
+}
+.buttongroupDetsmarg{
+    margin-top: 10px;
 }
