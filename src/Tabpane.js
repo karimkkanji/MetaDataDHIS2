@@ -32,10 +32,10 @@ class Tabpane extends Component {
                   <Col sm={12}>
                       <div className={"container content"}>
                       <Tab.Content animation>
-                          <Tab.Pane eventKey="first"><button onClick={this.handleChangeState.bind(this,"false")}>Click me</button><ButtonGroup/></Tab.Pane>
-                          <Tab.Pane eventKey="second"><ButtonGroup/></Tab.Pane>
-                          <Tab.Pane eventKey="third"><ButtonGroup/></Tab.Pane>
-                          <Tab.Pane eventKey="fourth"><ButtonGroup/></Tab.Pane>
+                          <Tab.Pane eventKey="first"><button onClick={this.handleChangeState.bind(this,"false")}>Click me</button><ButtonGroup item={"datasets"}/></Tab.Pane>
+                          <Tab.Pane eventKey="second"><ButtonGroup item={"indicators"}/></Tab.Pane>
+                          <Tab.Pane eventKey="third"><ButtonGroup item={"programs"}/></Tab.Pane>
+                          <Tab.Pane eventKey="fourth"><ButtonGroup item={"dataelements"}/></Tab.Pane>
                       </Tab.Content>
                        </div>
                   </Col>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Row,Col,Panel,Label,Well,Dropdown,MenuItem,Glyphicon} from 'react-bootstrap';
+import {Row,Col,Panel,Label,Well,Dropdown,MenuItem,Glyphicon,Breadcrumb,Table} from 'react-bootstrap';
 import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
 class DetailsMore extends Component{
@@ -8,6 +8,8 @@ class DetailsMore extends Component{
             <div className={"detailsMoreBody container"}>
                 <Row className="show-grid">
                     <Col xs={12} md={9}>
+                        <Row>
+                            <Col xs={3} md={3}>
                         <Dropdown id="dropdown-custom-1">
                             <Dropdown.Toggle>
                                 <Glyphicon glyph="print" />&nbsp;Print Metadata
@@ -18,6 +20,14 @@ class DetailsMore extends Component{
                                 <MenuItem eventKey="3">PDF</MenuItem>
                             </Dropdown.Menu>
                         </Dropdown>
+                            </Col>
+                            <Col xs={9} md={9}>
+                                <Breadcrumb>
+                                    <Breadcrumb.Item href="http://localhost:3000">Home</Breadcrumb.Item>
+                                    <Breadcrumb.Item active>Item</Breadcrumb.Item>
+                                </Breadcrumb>
+                            </Col>
+                        </Row>
                             <div className={'buttongroupDetsmarg'}>
                             <ButtonGroupDetails />
                             </div>
@@ -59,34 +69,66 @@ class DetailsMore extends Component{
                     <Col xs={12} md={8}>
                         <Panel>
                             <Panel.Body>
-                                <Col xs={4} md={4} className={"text-right"}>
-                                    <div style={{paddingRight:'20px',borderRight: '2px solid black'}}>
-                               <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span><br/><br/>
-                                <span className="text-primary">Item name</span>
-                                    </div>
-                                </Col>
-                                <Col xs={8} md={8}>
-                                    <span >Item name</span ><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span><br/><br/>
-                                    <span >Item name</span>
-                                </Col>
+                                <Table responsive hover striped={true}>
+                                    <tbody>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-primary" style={{borderRight: '2px solid black'}}>Table cell</td>
+                                        <td>Table cell</td>
+
+                                    </tr>
+                                    </tbody>
+                                </Table>
                             </Panel.Body>
                         </Panel>
                     </Col>

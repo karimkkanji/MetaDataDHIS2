@@ -3,7 +3,6 @@ import './App.css';
 import Navbar from './Navbar';
 import Tabpane from './Tabpane';
 import  DetailsMore from './DetailsMore';
-import LetterResults from "./LetterResults";
 
 class App extends Component {
     constructor(props){

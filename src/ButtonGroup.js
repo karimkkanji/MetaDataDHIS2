@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import * as ReactBootstrap from 'react-bootstrap';
 import './Tabpane.css';
 import LetterResults from "./LetterResults";
-import Tabpane from "./Tabpane";
+
 let valuePassed = "";
 class ButtonGroup extends Component {
     constructor(props) {
@@ -13,7 +13,6 @@ class ButtonGroup extends Component {
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
 }
-
 handleClick(message) {
         valuePassed = message;
     this.setState({
@@ -38,7 +37,7 @@ render(){
   </ReactBootstrap.ButtonGroup>
   </ReactBootstrap.ButtonToolbar>
             {this.state.showComponent ?
-                <LetterResults letter={valuePassed} /> :
+                <LetterResults letter={valuePassed} item={this.props.item} /> :
                 null
             }
 </div>

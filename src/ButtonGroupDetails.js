@@ -4,11 +4,12 @@ import './Tabpane.css';
 import LetterResultsDetails from "./LetterResultsDetails";
 
 let valuePassed = "";
-const popoverBottom= (
+const popoverBottom=(
     <ReactBootstrap.Popover id="popover-positioned-bottom" style={{maxWidth:'none',width:600}}>
         <LetterResultsDetails letter={valuePassed} />
     </ReactBootstrap.Popover>
 );
+
 class ButtonGroupDetails extends Component {
     constructor(props) {
     super(props);
