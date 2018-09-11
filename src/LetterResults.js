@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Col, ListGroup,Label,ListGroupItem,ButtonGroup,ButtonToolbar,Button,Alert} from 'react-bootstrap';
 import './Tabpane.css';
+import CustomAlert from "./CustomAlert";
 // also available as `default`
 let output ="";
 const headers ={
@@ -64,6 +65,7 @@ class LetterResults extends Component {
     }
     render(){
         const { isLoading } = this.state;
+        /*This allows a loader to show while data is being loaded to states, once loaded, the state will change to true then rendering will occur*/
         if (isLoading) {
             return <div className="spinner">
                 <div className="double-bounce1"></div>
@@ -73,11 +75,14 @@ class LetterResults extends Component {
         if(this.state.data.filter((dynamicData)=>{
                 return dynamicData.name[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
             } ).length===0) {
+            //select items that start with a non-letter character
             if (this.props.letter === "#") {
                 output = this.state.data
                     .filter(( dynamicData)=>{
                         //console.log(dynamicData.name)
-                        return dynamicData.name[0].toLowerCase().isNaN < 0
+                        if(dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$]/i)){
+                            return dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$]/i);
+                        }
                     } )
                     .map((dynamicData) =>(
                         <ListGroupItem header= {dynamicData.name}  href="#" key={dynamicData.id}>
@@ -93,11 +98,20 @@ class LetterResults extends Component {
                                 </ButtonGroup>
                             </ButtonToolbar>
                             Item Description<br/>
-                            <Label bsStyle="default">{dynamicData.periodType}</Label> <Label bsStyle="info">Danger</Label>
+                            <Label bsStyle="default">{dynamicData.periodType}</Label>&nbsp;
+                            <Label bsStyle="info">{dynamicData.formType}</Label>&nbsp;
+                            <Label bsStyle={"primary"}>{dynamicData.numeratorDescription}</Label>&nbsp;
+                            <Label bsStyle={"danger"}>{dynamicData.denominatorDescription}</Label>&nbsp;
+                            <Label bsStyle={"primary"}>{dynamicData.domainType}</Label>&nbsp;
+                            <Label bsStyle={"success"}>{dynamicData.valueType}</Label>&nbsp;
+                            <Label bsStyle={"info"}>{dynamicData.aggregationType}</Label>
                         </ListGroupItem>
                     ));
             }
-            else{ output = <Alert bsStyle={"warning"}><strong>No records found!</strong> There is no metadata that starts with <strong><i>{this.props.letter}</i></strong></Alert>}
+            //if no items are found return an alert
+            else{
+                output = <Alert bsStyle={"warning"}><strong>No records found!</strong> There is no metadata that starts with <strong><i>{this.props.letter}</i></strong></Alert>
+            }
             }
         else{
             output = this.state.data
@@ -133,7 +147,8 @@ class LetterResults extends Component {
         <div className="container letterResults">
             <Col xs={11} md={11}>
                 <ListGroup>
-                    {output}
+                    {console.log(output.length)}
+                    {output.length !== 0 ? output: <div><Col xs={6}><Alert bsStyle={"warning"}><strong>No records found!</strong> There is no metadata that starts with a number or symbol</Alert></Col></div>}
         </ListGroup>
             </Col>
         </div>
