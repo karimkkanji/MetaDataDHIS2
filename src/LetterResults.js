@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Col, ListGroup,Label,ListGroupItem,ButtonGroup,ButtonToolbar,Button,Alert} from 'react-bootstrap';
 import './Tabpane.css';
+// also available as `default`
 let output ="";
 const headers ={
     headers:{
@@ -12,11 +13,13 @@ class LetterResults extends Component {
     constructor(){
         super();
         this.state={
+            isLoading: false,
             data: [],
             filterText: ''
         }
     }
     componentDidMount(){
+        this.setState({ isLoading: true });
         //let filters = this.state.filterText
         //http://197.136.81.99:8082/test/api/programDataElements.json?fields=:all&paging=false  ---- default
         let item = this.props.item;
@@ -26,7 +29,7 @@ class LetterResults extends Component {
             ).then( (Response)=> Response.json() )
                 .then(( findresponse) => { //filter the findresponse using the filters variable to display only what is in the inpu
                     this.setState({
-                        data:findresponse.programDataElements
+                        data:findresponse.programDataElements, isLoading: false
                 })
                 })
         }
@@ -35,7 +38,7 @@ class LetterResults extends Component {
             ).then((Response)=> Response.json() )
                 .then(( findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     this.setState({
-                        data:findresponse.dataSets,
+                        data:findresponse.dataSets, isLoading: false
                     })
                 })
             }
@@ -44,7 +47,7 @@ class LetterResults extends Component {
             ).then((Response)=> Response.json() )
                 .then(( findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     this.setState({
-                        data:findresponse.indicators,
+                        data:findresponse.indicators,isLoading: false
                     })
                 })
         }
@@ -54,12 +57,19 @@ class LetterResults extends Component {
                 .then(( findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     console.log(findresponse.dataElements); //hapa ndio jackpot
                     this.setState({
-                        data:findresponse.dataElements,
+                        data:findresponse.dataElements,isLoading: false
                     })
                 })
         }
     }
     render(){
+        const { isLoading } = this.state;
+        if (isLoading) {
+            return <div className="spinner">
+                <div className="double-bounce1"></div>
+                <div className="double-bounce2"></div>
+            </div> ;
+        }
         if(this.state.data.filter((dynamicData)=>{
                 return dynamicData.name[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
             } ).length===0) {
@@ -83,7 +93,7 @@ class LetterResults extends Component {
                                 </ButtonGroup>
                             </ButtonToolbar>
                             Item Description<br/>
-                            <Label bsStyle="default">Danger</Label> <Label bsStyle="info">Danger</Label>
+                            <Label bsStyle="default">{dynamicData.periodType}</Label> <Label bsStyle="info">Danger</Label>
                         </ListGroupItem>
                     ));
             }
@@ -109,7 +119,13 @@ class LetterResults extends Component {
                             </ButtonGroup>
                         </ButtonToolbar>
                         Item Description<br/>
-                        <Label bsStyle="default">Danger</Label> <Label bsStyle="info">Danger</Label>
+                        <Label bsStyle="default">{dynamicData.periodType}</Label>&nbsp;
+                        <Label bsStyle="info">{dynamicData.formType}</Label>&nbsp;
+                        <Label bsStyle={"primary"}>{dynamicData.numeratorDescription}</Label>&nbsp;
+                        <Label bsStyle={"danger"}>{dynamicData.denominatorDescription}</Label>&nbsp;
+                        <Label bsStyle={"primary"}>{dynamicData.domainType}</Label>&nbsp;
+                        <Label bsStyle={"success"}>{dynamicData.valueType}</Label>&nbsp;
+                        <Label bsStyle={"info"}>{dynamicData.aggregationType}</Label>
                     </ListGroupItem>
                 ));
         }

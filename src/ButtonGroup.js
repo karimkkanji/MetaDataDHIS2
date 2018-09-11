@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import * as ReactBootstrap from 'react-bootstrap';
 import './Tabpane.css';
 import LetterResults from "./LetterResults";
+import CustomAlert from "./CustomAlert";
 
 let valuePassed = "";
 class ButtonGroup extends Component {
@@ -38,7 +39,7 @@ render(){
   </ReactBootstrap.ButtonToolbar>
             {this.state.showComponent ?
                 <LetterResults letter={valuePassed} item={this.props.item} /> :
-                null
+                <CustomAlert for={this.props.item}/>
             }
 </div>
     );
