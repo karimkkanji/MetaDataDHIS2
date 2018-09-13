@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {combineReducers,createStore} from 'redux';
+import {combineReducers, createStore} from 'redux';
 import registerServiceWorker from './registerServiceWorker';
 
+/*
 function tabsReducer(state='',action){
     return state;
 }
@@ -20,6 +21,6 @@ const store  = createStore(allReducers,{
     items:''
 });
 console.log(store.getState());
-
-ReactDOM.render(<App /> , document.getElementById('root'));
+*/
+ReactDOM.render(<App/>, document.getElementById('root'));
 registerServiceWorker();

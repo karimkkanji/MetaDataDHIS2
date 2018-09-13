@@ -1,18 +1,47 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './Tabpane.css';
 import {Alert, Col} from 'react-bootstrap';
 
-class CustomAlert extends Component{
-    render(){
-        return(
+class CustomAlert extends Component {
+    render() {
+        return (
             <div className={"alertHome"}>
-                <Col xs={6}>
-            <Alert bsStyle={"info"}>
-                <strong>Hello there stranger!</strong> Click any of the buttons to show {this.props.for} according to Alphabetical order!
-            </Alert>
+                <Col xs={6}> <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="100.000000pt" height="100.000000pt" viewBox="0 0 700.000000 700.000000" preserveAspectRatio="xMidYMid meet">
+                    <metadata>
+                        Created by potrace 1.12, written by Peter Selinger 2001-2015
+                    </metadata>
+                    <g transform="translate(0.000000,700.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                        <path d="M1073 6979 c-55 -27 -73 -58 -132 -225 -61 -172 -115 -294 -242 -544
+-92 -182 -145 -280 -306 -570 -84 -149 -296 -581 -317 -644 -33 -99 19 -208
+107 -223 27 -4 58 3 129 32 218 88 503 235 721 372 64 40 124 76 131 79 13 5
+14 -78 9 -628 -7 -719 2 -1024 47 -1603 27 -353 112 -923 182 -1230 170 -744
+376 -1222 643 -1491 162 -162 329 -246 579 -290 163 -28 384 -9 551 48 322
+110 538 345 770 838 60 129 80 175 220 521 187 460 336 738 451 838 192 169
+397 38 606 -389 92 -188 162 -371 288 -750 133 -400 209 -567 298 -662 26 -28
+26 -28 162 -28 75 0 139 3 143 6 3 4 -3 24 -13 45 -11 21 -20 46 -20 56 0 10
+-19 43 -42 73 -46 61 -124 217 -162 325 -13 39 -43 138 -66 220 -110 398 -146
+512 -206 660 -75 184 -211 404 -330 534 -94 102 -224 204 -323 254 -84 42 -85
+42 -195 42 -104 0 -115 -2 -176 -31 -83 -40 -134 -81 -216 -174 -81 -92 -154
+-201 -232 -346 -91 -169 -158 -325 -316 -734 -147 -378 -186 -455 -309 -612
+-307 -390 -694 -540 -1006 -389 -90 43 -142 84 -231 178 -222 237 -402 614
+-514 1078 -113 472 -199 1074 -236 1660 -22 359 -59 1805 -48 1934 l3 43 191
+-188 c104 -104 219 -222 255 -263 61 -70 66 -74 114 -78 41 -4 56 0 84 19 93
+63 98 108 33 303 -97 289 -210 540 -459 1015 -190 363 -327 636 -393 783 -69
+153 -125 187 -227 136z m294 -957 c122 -235 235 -457 251 -493 l29 -65 -74 37
+c-41 21 -92 40 -113 44 -25 4 -44 15 -54 31 -27 40 -71 57 -133 49 -151 -19
+-318 -92 -581 -255 -90 -56 -166 -100 -168 -98 -2 3 55 112 127 244 72 131
+161 293 196 359 67 124 239 471 266 538 9 20 20 37 24 37 4 0 108 -192 230
+-428z"></path>
+                    </g>
+                </svg>
+                    <Alert bsStyle={"info"}>
+                        <strong>Hello there stranger!</strong> Click any of the buttons to
+                        show {this.props.for} according to Alphabetical order!
+                    </Alert>
                 </Col>
             </div>
         )
     }
 }
+
 export default CustomAlert;

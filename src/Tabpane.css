@@ -1,25 +1,32 @@
-.tabpanebody{
+.tabpanebody {
     margin-top: 100px;
 }
-.detailsMoreBody{
+
+.detailsMoreBody {
     margin-top: 100px;
 }
-.alertHome{
-    margin-top: 70px;
+
+.alertHome {
+    margin-top: 10px;
 }
-.buttonGroup{
-margin-top: 20px;
-}
-.letterResults{
+
+.buttonGroup {
     margin-top: 20px;
 }
-.content{
+
+.letterResults {
     margin-top: 20px;
 }
-.buttongroupDetsmarg{
+
+.content {
+    margin-top: 20px;
+}
+
+.buttongroupDetsmarg {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
 .spinner {
     width: 60px;
     height: 60px;
@@ -48,16 +55,21 @@ margin-top: 20px;
 }
 
 @-webkit-keyframes sk-bounce {
-    0%, 100% { -webkit-transform: scale(0.0) }
-    50% { -webkit-transform: scale(1.0) }
+    0%, 100% {
+        -webkit-transform: scale(0.0)
+    }
+    50% {
+        -webkit-transform: scale(1.0)
+    }
 }
 
 @keyframes sk-bounce {
     0%, 100% {
         transform: scale(0.0);
         -webkit-transform: scale(0.0);
-    } 50% {
-          transform: scale(1.0);
-          -webkit-transform: scale(1.0);
-      }
+    }
+    50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
 }
