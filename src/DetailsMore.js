@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Row, Col, Panel, Label, Well, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table} from 'react-bootstrap';
+import {Row, Col, Panel, Label, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table} from 'react-bootstrap';
 import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
 
@@ -7,7 +7,7 @@ const headers = {
     headers: {
         'Authorization': `Basic ${btoa('evanpersie3@gmail.com:skolastikA97')}`
     }
-}
+};
 const dataSets = (deets) => (<tbody>
 {/*Datasets*/}
 <tr>
@@ -103,16 +103,9 @@ const indicators = (deets) => (<tbody>
 
 </tr>
 <tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Form
-        Type::
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Annualised:
     </td>
-    <td>{deets.formType}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Period
-        Type:
-    </td>
-    <td>{deets.periodType}</td>
+    <td>{(deets.annualized===false)?<span>No</span>:<span>Yes</span>}</td>
 </tr>
 <tr>
     <td className="text-primary" style={{borderRight: '2px solid black'}}>Short
@@ -122,17 +115,22 @@ const indicators = (deets) => (<tbody>
 
 </tr>
 <tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Timely
-        submission days:
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Name:
     </td>
-    <td>{deets.timelyDays}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Version:
-    </td>
-    <td>{deets.version}</td>
+    <td>{deets.name}</td>
 
 </tr>
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Display Name:
+    </td>
+    <td>{deets.displayName}</td>
+</tr>
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Display Short Name:
+    </td>
+    <td>{deets.displayShortName}</td>
+</tr>
+
 {/* End of Datasets*/}
 
 </tbody>);
@@ -267,14 +265,10 @@ class DetailsMore extends Component {
         fetch(`http://197.136.81.99:8082/test/api/${this.props.item}/${this.props.id}`, headers //youtube guy this.props.location.state.dynamicData
         ).then((Response) => Response.json())
             .then((findresponse) => {
-
                 this.setState({
                     activeDetails: findresponse,
 
-
-                });
-                console.log(this.state.activeDetails)
-
+                })
             })
 
     };
@@ -307,7 +301,7 @@ class DetailsMore extends Component {
                             </Col>
                         </Row>
                         <div className={'buttongroupDetsmarg'}>
-                            <ButtonGroupDetails/>
+                            <ButtonGroupDetails metadata={this.props.item}/>
                         </div>
                     </Col>
                     <Col xs={4} md={3}>
@@ -348,7 +342,6 @@ class DetailsMore extends Component {
                                 <Table responsive hover striped={true}>
                                     {
                                         (() => {
-                                            console.log(this.props.item);
                                             switch (this.props.item) {
                                                 case "dataSets":   return dataSets(deets);
                                                 case "indicators": return indicators(deets);

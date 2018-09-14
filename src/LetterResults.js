@@ -13,8 +13,6 @@ import {
     Row, MenuItem, Dropdown
 } from 'react-bootstrap';
 import './Tabpane.css';
-import CustomAlert from "./CustomAlert";
-// also available as `default`
 let output = "";
 const headers = {
     headers: {
@@ -98,9 +96,12 @@ class LetterResults extends Component {
                         if (dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
                             return dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
                         }
+                        else{
+                            return undefined;
+                        }
                     })
                     .map((dynamicData) => (
-                        <div>
+                        <div key={dynamicData.id}>
                             <PanelGroup accordion>
                                 <Panel eventKey={dynamicData.id} bsStyle="info">
                                     <Panel.Heading>
@@ -168,8 +169,8 @@ class LetterResults extends Component {
                     return dynamicData.name[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
                 })
                 .map((dynamicData) => (
-                    <div><Col xs={11} md={11}>
-                        <PanelGroup accordion>
+                    <div key={dynamicData.id}><Col xs={11} md={11}>
+                        <PanelGroup accordion id={dynamicData.name}>
                             <Panel eventKey={dynamicData.id} bsStyle="info">
                                 <Panel.Heading>
                                     <Panel.Title toggle>

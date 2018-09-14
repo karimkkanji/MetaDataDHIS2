@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
-import {Row, Panel,FormGroup,Checkbox,Form,Col} from 'react-bootstrap';
+import {Row, Panel,FormGroup,Checkbox,Form} from 'react-bootstrap';
 import Navbar from './Navbar';
 import Tabpane from './Tabpane';
 import DetailsMore from './DetailsMore';
-import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 const HomeRoute = () => (
     <Router>
@@ -30,7 +30,7 @@ const Home = () => (
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
         <Tabpane/>
     </div>
-)
+);
 const Programs = ({match}) => (
     <div>
         {/*This is the navbar component*/}
@@ -39,7 +39,7 @@ const Programs = ({match}) => (
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
-)
+);
 const Indicators = ({match}) => (
     <div>
         {/*This is the navbar component*/}
@@ -48,7 +48,7 @@ const Indicators = ({match}) => (
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
-)
+);
 const DataElements = ({match}) => (
     <div>
         {/*This is the navbar component*/}
@@ -57,7 +57,7 @@ const DataElements = ({match}) => (
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
-)
+);
 const Datasets = ({match}) => (
     <div>
         {/*This is the navbar component*/}
@@ -66,7 +66,7 @@ const Datasets = ({match}) => (
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
-)
+);
 const Search = () => (
     <div>
         {/*This is the navbar component*/}
@@ -95,7 +95,7 @@ const Search = () => (
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
-)
+);
 const NoMatch = () => (
     <div>
         {/*This is the navbar component*/}
@@ -113,7 +113,5 @@ const NoMatch = () => (
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
-)
-
-
+);
 export default HomeRoute;

@@ -18,4 +18,4 @@ npm start
 1. React
 2. React-bootstrap
 3. React-routes
-4. {Pending} React-redux
+4. {Pending} React-Redux
