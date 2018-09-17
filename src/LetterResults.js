@@ -29,278 +29,348 @@ class LetterResults extends Component {
     }
     getPrograms(){
         //console.log('received programs',this.props.programs)
-        return this.props.programs
-            .filter((program) => {
-                //console.log(dynamicData.name)
-                return program.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
-            })
-            .map((program) => {
-                return (
-                    <div key={program.id}><Col xs={11} md={11}>
-                        <PanelGroup accordion id={program.displayName}>
-                            <Panel eventKey={program.id} bsStyle="info">
-                                <Panel.Heading>
-                                    <Panel.Title toggle>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Glyphicon glyph="chevron-down" />
-                                            </ButtonGroup>&nbsp;
-                                        </ButtonToolbar>
-                                        <p>{program.displayName}</p>
+        if(this.props.programs) {
+            return this.props.programs
+                .filter((program) => {
+                    //console.log(dynamicData.name)
+                    return program.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
+                })
+                .map((program) => {
+                    return (
+                        <div key={program.id}><Col xs={11} md={11}>
+                            <PanelGroup accordion id={program.displayName}>
+                                <Panel eventKey={program.id} bsStyle="info">
+                                    <Panel.Heading>
+                                        <Panel.Title toggle>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Glyphicon glyph="chevron-down"/>
+                                                </ButtonGroup>&nbsp;
+                                            </ButtonToolbar>
+                                            <p>{program.displayName}</p>
 
-                                    </Panel.Title>
-                                </Panel.Heading>
-                                <Panel.Body collapsible>
-                                    <Row>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Button href={"/"+this.props.item+"/"+program.id}>More</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <Dropdown id="dropdown-custom-1">
-                                                <Dropdown.Toggle>
-                                                    <Glyphicon glyph="print"/>&nbsp;Export / Print
-                                                </Dropdown.Toggle>
-                                                <Dropdown.Menu className="super-colors">
-                                                    <MenuItem eventKey="1" href={program.href+".csv"}>CSV</MenuItem>
-                                                    <MenuItem eventKey="2" href={program.href+".xlsx"}>Excel</MenuItem>
-                                                    <MenuItem eventKey="3" href={program.href+".pdf"}>PDF</MenuItem>
-                                                </Dropdown.Menu>
-                                            </Dropdown>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="share" /> Share</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="pencil" /> Edit</Button>
-                                            </ButtonGroup>
-                                        </ButtonToolbar>
-                                        <Label bsStyle="default" style={{marginLeft:10}}>{program.periodType}</Label>&nbsp;
-                                        <Label bsStyle="info">{program.formType}</Label>&nbsp;
-                                        <Label
-                                            bsStyle={"primary"}>{this.props.item === "indicators"?"Numerator: ":null}{program.numeratorDescription}
-                                        </Label>&nbsp;
-                                        <Label
-                                            bsStyle={"danger"}>{this.props.item === "indicators"?"Denominator: ":null}{program.denominatorDescription}
-                                        </Label>&nbsp;
-                                        <Label bsStyle={"primary"}>{program.domainType}</Label>&nbsp;
-                                        <Label bsStyle={"success"}>{program.valueType}</Label>&nbsp;
-                                        <Label bsStyle={"info"}>{program.aggregationType}</Label><br/>
-                                    </Row>
-                                    {(program.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:program.description}
-                                </Panel.Body>
-                            </Panel>
-                        </PanelGroup>
-                    </Col>
-                    </div>
-                )
-            })
+                                        </Panel.Title>
+                                    </Panel.Heading>
+                                    <Panel.Body collapsible>
+                                        <Row>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Button
+                                                        href={"/" + this.props.item + "/" + program.id}>More</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <Dropdown id="dropdown-custom-1">
+                                                    <Dropdown.Toggle>
+                                                        <Glyphicon glyph="print"/>&nbsp;Export / Print
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu className="super-colors">
+                                                        <MenuItem eventKey="1"
+                                                                  href={program.href + ".csv"}>CSV</MenuItem>
+                                                        <MenuItem eventKey="2"
+                                                                  href={program.href + ".xlsx"}>Excel</MenuItem>
+                                                        <MenuItem eventKey="3"
+                                                                  href={program.href + ".pdf"}>PDF</MenuItem>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="share"/> Share</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                </ButtonGroup>
+                                            </ButtonToolbar>
+                                            <Label bsStyle="default"
+                                                   style={{marginLeft: 10}}>{program.periodType}</Label>&nbsp;
+                                            <Label bsStyle="info">{program.formType}</Label>&nbsp;
+                                            <Label
+                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{program.numeratorDescription}
+                                            </Label>&nbsp;
+                                            <Label
+                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{program.denominatorDescription}
+                                            </Label>&nbsp;
+                                            <Label bsStyle={"primary"}>{program.domainType}</Label>&nbsp;
+                                            <Label bsStyle={"success"}>{program.valueType}</Label>&nbsp;
+                                            <Label bsStyle={"info"}>{program.aggregationType}</Label><br/>
+                                        </Row>
+                                        {(program.description === undefined) ?
+                                            <div style={{color: "#ff0000"}}>No description
+                                                provided.</div> : program.description}
+                                    </Panel.Body>
+                                </Panel>
+                            </PanelGroup>
+                        </Col>
+                        </div>
+                    )
+                })
+        }
+        else{
+            return(
+                <div className="spinner">
+                    <div className="double-bounce1"></div>
+                    <div className="double-bounce2"></div>
+                </div>
+            )
+        }
     }
     getIndicators(){
         //console.log('received indicators',this.props.indicators)
 
         //add returning functions here
-        return this.props.indicators
-            .filter((indicator) => {
+
+        if(this.props.indicators) {
+            return this.props.indicators
+        .
+            filter((indicator) => {
                 //console.log(dynamicData.name)
                 return indicator.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
             })
-            .map((indicator) => {
-                return (
-                    <div key={indicator.id}><Col xs={11} md={11}>
-                        <PanelGroup accordion id={indicator.displayName}>
-                            <Panel eventKey={indicator.id} bsStyle="info">
-                                <Panel.Heading>
-                                    <Panel.Title toggle>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Glyphicon glyph="chevron-down" />
-                                            </ButtonGroup>&nbsp;
-                                        </ButtonToolbar>
-                                        <p>{indicator.displayName}</p>
+                .map((indicator) => {
+                    return (
+                        <div key={indicator.id}><Col xs={11} md={11}>
+                            <PanelGroup accordion id={indicator.displayName}>
+                                <Panel eventKey={indicator.id} bsStyle="info">
+                                    <Panel.Heading>
+                                        <Panel.Title toggle>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Glyphicon glyph="chevron-down"/>
+                                                </ButtonGroup>&nbsp;
+                                            </ButtonToolbar>
+                                            <p>{indicator.displayName}</p>
 
-                                    </Panel.Title>
-                                </Panel.Heading>
-                                <Panel.Body collapsible>
-                                    <Row>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Button href={"/"+this.props.item+"/"+indicator.id}>More</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <Dropdown id="dropdown-custom-1">
-                                                <Dropdown.Toggle>
-                                                    <Glyphicon glyph="print"/>&nbsp;Export / Print
-                                                </Dropdown.Toggle>
-                                                <Dropdown.Menu className="super-colors">
-                                                    <MenuItem eventKey="1" href={indicator.href+".csv"}>CSV</MenuItem>
-                                                    <MenuItem eventKey="2" href={indicator.href+".xlsx"}>Excel</MenuItem>
-                                                    <MenuItem eventKey="3" href={indicator.href+".pdf"}>PDF</MenuItem>
-                                                </Dropdown.Menu>
-                                            </Dropdown>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="share" /> Share</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="pencil" /> Edit</Button>
-                                            </ButtonGroup>
-                                        </ButtonToolbar>
-                                        <Label bsStyle="default" style={{marginLeft:10}}>{indicator.periodType}</Label>&nbsp;
-                                        <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
-                                        <Label
-                                            bsStyle={"primary"}>{this.props.item === "indicators"?"Numerator: ":null}{indicator.numeratorDescription}
-                                        </Label>&nbsp;
-                                        <Label
-                                            bsStyle={"danger"}>{this.props.item === "indicators"?"Denominator: ":null}{indicator.denominatorDescription}
-                                        </Label>&nbsp;
-                                        <Label bsStyle={"primary"}>{indicator.domainType}</Label>&nbsp;
-                                        <Label bsStyle={"success"}>{indicator.valueType}</Label>&nbsp;
-                                        <Label bsStyle={"info"}>{indicator.aggregationType}</Label><br/>
-                                    </Row>
-                                    {(indicator.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:indicator.description}
-                                </Panel.Body>
-                            </Panel>
-                        </PanelGroup>
-                    </Col>
-                    </div>
-                )
-            })
+                                        </Panel.Title>
+                                    </Panel.Heading>
+                                    <Panel.Body collapsible>
+                                        <Row>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Button
+                                                        href={"/" + this.props.item + "/" + indicator.id}>More</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <Dropdown id="dropdown-custom-1">
+                                                    <Dropdown.Toggle>
+                                                        <Glyphicon glyph="print"/>&nbsp;Export / Print
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu className="super-colors">
+                                                        <MenuItem eventKey="1"
+                                                                  href={indicator.href + ".csv"}>CSV</MenuItem>
+                                                        <MenuItem eventKey="2"
+                                                                  href={indicator.href + ".xlsx"}>Excel</MenuItem>
+                                                        <MenuItem eventKey="3"
+                                                                  href={indicator.href + ".pdf"}>PDF</MenuItem>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="share"/> Share</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                </ButtonGroup>
+                                            </ButtonToolbar>
+                                            <Label bsStyle="default"
+                                                   style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
+                                            <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
+                                            <Label
+                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{indicator.numeratorDescription}
+                                            </Label>&nbsp;
+                                            <Label
+                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{indicator.denominatorDescription}
+                                            </Label>&nbsp;
+                                            <Label bsStyle={"primary"}>{indicator.domainType}</Label>&nbsp;
+                                            <Label bsStyle={"success"}>{indicator.valueType}</Label>&nbsp;
+                                            <Label bsStyle={"info"}>{indicator.aggregationType}</Label><br/>
+                                        </Row>
+                                        {(indicator.description === undefined) ?
+                                            <div style={{color: "#ff0000"}}>No description
+                                                provided.</div> : indicator.description}
+                                    </Panel.Body>
+                                </Panel>
+                            </PanelGroup>
+                        </Col>
+                        </div>
+                    )
+                })
+        }
+        else{
+            return(
+                <div className="spinner">
+                    <div className="double-bounce1"></div>
+                    <div className="double-bounce2"></div>
+                </div>
+            );
+        }
+
     }
     getDataSets(){
         //console.log('received DataSets',this.props.dataSets)
 
         //add returning functions here
-        return this.props.dataSets
-            .filter((dataset) => {
-                //console.log(dynamicData.name)
-                return dataset.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
-            })
-            .map((dataset) => {
-                return (
-                    <div key={dataset.id}><Col xs={11} md={11}>
-                        <PanelGroup accordion id={dataset.displayName}>
-                            <Panel eventKey={dataset.id} bsStyle="info">
-                                <Panel.Heading>
-                                    <Panel.Title toggle>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Glyphicon glyph="chevron-down" />
-                                            </ButtonGroup>&nbsp;
-                                        </ButtonToolbar>
-                                        <p>{dataset.displayName}</p>
+        if(this.props.dataSets) {
+            return this.props.dataSets
+                .filter((dataset) => {
+                    //console.log(dynamicData.name)
+                    return dataset.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
+                })
+                .map((dataset) => {
+                    return (
+                        <div key={dataset.id}><Col xs={11} md={11}>
+                            <PanelGroup accordion id={dataset.displayName}>
+                                <Panel eventKey={dataset.id} bsStyle="info">
+                                    <Panel.Heading>
+                                        <Panel.Title toggle>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Glyphicon glyph="chevron-down"/>
+                                                </ButtonGroup>&nbsp;
+                                            </ButtonToolbar>
+                                            <p>{dataset.displayName}</p>
 
-                                    </Panel.Title>
-                                </Panel.Heading>
-                                <Panel.Body collapsible>
-                                    <Row>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Button href={"/"+this.props.item+"/"+dataset.id}>More</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <Dropdown id="dropdown-custom-1">
-                                                <Dropdown.Toggle>
-                                                    <Glyphicon glyph="print"/>&nbsp;Export / Print
-                                                </Dropdown.Toggle>
-                                                <Dropdown.Menu className="super-colors">
-                                                    <MenuItem eventKey="1" href={dataset.href+".csv"}>CSV</MenuItem>
-                                                    <MenuItem eventKey="2" href={dataset.href+".xlsx"}>Excel</MenuItem>
-                                                    <MenuItem eventKey="3" href={dataset.href+".pdf"}>PDF</MenuItem>
-                                                </Dropdown.Menu>
-                                            </Dropdown>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="share" /> Share</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="pencil" /> Edit</Button>
-                                            </ButtonGroup>
-                                        </ButtonToolbar>
-                                        <Label bsStyle="default" style={{marginLeft:10}}>{dataset.periodType}</Label>&nbsp;
-                                        <Label bsStyle="info">{dataset.formType}</Label>&nbsp;
-                                        <Label
-                                            bsStyle={"primary"}>{this.props.item === "indicators"?"Numerator: ":null}{dataset.numeratorDescription}
-                                        </Label>&nbsp;
-                                        <Label
-                                            bsStyle={"danger"}>{this.props.item === "indicators"?"Denominator: ":null}{dataset.denominatorDescription}
-                                        </Label>&nbsp;
-                                        <Label bsStyle={"primary"}>{dataset.domainType}</Label>&nbsp;
-                                        <Label bsStyle={"success"}>{dataset.valueType}</Label>&nbsp;
-                                        <Label bsStyle={"info"}>{dataset.aggregationType}</Label><br/>
-                                    </Row>
-                                    {(dataset.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:dataset.description}
-                                </Panel.Body>
-                            </Panel>
-                        </PanelGroup>
-                    </Col>
-                    </div>
-                )
-            })
+                                        </Panel.Title>
+                                    </Panel.Heading>
+                                    <Panel.Body collapsible>
+                                        <Row>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Button
+                                                        href={"/" + this.props.item + "/" + dataset.id}>More</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <Dropdown id="dropdown-custom-1">
+                                                    <Dropdown.Toggle>
+                                                        <Glyphicon glyph="print"/>&nbsp;Export / Print
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu className="super-colors">
+                                                        <MenuItem eventKey="1"
+                                                                  href={dataset.href + ".csv"}>CSV</MenuItem>
+                                                        <MenuItem eventKey="2"
+                                                                  href={dataset.href + ".xlsx"}>Excel</MenuItem>
+                                                        <MenuItem eventKey="3"
+                                                                  href={dataset.href + ".pdf"}>PDF</MenuItem>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="share"/> Share</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                </ButtonGroup>
+                                            </ButtonToolbar>
+                                            <Label bsStyle="default"
+                                                   style={{marginLeft: 10}}>{dataset.periodType}</Label>&nbsp;
+                                            <Label bsStyle="info">{dataset.formType}</Label>&nbsp;
+                                            <Label
+                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{dataset.numeratorDescription}
+                                            </Label>&nbsp;
+                                            <Label
+                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{dataset.denominatorDescription}
+                                            </Label>&nbsp;
+                                            <Label bsStyle={"primary"}>{dataset.domainType}</Label>&nbsp;
+                                            <Label bsStyle={"success"}>{dataset.valueType}</Label>&nbsp;
+                                            <Label bsStyle={"info"}>{dataset.aggregationType}</Label><br/>
+                                        </Row>
+                                        {(dataset.description === undefined) ?
+                                            <div style={{color: "#ff0000"}}>No description
+                                                provided.</div> : dataset.description}
+                                    </Panel.Body>
+                                </Panel>
+                            </PanelGroup>
+                        </Col>
+                        </div>
+                    )
+                })
+        }
+        else{
+            return(
+                <div className="spinner">
+                    <div className="double-bounce1"></div>
+                    <div className="double-bounce2"></div>
+                </div>
+            );
+        }
     }
     getDataElements(){
         //console.log('received DataElements',this.props.dataElements)
         //console.log('received DataSets',this.props.dataSets)
+        if(this.props.dataElements) {
+            //add returning functions here
+            return this.props.dataElements
+                .filter((dataElements) => {
+                    //console.log(dynamicData.name)
+                    return dataElements.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
+                })
+                .map((dataElements) => {
+                    return (
+                        <div key={dataElements.id}><Col xs={11} md={11}>
+                            <PanelGroup accordion id={dataElements.displayName}>
+                                <Panel eventKey={dataElements.id} bsStyle="info">
+                                    <Panel.Heading>
+                                        <Panel.Title toggle>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Glyphicon glyph="chevron-down"/>
+                                                </ButtonGroup>&nbsp;
+                                            </ButtonToolbar>
+                                            <p>{dataElements.displayName}</p>
 
-        //add returning functions here
-        return this.props.dataElements
-            .filter((dataElements) => {
-                //console.log(dynamicData.name)
-                return dataElements.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
-            })
-            .map((dataElements) => {
-                return (
-                    <div key={dataElements.id}><Col xs={11} md={11}>
-                        <PanelGroup accordion id={dataElements.displayName}>
-                            <Panel eventKey={dataElements.id} bsStyle="info">
-                                <Panel.Heading>
-                                    <Panel.Title toggle>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Glyphicon glyph="chevron-down" />
-                                            </ButtonGroup>&nbsp;
-                                        </ButtonToolbar>
-                                        <p>{dataElements.displayName}</p>
-
-                                    </Panel.Title>
-                                </Panel.Heading>
-                                <Panel.Body collapsible>
-                                    <Row>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Button href={"/"+this.props.item+"/"+dataElements.id}>More</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <Dropdown id="dropdown-custom-1">
-                                                <Dropdown.Toggle>
-                                                    <Glyphicon glyph="print"/>&nbsp;Export / Print
-                                                </Dropdown.Toggle>
-                                                <Dropdown.Menu className="super-colors">
-                                                    <MenuItem eventKey="1" href={dataElements.href+".csv"}>CSV</MenuItem>
-                                                    <MenuItem eventKey="2" href={dataElements.href+".xlsx"}>Excel</MenuItem>
-                                                    <MenuItem eventKey="3" href={dataElements.href+".pdf"}>PDF</MenuItem>
-                                                </Dropdown.Menu>
-                                            </Dropdown>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="share" /> Share</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="pencil" /> Edit</Button>
-                                            </ButtonGroup>
-                                        </ButtonToolbar>
-                                        <Label bsStyle="default" style={{marginLeft:10}}>{dataElements.periodType}</Label>&nbsp;
-                                        <Label bsStyle="info">{dataElements.formType}</Label>&nbsp;
-                                        <Label
-                                            bsStyle={"primary"}>{this.props.item === "indicators"?"Numerator: ":null}{dataElements.numeratorDescription}
-                                        </Label>&nbsp;
-                                        <Label
-                                            bsStyle={"danger"}>{this.props.item === "indicators"?"Denominator: ":null}{dataElements.denominatorDescription}
-                                        </Label>&nbsp;
-                                        <Label bsStyle={"primary"}>{dataElements.domainType}</Label>&nbsp;
-                                        <Label bsStyle={"success"}>{dataElements.valueType}</Label>&nbsp;
-                                        <Label bsStyle={"info"}>{dataElements.aggregationType}</Label><br/>
-                                    </Row>
-                                    {(dataElements.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:dataElements.description}
-                                </Panel.Body>
-                            </Panel>
-                        </PanelGroup>
-                    </Col>
-                    </div>
-                )
-            })
+                                        </Panel.Title>
+                                    </Panel.Heading>
+                                    <Panel.Body collapsible>
+                                        <Row>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Button
+                                                        href={"/" + this.props.item + "/" + dataElements.id}>More</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <Dropdown id="dropdown-custom-1">
+                                                    <Dropdown.Toggle>
+                                                        <Glyphicon glyph="print"/>&nbsp;Export / Print
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu className="super-colors">
+                                                        <MenuItem eventKey="1"
+                                                                  href={dataElements.href + ".csv"}>CSV</MenuItem>
+                                                        <MenuItem eventKey="2"
+                                                                  href={dataElements.href + ".xlsx"}>Excel</MenuItem>
+                                                        <MenuItem eventKey="3"
+                                                                  href={dataElements.href + ".pdf"}>PDF</MenuItem>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="share"/> Share</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                </ButtonGroup>
+                                            </ButtonToolbar>
+                                            <Label bsStyle="default"
+                                                   style={{marginLeft: 10}}>{dataElements.periodType}</Label>&nbsp;
+                                            <Label bsStyle="info">{dataElements.formType}</Label>&nbsp;
+                                            <Label
+                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{dataElements.numeratorDescription}
+                                            </Label>&nbsp;
+                                            <Label
+                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{dataElements.denominatorDescription}
+                                            </Label>&nbsp;
+                                            <Label bsStyle={"primary"}>{dataElements.domainType}</Label>&nbsp;
+                                            <Label bsStyle={"success"}>{dataElements.valueType}</Label>&nbsp;
+                                            <Label bsStyle={"info"}>{dataElements.aggregationType}</Label><br/>
+                                        </Row>
+                                        {(dataElements.description === undefined) ?
+                                            <div style={{color: "#ff0000"}}>No description
+                                                provided.</div> : dataElements.description}
+                                    </Panel.Body>
+                                </Panel>
+                            </PanelGroup>
+                        </Col>
+                        </div>
+                    )
+                })
+        }
+        else{
+            return(
+                <div className="spinner">
+                <div className="double-bounce1"></div>
+            <div className="double-bounce2"></div>
+            </div>
+            );
+        }
         //add returning functions here
     }
     render() {
