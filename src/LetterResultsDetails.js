@@ -4,14 +4,10 @@ import {
     Button,
     ButtonGroup,
     ButtonToolbar, Col,
-    Dropdown,
     Glyphicon,
-    ListGroup, MenuItem,
+    ListGroup,
     Panel,
-    PanelGroup,
-    Row
 } from 'react-bootstrap';
-import {Label} from 'react-bootstrap';
 import './Tabpane.css';
 let output = "";
 const headers = {

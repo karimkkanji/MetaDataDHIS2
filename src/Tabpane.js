@@ -35,7 +35,7 @@ class Tabpane extends Component {
                             <Col sm={12}>
                                 <div className={"container content"}>
                                     <Tab.Content animation>
-                                        <Tab.Pane eventKey="first"><ButtonGroup item={"datasets"}/></Tab.Pane>
+                                        <Tab.Pane eventKey="first"><ButtonGroup item={"datasets"} stateHandler={this.props.dataSets}/></Tab.Pane>
                                         <Tab.Pane eventKey="second"><ButtonGroup item={"indicators"}/></Tab.Pane>
                                         <Tab.Pane eventKey="third"><ButtonGroup item={"programs"}/></Tab.Pane>
                                         <Tab.Pane eventKey="fourth"><ButtonGroup item={"dataelements"}/></Tab.Pane>
