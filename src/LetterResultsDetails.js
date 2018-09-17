@@ -33,7 +33,7 @@ class LetterResultsDetails extends Component {
         this.setState({isLoading: true});
         let item = this.props.item;
 
-        if (item === "programs") {
+        if (item === "programDataElements") {
             fetch(`http://197.136.81.99:8082/test/api/programDataElements.json?fields=:all&paging=false`, headers
             ).then((Response) => Response.json())
                 .then((findresponse) => {
@@ -42,7 +42,7 @@ class LetterResultsDetails extends Component {
                     })
                 })
         }
-        else if (item === "datasets") {
+        else if (item === "dataSets") {
             fetch('http://197.136.81.99:8082/test/api/dataSets.json?fields=:all&paging=false', headers
             ).then((Response) => Response.json())
                 .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
@@ -60,7 +60,7 @@ class LetterResultsDetails extends Component {
                     });
                 })
         }
-        else if (item === "dataelements") {
+        else if (item === "dataElements") {
             fetch('http://197.136.81.99:8082/test/api/dataElements.json?fields=:all&paging=false', headers
             ).then((Response) => Response.json())
                 .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
@@ -96,58 +96,19 @@ class LetterResultsDetails extends Component {
                         }
                     })
                     .map((dynamicData) => (
-                        <div>
-                            <PanelGroup accordion key={dynamicData.id} >
-                                <Panel eventKey={dynamicData.id} bsStyle="info">
-                                    <Panel.Heading>
-                                        <Panel.Title toggle>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                                <ButtonGroup>
-                                                    <Glyphicon glyph="chevron-down" />
-                                                </ButtonGroup>&nbsp;
-                                            </ButtonToolbar>
-                                            <p>{dynamicData.name}</p>
-                                        </Panel.Title>
-                                    </Panel.Heading>
-                                    <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                                <ButtonGroup>
-                                                    <Button href={"/"+this.props.item+"/"+dynamicData.id}>More</Button>
-                                                </ButtonGroup>&nbsp;
-                                                <Dropdown id="dropdown-custom-1">
-                                                    <Dropdown.Toggle>
-                                                        <Glyphicon glyph="print"/>&nbsp;Export / Print
-                                                    </Dropdown.Toggle>
-                                                    <Dropdown.Menu className="super-colors">
-                                                        <MenuItem eventKey="1" href={dynamicData.href+".csv"}>CSV</MenuItem>
-                                                        <MenuItem eventKey="2" href={dynamicData.href+".xlsx"}>Excel</MenuItem>
-                                                        <MenuItem eventKey="3" href={dynamicData.href+".pdf"}>PDF</MenuItem>
-                                                    </Dropdown.Menu>
-                                                </Dropdown>&nbsp;
-                                                <ButtonGroup>
-                                                    <Button> <Glyphicon glyph="share" /> Share</Button>
-                                                </ButtonGroup>&nbsp;
-                                                <ButtonGroup>
-                                                    <Button> <Glyphicon glyph="pencil" /> Edit</Button>
-                                                </ButtonGroup>
-                                            </ButtonToolbar>
-                                            <Label bsStyle="default" style={{marginLeft:10}}>{dynamicData.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{dynamicData.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators"?"Numerator: ":null}{dynamicData.numeratorDescription}
-                                            </Label>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators"?"Denominator: ":null}{dynamicData.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{dynamicData.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{dynamicData.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{dynamicData.aggregationType}</Label><br/>
-                                        </Row>
-                                        {(dynamicData.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:dynamicData.description}
-                                    </Panel.Body>
-                                </Panel>
-                            </PanelGroup>
+                        <div key={dynamicData.id}>
+                            <Panel>
+                                <Panel.Body>
+                                    <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <ButtonGroup>
+                                            <Glyphicon glyph="chevron-down" />
+                                        </ButtonGroup>&nbsp;
+                                    </ButtonToolbar>
+                                    <a href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
+                                    <br/>
+                                    {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                                </Panel.Body>
+                            </Panel>
                         </div>
                     ));
             }
@@ -164,66 +125,25 @@ class LetterResultsDetails extends Component {
                     return dynamicData.name[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
                 })
                 .map((dynamicData) => (
-                    <div key={dynamicData.id}><Col xs={11} md={11}>
-                        <PanelGroup accordion id={dynamicData.name}>
-                            <Panel eventKey={dynamicData.id} bsStyle="info">
-                                <Panel.Heading>
-                                    <Panel.Title toggle>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Glyphicon glyph="chevron-down" />
-                                            </ButtonGroup>&nbsp;
-                                        </ButtonToolbar>
-                                        <p>{dynamicData.name}</p>
-
-                                    </Panel.Title>
-                                </Panel.Heading>
-                                <Panel.Body collapsible>
-                                    <Row>
-                                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                            <ButtonGroup>
-                                                <Button href={"/"+this.props.item+"/"+dynamicData.id}>More</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <Dropdown id="dropdown-custom-1">
-                                                <Dropdown.Toggle>
-                                                    <Glyphicon glyph="print"/>&nbsp;Export / Print
-                                                </Dropdown.Toggle>
-                                                <Dropdown.Menu className="super-colors">
-                                                    <MenuItem eventKey="1" href={dynamicData.href+".csv"}>CSV</MenuItem>
-                                                    <MenuItem eventKey="2" href={dynamicData.href+".xlsx"}>Excel</MenuItem>
-                                                    <MenuItem eventKey="3" href={dynamicData.href+".pdf"}>PDF</MenuItem>
-                                                </Dropdown.Menu>
-                                            </Dropdown>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="share" /> Share</Button>
-                                            </ButtonGroup>&nbsp;
-                                            <ButtonGroup>
-                                                <Button> <Glyphicon glyph="pencil" /> Edit</Button>
-                                            </ButtonGroup>
-                                        </ButtonToolbar>
-                                        <Label bsStyle="default" style={{marginLeft:10}}>{dynamicData.periodType}</Label>&nbsp;
-                                        <Label bsStyle="info">{dynamicData.formType}</Label>&nbsp;
-                                        <Label
-                                            bsStyle={"primary"}>{this.props.item === "indicators"?"Numerator: ":null}{dynamicData.numeratorDescription}
-                                        </Label>&nbsp;
-                                        <Label
-                                            bsStyle={"danger"}>{this.props.item === "indicators"?"Denominator: ":null}{dynamicData.denominatorDescription}
-                                        </Label>&nbsp;
-                                        <Label bsStyle={"primary"}>{dynamicData.domainType}</Label>&nbsp;
-                                        <Label bsStyle={"success"}>{dynamicData.valueType}</Label>&nbsp;
-                                        <Label bsStyle={"info"}>{dynamicData.aggregationType}</Label><br/>
-                                    </Row>
-                                    {(dynamicData.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:dynamicData.description}
-                                </Panel.Body>
-                            </Panel>
-                        </PanelGroup>
-                    </Col>
+                    <div key={dynamicData.id}>
+                        <Panel>
+                            <Panel.Body>
+                                <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                    <ButtonGroup>
+                                        <Button href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>View</Button>
+                                    </ButtonGroup>&nbsp;
+                                </ButtonToolbar>
+                                <a href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
+                            <br/>
+                                {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                            </Panel.Body>
+                        </Panel>
                     </div>
                 ));
         }
         return (
-            <div className="container letterResults">
-                <Col xs={11} md={11}>
+            <div className="container letterResultsDetails">
+                <Col xs={8} md={8}>
                     <ListGroup>
                         {output.length !== 0 ? output :
                             <div><Col xs={6}><Alert bsStyle={"warning"}><strong>No records found!</strong> There is no

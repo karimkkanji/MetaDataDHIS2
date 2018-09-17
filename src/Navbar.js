@@ -35,7 +35,7 @@ class Navbar extends Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <a className="navbar-brand" href="javascript.void()">Metadata Dictionary</a>
+                            <a className="navbar-brand" href={null}>Metadata Dictionary</a>
                         </div>
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul className="nav navbar-nav navbar-right">
@@ -48,7 +48,7 @@ class Navbar extends Component {
                                         <li><a href={null}>Another action</a></li>
                                         <li><a href={null}>Something else here</a></li>
                                         <li role="separator" className="divider"></li>
-                                        <li><a href=href={null}>Separated link</a></li>
+                                        <li><a href={null}>Separated link</a></li>
                                     </ul>
                                 </li>
                             </ul>
