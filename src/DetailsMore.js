@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {Row, Col, Panel, Label, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table} from 'react-bootstrap';
 import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
-
 const headers = {
     headers: {
         'Authorization': `Basic ${btoa('evanpersie3@gmail.com:skolastikA97')}`
@@ -129,6 +129,16 @@ const indicators = (deets) => (<tbody>
     <td className="text-primary" style={{borderRight: '2px solid black'}}>Display Short Name:
     </td>
     <td>{deets.displayShortName}</td>
+</tr>
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Numerator formula:
+    </td>
+    <td id={"numerator"}>Numerator will appear here</td>
+</tr>
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Denominator formula:
+    </td>
+    <td id={"denominator"}>Denominator will appear here</td>
 </tr>
 
 {/* End of Datasets*/}
@@ -259,21 +269,20 @@ const numDenom = (deets) =>(
 
 class DetailsMore extends Component {
     state = {
-        activeDetails: []
+        activeDetails: [],
+        myNumerator:[]
     };
-    componentDidMount = () => {
+    componentDidMount () {
         fetch(`http://197.136.81.99:8082/test/api/${this.props.item}/${this.props.id}`, headers //youtube guy this.props.location.state.dynamicData
         ).then((Response) => Response.json())
             .then((findresponse) => {
                 this.setState({
                     activeDetails: findresponse,
-
                 })
-            })
-
+            });
     };
 
-    render() {
+    render(){
         const deets = this.state.activeDetails;
         return (
             <div className={"detailsMoreBody container"}>
@@ -344,8 +353,8 @@ class DetailsMore extends Component {
                                         (() => {
                                             switch (this.props.item) {
                                                 case "dataSets":   return dataSets(deets);
-                                                case "indicators": return indicators(deets);
-                                                case "programDataElements":   return programs(deets);
+                                                case "indicators": this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
+                                                case "programDataElements":  return programs(deets);
                                                 case "dataElements":  return dataelements(deets);
                                                 default:      return "#FFFFFF";
                                             }
@@ -356,10 +365,33 @@ class DetailsMore extends Component {
                         </Panel>
                     </Col>
                 </Row>
-
             </div>
         );
     }
+    getFormula(whattofetch) {
+            const deets = this.state.activeDetails;
+            let expression;
+            if(whattofetch==="numerator"){
+                expression = "" + deets.numerator + "";
+            }
+            else{
+                expression = "" + deets.denominator + "";
+            }
+            expression = expression.replace(/#/g, "%23");
+            expression = expression.replace(/{/g, "%7B");
+            expression = expression.replace(/}/g, "%7D");
+            expression = expression.replace(/\s/g, "%20");
+            expression = expression.replace(/\+/g, "%2B");
+            fetch('http://197.136.81.99:8082/test/api/26/expressions/description.json?expression=' + expression, headers)
+                .then(
+                    function (response) {
+                        return response.json();
+                    }
+                ).then(function (jsonData) {
+                //handle json data processing here
+                    ReactDOM.render(jsonData.description, document.querySelector("#"+whattofetch));
+                });
+        }
 }
 
 export default DetailsMore;

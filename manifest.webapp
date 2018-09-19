@@ -1,0 +1,20 @@
+{
+  "launch_path": "index.html",
+  "default_locale": "en",
+  "activities": {
+    "dhis": {
+      "href": "*"
+    }
+  },
+  "appType": "APP",
+  "name": "Metadata Dictionary",
+  "version": "0.1.0",
+  "manifest_generated_at": "Mon Sep 17 2018 08:31:09 GMT+0300 (E. Africa Standard Time)",
+  "description": "A metadata dictionary that allows you to view and edit descriptions of metadata in any DHIS2 instance",
+  "icons": {
+    "48": "icon.png"
+  },
+  "developer": {
+    "name": "themetadatas"
+  }
+}

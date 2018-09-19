@@ -28,7 +28,7 @@ class Tabpane extends Component {
                                 <Nav bsStyle="tabs">
                                     <NavItem eventKey="first">Datasets</NavItem>
                                     <NavItem eventKey="second">Indicators</NavItem>
-                                    <NavItem eventKey="third">Program Data Elements</NavItem>
+                                    <NavItem eventKey="third">Programs</NavItem>
                                     <NavItem eventKey="fourth">Data Elements</NavItem>
                                 </Nav>
                             </Col>
