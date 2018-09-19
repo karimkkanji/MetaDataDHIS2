@@ -14,7 +14,7 @@ export function fetchDataSets(){
                 type: 'FETCH_DATASET_FULLFILLED', 
                 payload: response
             });
-            console.log('datasets fetched')
+            //console.log('datasets fetched')
         })
         .catch((err) => {
             dispatch({ 

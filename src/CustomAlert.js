@@ -35,8 +35,9 @@ c-41 21 -92 40 -113 44 -25 4 -44 15 -54 31 -27 40 -71 57 -133 49 -151 -19
                     </g>
                 </svg>
                     <Alert bsStyle={"info"}>
-                        <strong>Hello there stranger!</strong> Click any of the buttons to
-                        show {this.props.for} according to Alphabetical order!
+                        <strong>Hello there </strong> Click any of the buttons to
+                        show {this.props.for} according to Alphabetical order! <p style={{color:"#7d0f89"}}>If it doesn't start
+                    with an alphabet use # instead</p>
                     </Alert>
                 </Col>
             </div>

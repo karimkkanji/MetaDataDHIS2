@@ -12,7 +12,7 @@ export function fetchDataElements(){
             dispatch({ 
                 type: 'FETCH_DATAELEMENTS_FULLFILLED',
                  payload: response});
-                 console.log('dataelements fetched')
+                 //console.log('dataelements fetched')
                 })
         .catch((err) => {
             dispatch({ type: 'FETCH_DATAELEMENTS_REJECTED', payload: err })

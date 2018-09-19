@@ -14,7 +14,7 @@ export function fetchIndicators(){
                 type: 'FETCH_INDICATORS_FULLFILLED', 
                 payload: response
             });
-            console.log('indicators fetched')
+            //console.log('indicators fetched')
         })
         .catch((err) => {
             dispatch({ 

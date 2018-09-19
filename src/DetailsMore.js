@@ -100,7 +100,11 @@ const indicators = (deets) => (<tbody>
         Item Type:
     </td>
     <td>{deets.dimensionItemType}</td>
-
+</tr>
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Indicator Type:
+    </td>
+    <td id={"indicatorTypes"}>Denominator will appear here</td>
 </tr>
 <tr>
     <td className="text-primary" style={{borderRight: '2px solid black'}}>Annualised:
@@ -140,7 +144,11 @@ const indicators = (deets) => (<tbody>
     </td>
     <td id={"denominator"}>Denominator will appear here</td>
 </tr>
-
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Indicator Groups:
+    </td>
+    <td id={"indicatorGroups"}>Indicator Groups will appear here</td>
+</tr>
 {/* End of Datasets*/}
 
 </tbody>);
@@ -266,7 +274,17 @@ const numDenom = (deets) =>(
 <code>{deets.denominatorDescription}</code>
     </div>
 );
+function IndicatorGroup({groupsGotten}){
+    return <div>-{groupsGotten.name}</div>;
+}
 
+// DataSet List
+
+function IndicatorGroupList({indicatorGroups}){
+    return (
+        <div>{indicatorGroups.map((groups) => <IndicatorGroup groupsGotten={groups} key={groups.name}/>)}</div>
+    );
+}
 class DetailsMore extends Component {
     state = {
         activeDetails: [],
@@ -353,7 +371,7 @@ class DetailsMore extends Component {
                                         (() => {
                                             switch (this.props.item) {
                                                 case "dataSets":   return dataSets(deets);
-                                                case "indicators": this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
+                                                case "indicators":  this.getIndicatorTypes();this.getIndicatorGroups(); this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
                                                 case "programDataElements":  return programs(deets);
                                                 case "dataElements":  return dataelements(deets);
                                                 default:      return "#FFFFFF";
@@ -392,6 +410,30 @@ class DetailsMore extends Component {
                     ReactDOM.render(jsonData.description, document.querySelector("#"+whattofetch));
                 });
         }
+    getIndicatorGroups() {
+        let expression = this.props.id;
+        fetch('http://197.136.81.99:8082/test/api/indicators/'+expression+'.json?fields=indicatorGroups[name]', headers)
+            .then(
+                function (response) {
+                    return response.json();
+                }
+            ).then(function (jsonData) {
+            //handle json data processing here
+            ReactDOM.render(<IndicatorGroupList indicatorGroups={jsonData.indicatorGroups}/>, document.querySelector("#indicatorGroups"));
+        });
+    }
+    getIndicatorTypes() {
+        let expression = this.props.id;
+        fetch('http://197.136.81.99:8082/test/api/indicators/'+expression+'.json?fields=indicatorType[name]', headers)
+            .then(
+                function (response) {
+                    return response.json();
+                }
+            ).then(function (jsonData) {
+            //handle json data processing here
+            ReactDOM.render(jsonData.indicatorType.name, document.querySelector("#indicatorTypes"));
+        });
+    }
 }
 
 export default DetailsMore;

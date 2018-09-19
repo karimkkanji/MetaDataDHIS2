@@ -12,7 +12,7 @@ export function fetchPrograms() {
                     type: 'FETCH_PROGRAMS_FULLFILLED',
                     payload: response
                 });
-                console.log('programs fetched');
+                //console.log('programs fetched');
             })
             .catch((err) => {
                 dispatch({
