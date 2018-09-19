@@ -1,31 +1,20 @@
-import React, { Component } from 'react';
+import React,{Component} from 'react';
+import Store from './Store';
+import Layout from './components/Layout'
+import {Provider} from 'react-redux'
 import './App.css';
-import Navbar from './Navbar';
-import Tabpane from './Tabpane';
-import  DetailsMore from './DetailsMore';
 
-class App extends Component {
-    constructor(props){
-        super(props);
-        this.state= {
-            showTabs:true
-        }
-    }
-    changeStuff(show) {
-        if(show==="false")
-        this.setState({showTabs:false});
-    }
-
+export default class source extends Component {
     render() {
-    return (
-      <div>
-          {/*This is the navbar component*/}
-        <Navbar item="Data Elements"/>
-          {/*Tabpane component shows the tabs*/}
-          {this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />}
-      </div>
-    );
-  }
-}
+        return (
 
-export default App;
+            <Provider store={Store}>
+
+                <div>
+                    <Layout/>
+                </div>
+
+            </Provider>
+        )
+    }
+}
