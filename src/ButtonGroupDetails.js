@@ -39,12 +39,12 @@ class ButtonGroupDetails extends Component {
     };
 
     render() {
-        console.log(this.props.metadata);
+        //console.log(this.props.metadata);
         return (
             <div>
                 <ReactBootstrap.ButtonToolbar>
                     <ReactBootstrap.ButtonGroup bsSize="small">
-                        <ReactBootstrap.OverlayTrigger trigger="focus" placement="bottom" overlay={popoverBottom('M',this.props.metadata)}>
+                        <ReactBootstrap.OverlayTrigger trigger="focus" placement="bottom" overlay={popoverBottom('char',this.props.metadata)}>
                             <ReactBootstrap.Button onClick={this.handleClick.bind(this, "#")}>#</ReactBootstrap.Button>
                         </ReactBootstrap.OverlayTrigger>
                         {this.genCharArray('A', 'Z')}

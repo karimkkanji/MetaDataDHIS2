@@ -4,14 +4,10 @@ import {
     Button,
     ButtonGroup,
     ButtonToolbar, Col,
-    Dropdown,
     Glyphicon,
-    ListGroup, MenuItem,
+    ListGroup,
     Panel,
-    PanelGroup,
-    Row
 } from 'react-bootstrap';
-import {Label} from 'react-bootstrap';
 import './Tabpane.css';
 let output = "";
 const headers = {
@@ -80,43 +76,35 @@ class LetterResultsDetails extends Component {
                 <div className="double-bounce2"></div>
             </div>;
         }
-        if (this.state.data.filter((dynamicData) => {
-            return dynamicData.name[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
-        }).length === 0) {
+        if (this.props.letter === "char") {
             //select items that start with a non-letter character
-            if (this.props.letter === "#") {
-                output = this.state.data
-                    .filter((dynamicData) => {
-                        //console.log(dynamicData.name)
-                        if (dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
-                            return dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
-                        }
-                        else{
-                            return undefined;
-                        }
-                    })
-                    .map((dynamicData) => (
-                        <div key={dynamicData.id}>
-                            <Panel>
-                                <Panel.Body>
-                                    <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
-                                        <ButtonGroup>
-                                            <Glyphicon glyph="chevron-down" />
-                                        </ButtonGroup>&nbsp;
-                                    </ButtonToolbar>
-                                    <a href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
-                                    <br/>
-                                    {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
-                                </Panel.Body>
-                            </Panel>
-                        </div>
-                    ));
-            }
+            output = this.state.data
+                .filter((dynamicData) => {
+                    //console.log(dynamicData.name)
+                    if (dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
+                        return dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
+                    }
+                    else{
+                        return undefined;
+                    }
+                })
+                .map((dynamicData) => (
+                    <div key={dynamicData.id}>
+                        <Panel>
+                            <Panel.Body>
+                                <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                    <ButtonGroup>
+                                        <Button href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>View</Button>
+                                    </ButtonGroup>&nbsp;
+                                </ButtonToolbar>
+                                <a href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
+                                <br/>
+                                {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                            </Panel.Body>
+                        </Panel>
+                    </div>
+                ));
             //if no items are found return an alert
-            else {
-                output = <Alert bsStyle={"warning"}><strong>No records found!</strong> There is no metadata that starts
-                    with <strong><i>{this.props.letter}</i></strong></Alert>
-            }
         }
         else {
             output = this.state.data
@@ -134,7 +122,7 @@ class LetterResultsDetails extends Component {
                                     </ButtonGroup>&nbsp;
                                 </ButtonToolbar>
                                 <a href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
-                            <br/>
+                                <br/>
                                 {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
                             </Panel.Body>
                         </Panel>

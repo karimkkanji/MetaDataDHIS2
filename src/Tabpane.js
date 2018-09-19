@@ -28,14 +28,14 @@ class Tabpane extends Component {
                                 <Nav bsStyle="tabs">
                                     <NavItem eventKey="first">Datasets</NavItem>
                                     <NavItem eventKey="second">Indicators</NavItem>
-                                    <NavItem eventKey="third">Program Data Elements</NavItem>
+                                    <NavItem eventKey="third">Programs</NavItem>
                                     <NavItem eventKey="fourth">Data Elements</NavItem>
                                 </Nav>
                             </Col>
                             <Col sm={12}>
                                 <div className={"container content"}>
                                     <Tab.Content animation>
-                                        <Tab.Pane eventKey="first"><ButtonGroup item={"datasets"}/></Tab.Pane>
+                                        <Tab.Pane eventKey="first"><ButtonGroup item={"datasets"} stateHandler={this.props.dataSets}/></Tab.Pane>
                                         <Tab.Pane eventKey="second"><ButtonGroup item={"indicators"}/></Tab.Pane>
                                         <Tab.Pane eventKey="third"><ButtonGroup item={"programs"}/></Tab.Pane>
                                         <Tab.Pane eventKey="fourth"><ButtonGroup item={"dataelements"}/></Tab.Pane>
