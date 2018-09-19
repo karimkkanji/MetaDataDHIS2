@@ -39,7 +39,7 @@ class ButtonGroupDetails extends Component {
     };
 
     render() {
-        console.log(this.props.metadata);
+        //console.log(this.props.metadata);
         return (
             <div>
                 <ReactBootstrap.ButtonToolbar>

@@ -18,14 +18,13 @@ import {fetchPrograms} from "./actions/programActions";
 import {fetchDataSets} from "./actions/datasetActions";
 import {fetchDataElements} from "./actions/dataelementsActions";
 import {fetchIndicators} from "./actions/indicatorActions";
+
 class LetterResults extends Component {
     componentWillMount(){
         this.props.dispatch(fetchPrograms());
         this.props.dispatch(fetchIndicators());
         this.props.dispatch(fetchDataSets());
         this.props.dispatch(fetchDataElements());
-
-
     }
     getPrograms(){
         //console.log('received programs',this.props.programs)
@@ -118,12 +117,28 @@ class LetterResults extends Component {
 
         if(this.props.indicators) {
             return this.props.indicators
-        .
-            filter((indicator) => {
+         .filter((indicator) => {
                 //console.log(dynamicData.name)
                 return indicator.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
             })
                 .map((indicator) => {
+                    /*
+                    let expression = indicator.numerator;
+                    expression = expression.replace(/#/g, "%23");
+                    expression = expression.replace(/{/g, "%7B");
+                    expression = expression.replace(/}/g, "%7D");
+                    expression = expression.replace(/\s/g, "%20");
+                    expression = expression.replace(/\+/g, "%2B");
+                    fetch('http://197.136.81.99:8082/test/api/26/expressions/description.json?expression=' + expression, headers)
+                        .then(
+                            function (response) {
+                                return response.json();
+                            }
+                        ).then(function (jsonData) {
+                        //handle json data processing here
+                       mydata = jsonData.description;
+                    });
+                    */
                     return (
                         <div key={indicator.id}><Col xs={11} md={11}>
                             <PanelGroup accordion id={indicator.displayName}>
@@ -166,22 +181,24 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="pencil"/> Edit</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{indicator.numeratorDescription}
-                                            </Label>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{indicator.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{indicator.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{indicator.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{indicator.aggregationType}</Label><br/>
                                         </Row>
                                         {(indicator.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : indicator.description}
+                                                <row>
+                                                    <Label bsStyle="default"
+                                                           style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
+                                                    <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
+                                                    <Label
+                                                        bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{indicator.numeratorDescription}
+                                                    </Label><br/>&nbsp;
+                                                    <Label
+                                                        bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{indicator.denominatorDescription}
+                                                    </Label>&nbsp;
+                                                    <Label bsStyle={"primary"}>{indicator.domainType}</Label>&nbsp;
+                                                    <Label bsStyle={"success"}>{indicator.valueType}</Label>&nbsp;
+                                                    <Label bsStyle={"info"}>{indicator.aggregationType}</Label><br/>
+                                                </row>
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -397,7 +414,6 @@ class LetterResults extends Component {
             <div className="container letterResults">
                 <Col xs={11} md={11}>
                     <ListGroup>
-                        {console.log(output)}
                         {output.length !== 0? output :
                             <div><Col xs={6} md={6}><Alert bsStyle={"warning"}><strong>No records found!</strong> There is no
                                 metadata that starts <strong>{this.props.letter}</strong></Alert></Col></div>}
@@ -410,12 +426,12 @@ class LetterResults extends Component {
 }
 function mapStateToProps(state) {
     //testing importing elements
-    //console.log('the state',state.dataElements.dataElements.dataElements);
+    //console.log('the state',state.dataElements);
     return{
         programs: state.programs.programs,
         indicators: state.indicators.indicators.indicators,
         dataSets: state.dataSets.dataSet.dataSets,
-        dataElements: state.dataElements.dataElements.dataElements
+        dataElements: state.dataElements.dataElements.dataElements,
     }
 }
 export default connect(mapStateToProps)(LetterResults);
