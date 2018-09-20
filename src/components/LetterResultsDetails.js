@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
+import config from '../actions/config';
 import {
     Alert,
     Button,
     ButtonGroup,
     ButtonToolbar, Col,
-    Glyphicon,
     ListGroup,
     Panel,
 } from 'react-bootstrap';
 import './Tabpane.css';
 let output = "";
-const headers = {
-    headers: {
-        'Authorization': `Basic ${btoa('evanpersie3@gmail.com:skolastikA97')}`
-        //'Authorization': `Basic ${btoa('admin:district')}`
+const headers ={
+    headers:{
+        'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
     }
 };
 class LetterResultsDetails extends Component {
@@ -29,17 +28,17 @@ class LetterResultsDetails extends Component {
         this.setState({isLoading: true});
         let item = this.props.item;
 
-        if (item === "programDataElements") {
-            fetch(`http://197.136.81.99:8082/test/api/programDataElements.json?fields=:all&paging=false`, headers
+        if (item === "programs") {
+            fetch(config.url+`programs.json?fields=:all&paging=false`, headers
             ).then((Response) => Response.json())
                 .then((findresponse) => {
                     this.setState({
-                        data: findresponse.programDataElements, isLoading: false
+                        data: findresponse.programs, isLoading: false
                     })
                 })
         }
         else if (item === "dataSets") {
-            fetch('http://197.136.81.99:8082/test/api/dataSets.json?fields=:all&paging=false', headers
+            fetch(config.url+'dataSets.json?fields=:all&paging=false', headers
             ).then((Response) => Response.json())
                 .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     this.setState({
@@ -48,7 +47,7 @@ class LetterResultsDetails extends Component {
                 })
         }
         else if (item === "indicators") {
-            fetch('http://197.136.81.99:8082/test/api/indicators.json?fields=:all&paging=false', headers
+            fetch(config.url+'indicators.json?fields=:all&paging=false', headers
             ).then((Response) => Response.json())
                 .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     this.setState({
@@ -57,7 +56,7 @@ class LetterResultsDetails extends Component {
                 })
         }
         else if (item === "dataElements") {
-            fetch('http://197.136.81.99:8082/test/api/dataElements.json?fields=:all&paging=false', headers
+            fetch(config.url+'dataElements.json?fields=:all&paging=false', headers
             ).then((Response) => Response.json())
                 .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     console.log(findresponse.dataElements); //hapa ndio jackpot
@@ -94,10 +93,10 @@ class LetterResultsDetails extends Component {
                             <Panel.Body>
                                 <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                     <ButtonGroup>
-                                        <Button href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>View</Button>
+                                        <Button href={"/"+this.props.item+"/"+dynamicData.id}>View</Button>
                                     </ButtonGroup>&nbsp;
                                 </ButtonToolbar>
-                                <a href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
+                                <a href={"/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
                                 <br/>
                                 {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
                             </Panel.Body>
@@ -118,10 +117,10 @@ class LetterResultsDetails extends Component {
                             <Panel.Body>
                                 <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                     <ButtonGroup>
-                                        <Button href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>View</Button>
+                                        <Button href={"/"+this.props.item+"/"+dynamicData.id}>View</Button>
                                     </ButtonGroup>&nbsp;
                                 </ButtonToolbar>
-                                <a href={"http://localhost:3000/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
+                                <a href={"/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
                                 <br/>
                                 {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
                             </Panel.Body>

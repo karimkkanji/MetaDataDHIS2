@@ -9,21 +9,73 @@ import {
     Alert,
     PanelGroup,
     Panel,
+    Modal,
     Glyphicon,
     Row, MenuItem, Dropdown
 } from 'react-bootstrap';
 import './Tabpane.css';
 import connect from "react-redux/es/connect/connect";
-import {fetchPrograms} from "./actions/programActions";
-import {fetchDataSets} from "./actions/datasetActions";
-import {fetchDataElements} from "./actions/dataelementsActions";
-import {fetchIndicators} from "./actions/indicatorActions";
+import {fetchPrograms} from "../actions/programActions";
+import {fetchDataSets} from "../actions/datasetActions";
+import {fetchDataElements} from "../actions/dataelementsActions";
+import {fetchIndicators} from "../actions/indicatorActions";
+import config from '../actions/config';
+let name="",id="",description="",aggType="",domType="",valType="",shortname="";
 class LetterResults extends Component {
     componentWillMount(){
         this.props.dispatch(fetchPrograms());
         this.props.dispatch(fetchIndicators());
         this.props.dispatch(fetchDataSets());
         this.props.dispatch(fetchDataElements());
+    }
+    constructor(props, context) {
+        super(props, context);
+
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+
+        this.state = {
+            show: false,
+            description:""
+        };
+    }
+
+    handleClose() {
+        this.setState({ show: false });
+    }
+
+    handleShow() {
+        this.setState({ show: true });
+    }
+    create(nameass,idass,descrass,aggreg,domain,value,short){
+      name= nameass;
+      id =idass;
+      description=descrass;
+      aggType = aggreg;
+      domType = domain;
+      valType = value;
+      shortname = short;
+    }
+    update(){
+        fetch(config.url+'dataElements/'+id, {
+            method: 'PUT',
+            body: JSON.stringify({
+                name: name,
+                description:this.state.description,
+                aggregationType:aggType,
+                domainType:domType,
+                valueType:valType,
+                shortName:shortname
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
+
+            }
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
+        window.alert("Updated");
     }
     getPrograms(){
         //console.log('received programs',this.props.programs)
@@ -73,7 +125,7 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                    <Button onClick={() => {this.handleShow(); this.create(program.name,program.id,program.description,program.aggregationType,program.domainType,program.valueType,program.shortName);}}> <Glyphicon glyph="pencil"/> Edit</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
                                             <Label bsStyle="default"
@@ -109,6 +161,10 @@ class LetterResults extends Component {
             )
         }
     }
+    handledescriptionChange=(e)=> {
+        this.setState({description: e.target.value});
+        console.log(e.target.value);
+    };
     getIndicators(){
         //console.log('received indicators',this.props.indicators)
 
@@ -352,7 +408,7 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                    <Button onClick={() => {this.handleShow(); this.create(dataElements.name,dataElements.id,dataElements.description,dataElements.aggregationType,dataElements.domainType,dataElements.valueType,dataElements.shortName);}}> <Glyphicon glyph="pencil"/> Edit</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
                                             <Label bsStyle="default"
@@ -812,6 +868,24 @@ class LetterResults extends Component {
                             <div><Col xs={6} md={6}><Alert bsStyle={"warning"}><strong>No records found!</strong> There is no
                                 metadata that starts <strong>{this.props.letter}</strong></Alert></Col></div>}
                     </ListGroup>
+                    <Modal show={this.state.show} onHide={this.handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>{name}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <h4>Current Description:</h4>
+                            {(description === undefined) ?
+                                <div style={{color: "#ff0000"}}>No description
+                                    provided.</div> : description}<br/>
+                            <h4>New Description</h4>
+                            <textarea placeholder={"Type new description here..."} className="form-control" onBlur={this.handledescriptionChange}></textarea>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={()=>{this.update();this.handleClose();}} bsStyle={"warning"}>Edit</Button>
+                            <Button onClick={this.handleClose}>Close</Button>
+
+                        </Modal.Footer>
+                    </Modal>
                 </Col>
             </div>
         )

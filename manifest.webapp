@@ -1,20 +1,29 @@
 {
-  "launch_path": "index.html",
+  "launch_path": "./index.html",
   "default_locale": "en",
   "activities": {
     "dhis": {
-      "href": "*"
+      "href": ".."
     }
   },
   "appType": "APP",
   "name": "Metadata Dictionary",
   "version": "0.1.0",
-  "manifest_generated_at": "Mon Sep 17 2018 08:31:09 GMT+0300 (E. Africa Standard Time)",
-  "description": "A metadata dictionary that allows you to view and edit descriptions of metadata in any DHIS2 instance",
   "icons": {
-    "48": "icon.png"
+    "48": "./icon-48-48.png",
+    "72": "./icon-72-72.png",
+    "96": "./icon-96-96.png",
+    "128": "./icon-128-128.png",
+    "144": "./icon-144-144.png",
+    "192": "./icon-192-192.png",
+    "256": "./icon-256-256.png",
+    "512": "./icon-512-512.png"
   },
   "developer": {
-    "name": "themetadatas"
-  }
+    "name": "Hi4Kenya 2018 #themetadatas",
+    "email": "healthit@uonbi.ac.ke"
+  },
+  "launch_url": "/",
+  "manifest_generated_at": "Thu Sep 20 2018 07:31:07 GMT+0300 (E. Africa Standard Time)",
+  "description": "A metadata dictionary is an application in DHIS2 that shows data about metadata and what it entails, such information as descriptions of the metadata thus allowing users to view and edit them in real time so as to assist users using DHIS2 in whatever instance."
 }

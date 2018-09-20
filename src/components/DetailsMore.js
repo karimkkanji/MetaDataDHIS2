@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import config from '../actions/config';
 import ReactDOM from 'react-dom';
 import {Row, Col, Panel, Label, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table} from 'react-bootstrap';
 import './Tabpane.css';
@@ -291,7 +292,7 @@ class DetailsMore extends Component {
         myNumerator:[]
     };
     componentDidMount () {
-        fetch(`http://197.136.81.99:8082/test/api/${this.props.item}/${this.props.id}`, headers //youtube guy this.props.location.state.dynamicData
+        fetch(config.url+`${this.props.item}/${this.props.id}`, headers //youtube guy this.props.location.state.dynamicData
         ).then((Response) => Response.json())
             .then((findresponse) => {
                 this.setState({
@@ -321,7 +322,7 @@ class DetailsMore extends Component {
                             </Col>
                             <Col xs={9} md={9}>
                                 <Breadcrumb>
-                                    <Breadcrumb.Item href="http://localhost:3000">Home</Breadcrumb.Item>
+                                    <Breadcrumb.Item href="../">Home</Breadcrumb.Item>
                                     <Breadcrumb.Item active>{this.props.item}</Breadcrumb.Item>
                                     <Breadcrumb.Item active>{this.props.id}</Breadcrumb.Item>
                                 </Breadcrumb>
@@ -372,7 +373,7 @@ class DetailsMore extends Component {
                                             switch (this.props.item) {
                                                 case "dataSets":   return dataSets(deets);
                                                 case "indicators":  this.getIndicatorTypes();this.getIndicatorGroups(); this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
-                                                case "programDataElements":  return programs(deets);
+                                                case "programs":  return programs(deets);
                                                 case "dataElements":  return dataelements(deets);
                                                 default:      return "#FFFFFF";
                                             }
@@ -400,7 +401,7 @@ class DetailsMore extends Component {
             expression = expression.replace(/}/g, "%7D");
             expression = expression.replace(/\s/g, "%20");
             expression = expression.replace(/\+/g, "%2B");
-            fetch('http://197.136.81.99:8082/test/api/26/expressions/description.json?expression=' + expression, headers)
+            fetch(config.url+'expressions/description.json?expression=' + expression, headers)
                 .then(
                     function (response) {
                         return response.json();
@@ -412,7 +413,7 @@ class DetailsMore extends Component {
         }
     getIndicatorGroups() {
         let expression = this.props.id;
-        fetch('http://197.136.81.99:8082/test/api/indicators/'+expression+'.json?fields=indicatorGroups[name]', headers)
+        fetch(config.url+'indicators/'+expression+'.json?fields=indicatorGroups[name]', headers)
             .then(
                 function (response) {
                     return response.json();
@@ -424,7 +425,7 @@ class DetailsMore extends Component {
     }
     getIndicatorTypes() {
         let expression = this.props.id;
-        fetch('http://197.136.81.99:8082/test/api/indicators/'+expression+'.json?fields=indicatorType[name]', headers)
+        fetch(config.url+'indicators/'+expression+'.json?fields=indicatorType[name]', headers)
             .then(
                 function (response) {
                     return response.json();
