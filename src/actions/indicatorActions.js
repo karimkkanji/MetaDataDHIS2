@@ -1,15 +1,13 @@
-import config from "./config";
-
 const headers ={
     headers:{
-        'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
+        'Authorization': `Basic ${btoa('evanpersie3@gmail.com:skolastikA97')}`
 }
 };
 
 
 export function fetchIndicators(){
     return function(dispatch){
-        fetch(config.url+'indicators.json?paging=false&fields=:all', headers)
+        fetch('http://197.136.81.99:8082/test/api/26/indicators.json?paging=false&fields=:all', headers)
         .then(res => res.json())
         .then((response) => {
             dispatch({ 

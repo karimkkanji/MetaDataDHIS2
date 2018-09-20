@@ -1,7 +1,6 @@
 {
-  "name": "metadatadictionary",
+  "name": "metadatapp",
   "version": "0.1.0",
-  "description": "A metadata dictionary is an application in DHIS2 that shows data about metadata and what it entails, such information as descriptions of the metadata thus allowing users to view and edit them in real time so as to assist users using DHIS2 in whatever instance.",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
@@ -20,32 +19,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && d2-manifest package.json build/manifest.webapp",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "manifest.webapp": {
-    "name": "Metadata Dictionary",
-    "icons": {
-      "48": "./icon-48-48.png",
-      "72": "./icon-72-72.png",
-      "96": "./icon-96-96.png",
-      "128": "./icon-128-128.png",
-      "144": "./icon-144-144.png",
-      "192": "./icon-192-192.png",
-      "256": "./icon-256-256.png",
-      "512": "./icon-512-512.png"
-    },
-    "developer": {
-      "name": "Hi4Kenya 2018 #themetadatas",
-      "email": "healthit@uonbi.ac.ke"
-    },
-    "activities": {
-      "dhis": {
-        "href": "/"
-      }
-    },
-    "launch_url": "/",
-    "default_locale": "en"
   }
 }

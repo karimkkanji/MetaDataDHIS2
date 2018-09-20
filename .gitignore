@@ -19,5 +19,3 @@ yarn-error.log*
 
 #Web storm Generated
 .idea/
-
-/node_modules
