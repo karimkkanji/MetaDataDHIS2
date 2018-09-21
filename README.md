@@ -8,7 +8,7 @@ git clone https://github.com/kanji-karanja/MetaDataDHIS2.git
 ```
 2. Rebuild npm dependencies.
 ```bash
-npm rebuild
+npm install
 ```
 3. Start the Node.js server.
 ```bash
