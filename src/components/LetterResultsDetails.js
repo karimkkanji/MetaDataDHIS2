@@ -9,6 +9,7 @@ import {
     Panel,
 } from 'react-bootstrap';
 import './Tabpane.css';
+import Link from "react-router-dom/es/Link";
 let output = "";
 const headers ={
     headers:{
@@ -93,7 +94,10 @@ class LetterResultsDetails extends Component {
                             <Panel.Body>
                                 <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                     <ButtonGroup>
-                                        <Button href={"/"+this.props.item+"/"+dynamicData.id}>View</Button>
+                                        <Link to={"/"+this.props.item+"/"+dynamicData.id}>
+                                        <Button>View
+                                        </Button>
+                                        </Link>
                                     </ButtonGroup>&nbsp;
                                 </ButtonToolbar>
                                 <a href={"/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
@@ -117,7 +121,9 @@ class LetterResultsDetails extends Component {
                             <Panel.Body>
                                 <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                     <ButtonGroup>
-                                        <Button href={"/"+this.props.item+"/"+dynamicData.id}>View</Button>
+                                        <Link to={"/"+this.props.item+"/"+dynamicData.id}>
+                                        <Button>View</Button>
+                                    </Link>
                                     </ButtonGroup>&nbsp;
                                 </ButtonToolbar>
                                 <a href={"/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
