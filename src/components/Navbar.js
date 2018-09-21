@@ -15,6 +15,7 @@ import {
     Glyphicon,
     Panel, ButtonToolbar, ButtonGroup
 } from 'react-bootstrap';
+import Link from "react-router-dom/es/Link";
 const headers = {
     headers: {
         'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
@@ -33,7 +34,7 @@ class NavbarCustom extends Component {
             ds_results: [],
             dataElements_results:[],
             programs_results:[],
-            filterText:'a'
+            filterText:''
         };
     }
     componentWillMount(){
@@ -46,89 +47,124 @@ class NavbarCustom extends Component {
     }
 
     handleShow(e) {
-        this.setState({ value: e.target.value });
+            this.setState({value: e.target.value});
         this.setState({ show: true });
     }
     handleSearch=(e)=> {
         this.setState({filterText: e.target.value});
-        fetch(config.url+`indicators.json?filter=displayName:ilike:${this.state.filterText}`, headers)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    ind_results:data.indicators
+        if(this.state.filterText!=="") {
+            fetch(config.url + `indicators.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({
+                        ind_results: data.indicators
+                    });
+                    console.log('filtertext() state inside componentwillmount', this.state.filterText)
+                    console.log(this.state.ind_results)
                 });
-                console.log('filtertext() state inside componentwillmount',this.state.filterText)
-                console.log(this.state.ind_results)
-            });
 
-        fetch(config.url+`dataSets.json?filter=displayName:ilike:${this.state.filterText}`, headers)
-            .then(response => response.json())
-            .then(data => {
+            fetch(config.url + `dataSets.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+                .then(response => response.json())
+                .then(data => {
 
-                this.setState({
-                    ds_results:data.dataSets
+                    this.setState({
+                        ds_results: data.dataSets
+                    });
+                    console.log(this.state.ds_results)
                 });
-                console.log(this.state.ds_results)
-            });
 
-        fetch(config.url+`dataElements.json?filter=displayName:ilike:${this.state.filterText}`, headers)
-            .then(response => response.json())
-            .then(data => {
+            fetch(config.url + `dataElements.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+                .then(response => response.json())
+                .then(data => {
 
-                this.setState({
-                    dataElements_results:data.dataElements
+                    this.setState({
+                        dataElements_results: data.dataElements
+                    });
+                    console.log(this.state.dataElements_results)
                 });
-                console.log(this.state.dataElements_results)
-            });
 
-        fetch(config.url+`programs.json?filter=displayName:ilike:${this.state.filterText}`, headers)
-            .then(response => response.json())
-            .then(data => {
+            fetch(config.url + `programs.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+                .then(response => response.json())
+                .then(data => {
 
-                this.setState({
-                    programs_results:data.programs
+                    this.setState({
+                        programs_results: data.programs
+                    });
+                    console.log(this.state.programs_results)
                 });
-                console.log(this.state.programs_results)
-            });
 
-        console.log(this.state.filterText);
+            console.log(this.state.filterText);
+        }
     };
     render() {
         const indicator_Items = this.state.ind_results.map( post => (
             <div key={post.id}>
                 <Panel>
                     <Panel.Body>
+                        <h4>{post.displayName}</h4>
                         <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                             <ButtonGroup>
-                                <Button href={"/indicators"+post.id}>View</Button>
+                                <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
                             </ButtonGroup>&nbsp;
                         </ButtonToolbar>
-                        <a href={"/indicators"+post.id}>{post.name}</a>
+                        <a href={"/indicators/"+post.id}>{post.name}</a>
                         <br/>
                         {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
                     </Panel.Body>
                 </Panel>
-                <h3>{ post.displayName }</h3>
             </div>
         ));
 
         const dataSets_Items = this.state.ds_results.map( post => (
             <div key={post.id}>
-                <h3>{ post.displayName }</h3>
-
+                <Panel>
+                    <Panel.Body>
+                        <h4>{post.displayName}</h4>
+                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                            <ButtonGroup>
+                                <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
+                            </ButtonGroup>&nbsp;
+                        </ButtonToolbar>
+                        <Link to={"/indicators/"+post.id}>{post.name}</Link>
+                        <br/>
+                        {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                    </Panel.Body>
+                </Panel>
             </div>
         ));
         const dataElements_Items = this.state.dataElements_results.map( post => (
             <div key={post.id}>
-                <h3>{ post.displayName }</h3>
-
+                <Panel>
+                    <Panel.Body>
+                        <h4>{post.displayName}</h4>
+                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                            <ButtonGroup>
+                                <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
+                            </ButtonGroup>&nbsp;
+                        </ButtonToolbar>
+                        <Link to={"/indicators/"+post.id}>{post.name}</Link>
+                        <br/>
+                        {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                    </Panel.Body>
+                </Panel>
             </div>
         ));
 
         const programs_Items = this.state.programs_results.map( post => (
             <div key={post.id}>
-                <h3>{ post.displayName }</h3>
-
+                <Panel>
+                    <Panel.Body>
+                        <h4>{post.displayName}</h4>
+                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                            <ButtonGroup>
+                                <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
+                            </ButtonGroup>&nbsp;
+                        </ButtonToolbar>
+                        <Link to={"/indicators/"+post.id}>{post.name}</Link>
+                        <br/>
+                        {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                    </Panel.Body>
+                </Panel>
             </div>
         ));
 
