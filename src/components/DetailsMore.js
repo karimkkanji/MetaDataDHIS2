@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import config from '../actions/config';
 import ReactDOM from 'react-dom';
 import {Row, Col, Panel, Label, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table} from 'react-bootstrap';
 import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
 const headers = {
     headers: {
-        'Authorization': `Basic ${btoa('evanpersie3@gmail.com:skolastikA97')}`
+        'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
     }
 };
 const dataSets = (deets) => (<tbody>
@@ -176,22 +177,10 @@ const programs = (deets) => (<tbody>
 
 </tr>
 <tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Dimension
-        Item Type:
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>Program Type::
     </td>
-    <td>{deets.dimensionItemType}</td>
+    <td>{deets.programType}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Aggregation type:
-    </td>
-    <td>{deets.aggregationType}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Value
-        Type:
-    </td>
-    <td>{deets.valueType}</td>
 </tr>
 <tr>
     <td className="text-primary" style={{borderRight: '2px solid black'}}>Short
@@ -372,7 +361,7 @@ class DetailsMore extends Component {
                                             switch (this.props.item) {
                                                 case "dataSets":   return dataSets(deets);
                                                 case "indicators":  this.getIndicatorTypes();this.getIndicatorGroups(); this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
-                                                case "programDataElements":  return programs(deets);
+                                                case "programs":  return programs(deets);
                                                 case "dataElements":  return dataelements(deets);
                                                 default:      return "#FFFFFF";
                                             }

@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import Tabpane from "./components/Tabpane";
 import DetailsMore from "./components/DetailsMore";
 import {Checkbox, Form, FormGroup, Panel, Row} from "react-bootstrap";
-import BrowserRouter from "react-router-dom/es/BrowserRouter";
+import BrowserRouter from "react-router-dom/es/HashRouter";
 import {Route, Switch} from "react-router-dom";
 const Home = () => (
     <div>
