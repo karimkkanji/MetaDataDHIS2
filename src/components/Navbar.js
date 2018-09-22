@@ -16,6 +16,7 @@ import {
     Panel, ButtonToolbar, ButtonGroup
 } from 'react-bootstrap';
 import Link from "react-router-dom/es/Link";
+import Label from "react-bootstrap/es/Label";
 const headers = {
     headers: {
         'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
@@ -110,6 +111,7 @@ class NavbarCustom extends Component {
                         <a href={"/indicators/"+post.id}>{post.name}</a>
                         <br/>
                         {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                        <br/><Label bsStyle={"warning"}>Indicator</Label>
                     </Panel.Body>
                 </Panel>
             </div>
@@ -128,6 +130,7 @@ class NavbarCustom extends Component {
                         <Link to={"/indicators/"+post.id}>{post.name}</Link>
                         <br/>
                         {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                        <br/><Label bsStyle={"primary"}>Dataset</Label>
                     </Panel.Body>
                 </Panel>
             </div>
@@ -145,7 +148,8 @@ class NavbarCustom extends Component {
                         <Link to={"/indicators/"+post.id}>{post.name}</Link>
                         <br/>
                         {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
-                    </Panel.Body>
+                        <br/><Label bsStyle={"success"}>Data Element</Label>
+                        </Panel.Body>
                 </Panel>
             </div>
         ));
@@ -163,7 +167,8 @@ class NavbarCustom extends Component {
                         <Link to={"/indicators/"+post.id}>{post.name}</Link>
                         <br/>
                         {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
-                    </Panel.Body>
+                        <br/><Label bsStyle={"danger"}>Program</Label>
+                        </Panel.Body>
                 </Panel>
             </div>
         ));
