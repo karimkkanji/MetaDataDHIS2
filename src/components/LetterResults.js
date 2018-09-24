@@ -64,7 +64,7 @@ class LetterResults extends Component {
         this.setState({isLoading: true, show: true,itemType:"ds",descriptionView:description,description:description,id:id,name:name,periodType:periodType});
     }
     handleShowindicators(id,description,name,indicatorType,numerator,denominator,shortname) {
-        this.setState({isLoading: true, show: true,itemType:"indi",descriptionView:description,description:description,id:id,name:name,indicatorType:indicatorType, numerator:numerator, denominator:denominator, shortname:shortname});
+        this.setState({isLoading: true, show: true,itemType:"indi",descriptionView:description,description:description,id:id,name:name,indicatorType:indicatorType.id, numerator:numerator, denominator:denominator, shortname:shortname});
     }
     handleShowprograms(id,description,name,shortname,programType) {
         this.setState({isLoading: true, show:true,itemType:"prog",descriptionView:description,description:description,id:id,name:name, programType:programType,
@@ -105,10 +105,10 @@ class LetterResults extends Component {
                 placeholder = JSON.stringify({
                     name: this.state.name,
                     description: this.state.description,
-                    indicatorType:this.state.indicatorType,
+                    indicatorType:{"id":this.state.indicatorType},
                     numerator:this.state.numerator,
                     denominator:this.state.denominator,
-                    shortName:this.state.shortName
+                    shortName:this.state.shortname
                 });
                 headerPlace ="indicators/";
             break;
@@ -123,7 +123,7 @@ class LetterResults extends Component {
             }
         })
             .then(response => response.json())
-            .then(json => console.log(json))
+            .then(json => console.log(json));
         window.alert("Updated");
         this.handleClose();
     }
@@ -353,7 +353,7 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowindicators.bind(this,indicator.id,indicator.description,indicator.name,indicator.periodType)}>{this.state.isLoading ?
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowindicators.bind(this,indicator.id,indicator.description,indicator.name,indicator.indicatorType,indicator.numerator,indicator.denominator,indicator.shortName)}>{this.state.isLoading ?
                                                         <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
@@ -658,7 +658,7 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowindicators.bind(this,indicator.id,indicator.description,indicator.name,indicator.periodType)}>{this.state.isLoading ?
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowindicators.bind(this,indicator.id,indicator.description,indicator.name,indicator.indicatorType,indicator.numerator,indicator.denominator,indicator.shortName)}>{this.state.isLoading ?
                                                         <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
