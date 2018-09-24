@@ -1,23 +1,9 @@
 import React, {Component} from 'react';
 import './Tabpane.css';
 import {Nav, NavItem, Col, Row, Tab} from 'react-bootstrap';
-import ButtonGroup from "./ButtonGroup";
+import ButtonGroupNav from "./ButtonGroupNav";
 import './Tabpane.css';
-
 class Tabpane extends Component {
-    constructor(props) {
-        super(props);
-        this.handleChangeState = this.handleChangeState.bind(this);
-    }
-
-    handleChangeState(message) {
-        this.InputChange(message);
-    }
-
-    InputChange = (params) => {
-        this.props.changeHandler(params);
-    };
-
     render() {
         return (
             <div className="tabpanebody">
@@ -35,10 +21,10 @@ class Tabpane extends Component {
                             <Col sm={12}>
                                 <div className={"container content"}>
                                     <Tab.Content animation>
-                                        <Tab.Pane eventKey="first"><ButtonGroup item={"datasets"} stateHandler={this.props.dataSets}/></Tab.Pane>
-                                        <Tab.Pane eventKey="second"><ButtonGroup item={"indicators"}/></Tab.Pane>
-                                        <Tab.Pane eventKey="third"><ButtonGroup item={"programs"}/></Tab.Pane>
-                                        <Tab.Pane eventKey="fourth"><ButtonGroup item={"dataelements"}/></Tab.Pane>
+                                        <Tab.Pane eventKey="first"><ButtonGroupNav item={"datasets"}/></Tab.Pane>
+                                        <Tab.Pane eventKey="second"><ButtonGroupNav item={"indicators"}/></Tab.Pane>
+                                        <Tab.Pane eventKey="third"><ButtonGroupNav item={"programs"}/></Tab.Pane>
+                                        <Tab.Pane eventKey="fourth"><ButtonGroupNav item={"dataelements"}/></Tab.Pane>
                                     </Tab.Content>
                                 </div>
                             </Col>

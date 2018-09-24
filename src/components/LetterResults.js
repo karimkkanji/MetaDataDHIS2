@@ -21,6 +21,7 @@ import {fetchDataSets} from "../actions/datasetActions";
 import {fetchDataElements} from "../actions/dataelementsActions";
 import {fetchIndicators} from "../actions/indicatorActions";
 import config from '../actions/config';
+import {Online,Offline} from "react-detect-offline";
 class LetterResults extends Component {
     componentWillMount(){
         this.props.dispatch(fetchPrograms());
@@ -30,10 +31,9 @@ class LetterResults extends Component {
     }
     constructor(props, context) {
         super(props, context);
-
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.updateRecord = this.updateRecord.bind(this);
+        /*this.updateRecord = this.updateRecord.bind(this);*/
         this.state = {
             isloading:false,
             show: false,
@@ -53,12 +53,9 @@ class LetterResults extends Component {
             programType: ""
         };
     }
-    updateRecord(){
-    }
     handleClose() {
         this.setState({ show: false,isLoading: false });
     }
-
     handleShow(id,description,name,aggregationType,domainType,valueType,shortName) {
         this.setState({isLoading: true, show: true, itemType:"de", description:description,id:id,name:name,aggregationType:aggregationType,domainType:domainType,valueType:valueType,shortName:shortName});
     }
@@ -75,7 +72,7 @@ class LetterResults extends Component {
     update(itemType) {
         let placeholder="", headerPlace ="";
         switch (itemType) {
-            case "de" : {
+            case "de" :
                 placeholder = JSON.stringify({
                     name: this.state.name,
                     description: this.state.description,
@@ -85,8 +82,8 @@ class LetterResults extends Component {
                     shortName: this.state.shortName
                 });
                 headerPlace ="dataElements/";
-            }break;
-            case "prog":{
+            break;
+            case "prog":
                 placeholder = JSON.stringify({
                     name: this.state.name,
                     description: this.state.description,
@@ -94,16 +91,16 @@ class LetterResults extends Component {
                     programType:this.state.programType
                 });
                 headerPlace ="programs/";
-            }break;
-            case "ds":{
+            break;
+            case "ds":
                 placeholder = JSON.stringify({
                     name: this.state.name,
                     description: this.state.description,
                     periodType:this.state.periodType
                 });
                 headerPlace ="dataSets/";
-            }break;
-            case "indi":{
+            break;
+            case "indi":
                 placeholder = JSON.stringify({
                     name: this.state.name,
                     description: this.state.description,
@@ -113,7 +110,7 @@ class LetterResults extends Component {
                     shortName:this.state.shortName
                 });
                 headerPlace ="indicators/";
-            }break;
+            break;
             default: placeholder=undefined; headerPlace=undefined;
             }
         fetch(config.url + headerPlace + this.state.id, {
@@ -129,10 +126,12 @@ class LetterResults extends Component {
         window.alert("Updated");
         this.handleClose();
     }
-
+    handledescriptionChange=(e)=> {
+        this.setState({description: e.target.value});
+        console.log(e.target.value);
+    };
     getDataSets(){
         //console.log('received DataSets',this.props.dataSets)
-
         //add returning functions here
         if(this.props.dataSets) {
             return this.props.dataSets
@@ -150,18 +149,17 @@ class LetterResults extends Component {
                                             <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                                 <ButtonGroup>
                                                     <Glyphicon glyph="chevron-down"/>
-                                                </ButtonGroup>&nbsp;
+                                                </ButtonGroup>
                                             </ButtonToolbar>
                                             <p>{dataset.displayName}</p>
-
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
                                                 <ButtonGroup>
-                                                        <Link to={"/" + this.props.item + "/" + dataset.id}><Button>More </Button>
-                                                        </Link>
+                                                    <Link to={"/" + this.props.item + "/" + dataset.id}><Button>More </Button>
+                                                    </Link>
                                                 </ButtonGroup>&nbsp;
                                                 <Dropdown id="dropdown-custom-1">
                                                     <Dropdown.Toggle>
@@ -184,22 +182,18 @@ class LetterResults extends Component {
                                                         <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{dataset.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{dataset.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{dataset.numeratorDescription}
-                                            </Label>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{dataset.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{dataset.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{dataset.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{dataset.aggregationType}</Label><br/>
                                         </Row>
-                                        {(dataset.description === undefined) ?
+                                        <hr/>
+                                        <h3>{(dataset.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
-                                                provided.</div> : dataset.description}
+                                                provided.</div> : dataset.description}</h3>
+                                        <hr/>
+                                        <Label bsStyle="default"
+                                               style={{marginLeft: 10}}>Period Type: {dataset.periodType}</Label>&nbsp;
+                                        <Label bsStyle="info">Form Type: {dataset.formType}</Label>&nbsp;
+                                        {/*<Label bsStyle={"primary"}>Domain Type: {dataset.domainType}</Label>&nbsp;
+                                        <Label bsStyle={"success"}>Value Type: {dataset.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>Aggregation Type: {dataset.aggregationType}</Label><br/>*/}
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -210,10 +204,17 @@ class LetterResults extends Component {
         }
         else{
             return(
+                <div>
+            <Online>
                 <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
+            </Online>
+            <Offline>
+                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+            </Offline>
+        </div>
             );
         }
     }
@@ -235,18 +236,17 @@ class LetterResults extends Component {
                                             <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                                 <ButtonGroup>
                                                     <Glyphicon glyph="chevron-down"/>
-                                                </ButtonGroup>&nbsp;
+                                                </ButtonGroup>
                                             </ButtonToolbar>
                                             <p>{program.displayName}</p>
-
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
                                                 <ButtonGroup>
-                                                        <Link to={"/" + this.props.item + "/" + program.id}><Button>More</Button>
-                                                        </Link>
+                                                    <Link to={"/" + this.props.item + "/" + program.id}><Button>More </Button>
+                                                    </Link>
                                                 </ButtonGroup>&nbsp;
                                                 <Dropdown id="dropdown-custom-1">
                                                     <Dropdown.Toggle>
@@ -265,20 +265,28 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowprograms.bind(this,program.id,program.description,program.name,program.shortName,program.programType)}>{this.state.isLoading ?
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowprograms.bind(this,program.id,program.description,program.name,program.periodType)}>{this.state.isLoading ?
                                                         <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{program.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{program.formType}</Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{program.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{program.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{program.aggregationType}</Label><br/>
                                         </Row>
-                                        {(program.description === undefined) ?
+                                        <hr/>
+                                        <h3>{(program.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
-                                                provided.</div> : program.description}
+                                                provided.</div> : program.description}</h3>
+                                        <hr/>
+                                        <Label bsStyle="default"
+                                               style={{marginLeft: 10}}>{program.periodType}</Label>&nbsp;
+                                        <Label bsStyle="info">{program.formType}</Label>&nbsp;
+                                        <Label
+                                            bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{program.numeratorDescription}
+                                        </Label>&nbsp;
+                                        <Label
+                                            bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{program.denominatorDescription}
+                                        </Label>&nbsp;
+                                        <Label bsStyle={"primary"}>{program.domainType}</Label>&nbsp;
+                                        <Label bsStyle={"success"}>{program.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>{program.aggregationType}</Label><br/>
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -289,17 +297,20 @@ class LetterResults extends Component {
         }
         else{
             return(
+                <div>
+            <Online>
                 <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
-            )
+            </Online>
+            <Offline>
+                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+            </Offline>
+        </div>
+            );
         }
     }
-    handledescriptionChange=(e)=> {
-        this.setState({description: e.target.value});
-        console.log(e.target.value);
-    };
     getIndicators(){
         if(this.props.indicators) {
             return this.props.indicators
@@ -317,21 +328,17 @@ class LetterResults extends Component {
                                             <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                                 <ButtonGroup>
                                                     <Glyphicon glyph="chevron-down"/>
-                                                </ButtonGroup>&nbsp;
+                                                </ButtonGroup>
                                             </ButtonToolbar>
                                             <p>{indicator.displayName}</p>
-
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
                                                 <ButtonGroup>
-                                                    <Link to={"/" + this.props.item + "/" + indicator.id}>
-                                                        <Button>More</Button>
+                                                    <Link to={"/" + this.props.item + "/" + indicator.id}><Button>More </Button>
                                                     </Link>
-                                                    {/*<Button*/}
-                                                        {/*href={"/" + this.props.item + "/" + indicator.id}>More</Button>*/}
                                                 </ButtonGroup>&nbsp;
                                                 <Dropdown id="dropdown-custom-1">
                                                     <Dropdown.Toggle>
@@ -350,27 +357,28 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button onClick={this.handleShowindicators.bind(this,indicator.id,indicator.description,indicator.name,indicator.indicatorType,indicator.numerator,indicator.denominator,indicator.shortname)}> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowindicators.bind(this,indicator.id,indicator.description,indicator.name,indicator.periodType)}>{this.state.isLoading ?
+                                                        <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
                                         </Row>
-                                        {(indicator.description === undefined) ?
+                                        <hr/>
+                                        <h3>{(indicator.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
-                                                provided.</div> : indicator.description}
-                                        <row>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{indicator.numeratorDescription}
-                                            </Label><br/>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{indicator.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{indicator.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{indicator.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{indicator.aggregationType}</Label><br/>
-                                        </row>
+                                                provided.</div> : indicator.description}</h3>
+                                        <hr/>
+                                        <Label bsStyle="default"
+                                               style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
+                                        <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
+                                        <Label
+                                            bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{indicator.numeratorDescription}
+                                        </Label>&nbsp;
+                                        <Label
+                                            bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{indicator.denominatorDescription}
+                                        </Label>&nbsp;
+                                        <Label bsStyle={"primary"}>{indicator.domainType}</Label>&nbsp;
+                                        <Label bsStyle={"success"}>{indicator.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>{indicator.aggregationType}</Label><br/>
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -381,10 +389,17 @@ class LetterResults extends Component {
         }
         else{
             return(
+                <div>
+            <Online>
                 <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
+            </Online>
+            <Offline>
+                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+            </Offline>
+        </div>
             );
         }
 
@@ -409,20 +424,17 @@ class LetterResults extends Component {
                                             <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                                 <ButtonGroup>
                                                     <Glyphicon glyph="chevron-down"/>
-                                                </ButtonGroup>&nbsp;
+                                                </ButtonGroup>
                                             </ButtonToolbar>
                                             <p>{dataElements.displayName}</p>
-
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
                                                 <ButtonGroup>
-
-                                                        <Link to={"/" + this.props.item + "/" + dataElements.id}> <Button>More</Button>
-                                                        </Link>
-
+                                                    <Link to={"/" + this.props.item + "/" + dataElements.id}><Button>More </Button>
+                                                    </Link>
                                                 </ButtonGroup>&nbsp;
                                                 <Dropdown id="dropdown-custom-1">
                                                     <Dropdown.Toggle>
@@ -441,26 +453,19 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button disabled={this.state.isLoading} onClick={this.handleShow.bind(this,dataElements.id,dataElements.description,dataElements.name,dataElements.aggregationType,dataElements.domainType,dataElements.valueType,dataElements.shortName)}>{this.state.isLoading ?
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShow.bind(this,dataElements.id,dataElements.description,dataElements.name,dataElements.periodType)}>{this.state.isLoading ?
                                                         <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{dataElements.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{dataElements.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{dataElements.numeratorDescription}
-                                            </Label>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{dataElements.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{dataElements.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{dataElements.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{dataElements.aggregationType}</Label><br/>
                                         </Row>
-                                        {(dataElements.description === undefined) ?
+                                        <hr/>
+                                        <h3>{(dataElements.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
-                                                provided.</div> : dataElements.description}
+                                                provided.</div> : dataElements.description}</h3>
+                                        <hr/>
+                                        <Label bsStyle={"primary"}>Domain Type: {dataElements.domainType}</Label>&nbsp;
+                                        <Label bsStyle={"success"}>Value Type: {dataElements.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>Aggregation Type: {dataElements.aggregationType}</Label><br/>
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -471,10 +476,17 @@ class LetterResults extends Component {
         }
         else{
             return(
+                <div>
+            <Online>
                 <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
+            </Online>
+            <Offline>
+                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+            </Offline>
+        </div>
             );
         }
         //add returning functions here
@@ -484,8 +496,8 @@ class LetterResults extends Component {
         if(this.props.programs) {
             return this.props.programs
                 .filter((program) => {
-                    if (program.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
-                        return program.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
+                    if (program.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
+                        return program.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
                     }
                     else{
                         return undefined;
@@ -502,18 +514,17 @@ class LetterResults extends Component {
                                             <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                                 <ButtonGroup>
                                                     <Glyphicon glyph="chevron-down"/>
-                                                </ButtonGroup>&nbsp;
+                                                </ButtonGroup>
                                             </ButtonToolbar>
                                             <p>{program.displayName}</p>
-
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
                                                 <ButtonGroup>
-                                                    <Button
-                                                        href={"/" + this.props.item + "/" + program.id}>More</Button>
+                                                    <Link to={"/" + this.props.item + "/" + program.id}><Button>More </Button>
+                                                    </Link>
                                                 </ButtonGroup>&nbsp;
                                                 <Dropdown id="dropdown-custom-1">
                                                     <Dropdown.Toggle>
@@ -532,25 +543,28 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowprograms.bind(this,program.id,program.description,program.name,program.periodType)}>{this.state.isLoading ?
+                                                        <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{program.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{program.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{program.numeratorDescription}
-                                            </Label>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{program.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{program.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{program.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{program.aggregationType}</Label><br/>
                                         </Row>
-                                        {(program.description === undefined) ?
+                                        <hr/>
+                                        <h3>{(program.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
-                                                provided.</div> : program.description}
+                                                provided.</div> : program.description}</h3>
+                                        <hr/>
+                                        <Label bsStyle="default"
+                                               style={{marginLeft: 10}}>{program.periodType}</Label>&nbsp;
+                                        <Label bsStyle="info">{program.formType}</Label>&nbsp;
+                                        <Label
+                                            bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{program.numeratorDescription}
+                                        </Label>&nbsp;
+                                        <Label
+                                            bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{program.denominatorDescription}
+                                        </Label>&nbsp;
+                                        <Label bsStyle={"primary"}>{program.domainType}</Label>&nbsp;
+                                        <Label bsStyle={"success"}>{program.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>{program.aggregationType}</Label><br/>
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -561,10 +575,17 @@ class LetterResults extends Component {
         }
         else{
             return(
+                <div>
+            <Online>
                 <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
+            </Online>
+            <Offline>
+                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+            </Offline>
+        </div>
             )
         }
     }
@@ -577,8 +598,8 @@ class LetterResults extends Component {
             return this.props.indicators
                 .filter((indicator) => {
                     //console.log(dynamicData.name)
-                    if (indicator.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
-                        return indicator.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
+                    if (indicator.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
+                        return indicator.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
                     }
                     else{
                         return undefined;
@@ -611,18 +632,17 @@ class LetterResults extends Component {
                                             <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                                 <ButtonGroup>
                                                     <Glyphicon glyph="chevron-down"/>
-                                                </ButtonGroup>&nbsp;
+                                                </ButtonGroup>
                                             </ButtonToolbar>
                                             <p>{indicator.displayName}</p>
-
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
                                                 <ButtonGroup>
-                                                    <Button
-                                                        href={"/" + this.props.item + "/" + indicator.id}>More</Button>
+                                                    <Link to={"/" + this.props.item + "/" + indicator.id}><Button>More </Button>
+                                                    </Link>
                                                 </ButtonGroup>&nbsp;
                                                 <Dropdown id="dropdown-custom-1">
                                                     <Dropdown.Toggle>
@@ -641,27 +661,28 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowindicators.bind(this,indicator.id,indicator.description,indicator.name,indicator.periodType)}>{this.state.isLoading ?
+                                                        <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
                                         </Row>
-                                        {(indicator.description === undefined) ?
+                                        <hr/>
+                                        <h3>{(indicator.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
-                                                provided.</div> : indicator.description}
-                                        <row>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{indicator.numeratorDescription}
-                                            </Label><br/>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{indicator.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{indicator.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{indicator.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{indicator.aggregationType}</Label><br/>
-                                        </row>
+                                                provided.</div> : indicator.description}</h3>
+                                        <hr/>
+                                        <Label bsStyle="default"
+                                               style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
+                                        <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
+                                        <Label
+                                            bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{indicator.numeratorDescription}
+                                        </Label>&nbsp;
+                                        <Label
+                                            bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{indicator.denominatorDescription}
+                                        </Label>&nbsp;
+                                        <Label bsStyle={"primary"}>{indicator.domainType}</Label>&nbsp;
+                                        <Label bsStyle={"success"}>{indicator.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>{indicator.aggregationType}</Label><br/>
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -672,10 +693,17 @@ class LetterResults extends Component {
         }
         else{
             return(
+                <div>
+            <Online>
                 <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
+            </Online>
+            <Offline>
+                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+            </Offline>
+        </div>
             );
         }
 
@@ -688,8 +716,8 @@ class LetterResults extends Component {
             return this.props.dataSets
                 .filter((dataset) => {
                     //console.log(dynamicData.name)
-                    if (dataset.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
-                        return dataset.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
+                    if (dataset.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
+                        return dataset.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
                     }
                     else{
                         return undefined;
@@ -705,18 +733,17 @@ class LetterResults extends Component {
                                             <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                                 <ButtonGroup>
                                                     <Glyphicon glyph="chevron-down"/>
-                                                </ButtonGroup>&nbsp;
+                                                </ButtonGroup>
                                             </ButtonToolbar>
                                             <p>{dataset.displayName}</p>
-
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
                                                 <ButtonGroup>
-                                                    <Button
-                                                        href={"/" + this.props.item + "/" + dataset.id}>More</Button>
+                                                    <Link to={"/" + this.props.item + "/" + dataset.id}><Button>More </Button>
+                                                    </Link>
                                                 </ButtonGroup>&nbsp;
                                                 <Dropdown id="dropdown-custom-1">
                                                     <Dropdown.Toggle>
@@ -735,25 +762,19 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowdatasets.bind(this,dataset.id,dataset.description,dataset.name,dataset.periodType)}>{this.state.isLoading ?
+                                                        <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{dataset.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{dataset.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{dataset.numeratorDescription}
-                                            </Label>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{dataset.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{dataset.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{dataset.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{dataset.aggregationType}</Label><br/>
                                         </Row>
-                                        {(dataset.description === undefined) ?
+                                        <hr/>
+                                        <h3>{(dataset.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
-                                                provided.</div> : dataset.description}
+                                                provided.</div> : dataset.description}</h3>
+                                        <hr/>
+                                        <Label bsStyle="default"
+                                               style={{marginLeft: 10}}>Period Type: {dataset.periodType}</Label>&nbsp;
+                                        <Label bsStyle="info">Form Type: {dataset.formType}</Label>&nbsp;
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -764,10 +785,17 @@ class LetterResults extends Component {
         }
         else{
             return(
+                <div>
+            <Online>
                 <div className="spinner">
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
+            </Online>
+            <Offline>
+                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+            </Offline>
+        </div>
             );
         }
     }
@@ -779,8 +807,8 @@ class LetterResults extends Component {
             return this.props.dataElements
                 .filter((dataElements) => {
                     //console.log(dynamicData.name)
-                    if (dataElements.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
-                        return dataElements.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
+                    if (dataElements.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
+                        return dataElements.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
                     }
                     else{
                         return undefined;
@@ -796,18 +824,17 @@ class LetterResults extends Component {
                                             <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                                 <ButtonGroup>
                                                     <Glyphicon glyph="chevron-down"/>
-                                                </ButtonGroup>&nbsp;
+                                                </ButtonGroup>
                                             </ButtonToolbar>
                                             <p>{dataElements.displayName}</p>
-
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row>
-                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
                                                 <ButtonGroup>
-                                                    <Button
-                                                        href={"/" + this.props.item + "/" + dataElements.id}>More</Button>
+                                                    <Link to={"/" + this.props.item + "/" + dataElements.id}><Button>More </Button>
+                                                    </Link>
                                                 </ButtonGroup>&nbsp;
                                                 <Dropdown id="dropdown-custom-1">
                                                     <Dropdown.Toggle>
@@ -826,25 +853,19 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button> <Glyphicon glyph="pencil"/> Edit</Button>
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShow.bind(this,dataElements.id,dataElements.description,dataElements.name,dataElements.periodType)}>{this.state.isLoading ?
+                                                        <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
-                                            <Label bsStyle="default"
-                                                   style={{marginLeft: 10}}>{dataElements.periodType}</Label>&nbsp;
-                                            <Label bsStyle="info">{dataElements.formType}</Label>&nbsp;
-                                            <Label
-                                                bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{dataElements.numeratorDescription}
-                                            </Label>&nbsp;
-                                            <Label
-                                                bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{dataElements.denominatorDescription}
-                                            </Label>&nbsp;
-                                            <Label bsStyle={"primary"}>{dataElements.domainType}</Label>&nbsp;
-                                            <Label bsStyle={"success"}>{dataElements.valueType}</Label>&nbsp;
-                                            <Label bsStyle={"info"}>{dataElements.aggregationType}</Label><br/>
                                         </Row>
-                                        {(dataElements.description === undefined) ?
+                                        <hr/>
+                                        <h3>{(dataElements.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
-                                                provided.</div> : dataElements.description}
+                                                provided.</div> : dataElements.description}</h3>
+                                        <hr/>
+                                        <Label bsStyle={"primary"}>Domain Type: {dataElements.domainType}</Label>&nbsp;
+                                        <Label bsStyle={"success"}>Value Type: {dataElements.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>Aggregation Type: {dataElements.aggregationType}</Label><br/>
                                     </Panel.Body>
                                 </Panel>
                             </PanelGroup>
@@ -855,9 +876,16 @@ class LetterResults extends Component {
         }
         else{
             return(
-                <div className="spinner">
-                    <div className="double-bounce1"></div>
-                    <div className="double-bounce2"></div>
+                <div>
+                    <Online>
+                        <div className="spinner">
+                            <div className="double-bounce1"></div>
+                            <div className="double-bounce2"></div>
+                        </div>
+                    </Online>
+                    <Offline>
+                        <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+                    </Offline>
                 </div>
             );
         }
@@ -922,7 +950,6 @@ class LetterResults extends Component {
             </div>
         )
     };
-//()=>{this.update();this.handleClose();}
 }
 function mapStateToProps(state) {
     //testing importing elements

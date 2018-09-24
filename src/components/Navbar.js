@@ -6,7 +6,6 @@ import {
     Nav,
     Navbar,
     MenuItem,
-    NavItem,
     NavDropdown,
     FormGroup,
     FormControl,
@@ -17,6 +16,8 @@ import {
 } from 'react-bootstrap';
 import Link from "react-router-dom/es/Link";
 import Label from "react-bootstrap/es/Label";
+import {Offline, Online} from "react-detect-offline";
+import Alert from "react-bootstrap/es/Alert";
 const headers = {
     headers: {
         'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
@@ -25,8 +26,7 @@ const headers = {
 class NavbarCustom extends Component {
     constructor(props, context) {
         super(props, context);
-
-        this.handleShow = this.handleShow.bind(this);
+        this.handleInput = this.handleInput.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.state = {
             show: false,
@@ -35,22 +35,32 @@ class NavbarCustom extends Component {
             ds_results: [],
             dataElements_results:[],
             programs_results:[],
-            filterText:''
+            filterText:'',
+            selectedItem:{
+                "item": 1,
+                "name":"All"
+            }
         };
     }
-    componentWillMount(){
-
-//----------------------------------------------------------------------------------
-    }
-
-    handleClose() {
+      handleClose() {
+        document.getElementById("searchField").value="";
         this.setState({ show: false });
     }
-
-    handleShow(e) {
-            this.setState({value: e.target.value});
-        this.setState({ show: true });
+    handleClick(id){
+        switch (id) {
+            case 1:this.setState({selectedItem:{"item":1,"name":"All"}});break;
+            case 2:this.setState({selectedItem:{"item":2,"name":"Datasets"}});break;
+            case 3:this.setState({selectedItem:{"item":3,"name":"Indicators"}});break;
+            case 4:this.setState({selectedItem:{"item":4,"name":"Programs"}});break;
+            case 5:this.setState({selectedItem:{"item":5,"name":"Data Elements"}});break;
+            default:this.setState({selectedItem:{"item":0,"name":"None"}})
+        }
     }
+    handleInput() {
+        let el=document.getElementById("searchField").value;
+        this.setState({filterText: el, show: true});
+    }
+
     handleSearch=(e)=> {
         this.setState({filterText: e.target.value});
         if(this.state.filterText!=="") {
@@ -60,10 +70,9 @@ class NavbarCustom extends Component {
                     this.setState({
                         ind_results: data.indicators
                     });
-                    console.log('filtertext() state inside componentwillmount', this.state.filterText)
-                    console.log(this.state.ind_results)
+                    /*console.log('filtertext() state inside componentwillmount', this.state.filterText)
+                    console.log(this.state.ind_results)*/
                 });
-
             fetch(config.url + `dataSets.json?filter=displayName:ilike:${this.state.filterText}`, headers)
                 .then(response => response.json())
                 .then(data => {
@@ -71,7 +80,7 @@ class NavbarCustom extends Component {
                     this.setState({
                         ds_results: data.dataSets
                     });
-                    console.log(this.state.ds_results)
+                   /* console.log(this.state.ds_results)*/
                 });
 
             fetch(config.url + `dataElements.json?filter=displayName:ilike:${this.state.filterText}`, headers)
@@ -81,7 +90,7 @@ class NavbarCustom extends Component {
                     this.setState({
                         dataElements_results: data.dataElements
                     });
-                    console.log(this.state.dataElements_results)
+                    /*console.log(this.state.dataElements_results)*/
                 });
 
             fetch(config.url + `programs.json?filter=displayName:ilike:${this.state.filterText}`, headers)
@@ -91,10 +100,10 @@ class NavbarCustom extends Component {
                     this.setState({
                         programs_results: data.programs
                     });
-                    console.log(this.state.programs_results)
+                   /* console.log(this.state.programs_results)*/
                 });
 
-            console.log(this.state.filterText);
+           /* console.log(this.state.filterText);*/
         }
     };
     render() {
@@ -178,40 +187,39 @@ class NavbarCustom extends Component {
                 <Navbar fixedTop={true}>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a href="#brand">Metadata Dictionary</a>
+                            <a href="/">Metadata Dictionary</a>
                         </Navbar.Brand>
                         <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav pullRight>
-                            <NavDropdown  title="Filters" id="basic-nav-dropdown">        <MenuItem eventKey={3.1}>Action</MenuItem>
-                                <MenuItem eventKey={3.2}>Another action</MenuItem>
-                                <MenuItem eventKey={3.3}>Something else here</MenuItem>
+                            <NavDropdown  title="Filters" id="basic-nav-dropdown" >
+                                <MenuItem>Action</MenuItem>
+                                <MenuItem>Another action</MenuItem>
+                                <MenuItem>Something else here</MenuItem>
                                 <MenuItem divider />
-                                <MenuItem eventKey={3.3}>Separated link</MenuItem>
+                                <MenuItem>Separated link</MenuItem>
                             </NavDropdown>
                         </Nav>
-                        <Nav pullRight={true}>
-                            <Navbar.Form>
+                        <Navbar.Form pullRight={true}>
                                 <FormGroup>
                                     <InputGroup>
                                         <InputGroup.Button>
                                             <DropdownButton componentClass={InputGroup.Button}
                                                             id="input-dropdown-addon"
-                                                            title="Filters">
-                                                <MenuItem key="1">All <Glyphicon glyph="ok" bsStyle={"primary"}/></MenuItem>
-                                                <MenuItem key="2">Data Sets</MenuItem>
-                                                <MenuItem key="3">Indicators</MenuItem>
-                                                <MenuItem key="4">Programs</MenuItem>
-                                                <MenuItem key="1">Data Elements</MenuItem>
+                                                            title={this.state.selectedItem.name}>
+                                                <MenuItem key="nav1" onClick={this.handleClick.bind(this,1)}>All {this.state.selectedItem.item===1?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                                <MenuItem key="nav2" onClick={this.handleClick.bind(this,2)}>Data Sets{this.state.selectedItem.item===2?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                                <MenuItem key="nav3" onClick={this.handleClick.bind(this,3)}>Indicators{this.state.selectedItem.item===3?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                                <MenuItem key="nav4" onClick={this.handleClick.bind(this,4)}>Programs{this.state.selectedItem.item===4?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                                <MenuItem key="nav5"onClick={this.handleClick.bind(this,5)}>Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                             </DropdownButton>
                                         </InputGroup.Button>
-                                        <FormControl type="text" placeholder={"Search metadata here..."} style={{width: 300}}  onKeyDown={this.handleShow}/>
+                                        <FormControl type="text" placeholder={"Search metadata here..."} style={{width: 300}} id={"searchField"} onChange={()=>{this.handleInput()}}/>
                                         <FormControl.Feedback><Glyphicon glyph="search" /></FormControl.Feedback>
                                     </InputGroup>
                                 </FormGroup>
                             </Navbar.Form>
-                        </Nav>
                     </Navbar.Collapse>
                 </Navbar>
                 <Modal show={this.state.show} onHide={this.handleClose} bsSize={"large"}>
@@ -221,15 +229,16 @@ class NavbarCustom extends Component {
                                 <InputGroup>
                                     <InputGroup.Button>
                                         <DropdownButton componentClass={InputGroup.Button}
-                                                               id="input-dropdown-addon"
-                                                               title="Filters">
-                                            <MenuItem key="1">Filter 1</MenuItem>
-                                            <MenuItem key="2">Filter 2</MenuItem>
-                                            <MenuItem key="3">Filter 3</MenuItem>
-                                            <MenuItem key="4">Filter 4</MenuItem>
+                                                        id="input-dropdown-addon"
+                                                        title={this.state.selectedItem.name}>
+                                            <MenuItem key="mod1" onClick={this.handleClick.bind(this,1)}>All {this.state.selectedItem.item===1?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                            <MenuItem key="mod2" onClick={this.handleClick.bind(this,2)}>Data Sets{this.state.selectedItem.item===2?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                            <MenuItem key="mod3" onClick={this.handleClick.bind(this,3)}>Indicators{this.state.selectedItem.item===3?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                            <MenuItem key="mod4" onClick={this.handleClick.bind(this,4)}>Programs{this.state.selectedItem.item===4?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                            <MenuItem key="mod5"onClick={this.handleClick.bind(this,5)}>Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                         </DropdownButton>
                                     </InputGroup.Button>
-                                    <FormControl type="text" placeholder={"Search metadata here..."} autoFocus={true} style={{width: 500}} onChange={ this.handleSearch } value={this.state.filterText}/>
+                                    <FormControl type="text" placeholder={"Search metadata here..."} autoFocus={true} style={{width: 500}} onChange={this.handleSearch } value={this.state.filterText}/>
                                 </InputGroup>
                             </FormGroup>
 
@@ -238,10 +247,20 @@ class NavbarCustom extends Component {
                     <Modal.Body>
                         <h3>Search results:</h3>
                         <hr/>
-                        {indicator_Items}
-                        {dataSets_Items}
+                        <Online>
+                        {this.state.selectedItem.item===1?<div>{dataSets_Items}{indicator_Items}{programs_Items}{dataElements_Items}</div>:null}
+                        {this.state.selectedItem.item===2?dataSets_Items:null}
+                        {this.state.selectedItem.item===3?indicator_Items:null}
+                        {this.state.selectedItem.item===4?programs_Items:null}
+                        {this.state.selectedItem.item===5?dataElements_Items:null}
+                        </Online>
+                        <Offline>
+                            <Alert bsStyle={"danger"}>You are offline. Check your internet connection and try again</Alert>
+                        </Offline>
+                        {/*indicator_Items*/}
+                       {/* {dataSets_Items}
                         {dataElements_Items}
-                        {programs_Items}
+                        {programs_Items}*/}
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose}>Close</Button>

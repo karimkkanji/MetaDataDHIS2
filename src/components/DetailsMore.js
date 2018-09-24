@@ -310,7 +310,7 @@ class DetailsMore extends Component {
                             </Col>
                             <Col xs={9} md={9}>
                                 <Breadcrumb>
-                                    <Breadcrumb.Item href="http://localhost:3000">Home</Breadcrumb.Item>
+                                    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
                                     <Breadcrumb.Item active>{this.props.item}</Breadcrumb.Item>
                                     <Breadcrumb.Item active>{this.props.id}</Breadcrumb.Item>
                                 </Breadcrumb>
