@@ -155,7 +155,7 @@ class LetterResults extends Component {
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row style={{marginLeft: 10}}>
+                                        <h6>Actions:</h6><Row style={{marginLeft: 10}}>
                                             <ButtonToolbar>
                                                 <ButtonGroup>
                                                     <Link to={"/" + this.props.item + "/" + dataset.id}><Button>More </Button>
@@ -184,11 +184,12 @@ class LetterResults extends Component {
                                             </ButtonToolbar>
                                         </Row>
                                         <hr/>
+                                        <h6>Description:</h6>
                                         <h3>{(dataset.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : dataset.description}</h3>
                                         <hr/>
-                                        <Label bsStyle="default"
+                                        <h6>Quick info:</h6><Label bsStyle="default"
                                                style={{marginLeft: 10}}>Period Type: {dataset.periodType}</Label>&nbsp;
                                         <Label bsStyle="info">Form Type: {dataset.formType}</Label>&nbsp;
                                         {/*<Label bsStyle={"primary"}>Domain Type: {dataset.domainType}</Label>&nbsp;
@@ -242,7 +243,7 @@ class LetterResults extends Component {
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row style={{marginLeft: 10}}>
+                                        <h6>Actions:</h6><Row style={{marginLeft: 10}}>
                                             <ButtonToolbar>
                                                 <ButtonGroup>
                                                     <Link to={"/" + this.props.item + "/" + program.id}><Button>More </Button>
@@ -271,19 +272,13 @@ class LetterResults extends Component {
                                             </ButtonToolbar>
                                         </Row>
                                         <hr/>
-                                        <h3>{(program.description === undefined) ?
+                                        <h6>Description:</h6><h3>{(program.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : program.description}</h3>
                                         <hr/>
-                                        <Label bsStyle="default"
+                                        <h6>Quick info:</h6><Label bsStyle="default"
                                                style={{marginLeft: 10}}>{program.periodType}</Label>&nbsp;
-                                        <Label bsStyle="info">{program.formType}</Label>&nbsp;
-                                        <Label
-                                            bsStyle={"primary"}>{this.props.item === "indicators" ? "Numerator: " : null}{program.numeratorDescription}
-                                        </Label>&nbsp;
-                                        <Label
-                                            bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{program.denominatorDescription}
-                                        </Label>&nbsp;
+                                        <Label bsStyle="info">Program Type: {program.programType}</Label>&nbsp;
                                         <Label bsStyle={"primary"}>{program.domainType}</Label>&nbsp;
                                         <Label bsStyle={"success"}>{program.valueType}</Label>&nbsp;
                                         <Label bsStyle={"info"}>{program.aggregationType}</Label><br/>
@@ -334,7 +329,7 @@ class LetterResults extends Component {
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row style={{marginLeft: 10}}>
+                                        <h6>Actions:</h6><Row style={{marginLeft: 10}}>
                                             <ButtonToolbar>
                                                 <ButtonGroup>
                                                     <Link to={"/" + this.props.item + "/" + indicator.id}><Button>More </Button>
@@ -363,11 +358,11 @@ class LetterResults extends Component {
                                             </ButtonToolbar>
                                         </Row>
                                         <hr/>
-                                        <h3>{(indicator.description === undefined) ?
+                                        <h6>Description:</h6><h3>{(indicator.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : indicator.description}</h3>
                                         <hr/>
-                                        <Label bsStyle="default"
+                                        <h6>Quick info:</h6><Label bsStyle="default"
                                                style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
                                         <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
                                         <Label
@@ -430,7 +425,7 @@ class LetterResults extends Component {
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row style={{marginLeft: 10}}>
+                                        <h6>Actions:</h6><Row style={{marginLeft: 10}}>
                                             <ButtonToolbar>
                                                 <ButtonGroup>
                                                     <Link to={"/" + this.props.item + "/" + dataElements.id}><Button>More </Button>
@@ -459,11 +454,11 @@ class LetterResults extends Component {
                                             </ButtonToolbar>
                                         </Row>
                                         <hr/>
-                                        <h3>{(dataElements.description === undefined) ?
+                                        <h6>Description:</h6><h3>{(dataElements.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : dataElements.description}</h3>
                                         <hr/>
-                                        <Label bsStyle={"primary"}>Domain Type: {dataElements.domainType}</Label>&nbsp;
+                                        <h6>Quick info:</h6><Label bsStyle={"primary"}>Domain Type: {dataElements.domainType}</Label>&nbsp;
                                         <Label bsStyle={"success"}>Value Type: {dataElements.valueType}</Label>&nbsp;
                                         <Label bsStyle={"info"}>Aggregation Type: {dataElements.aggregationType}</Label><br/>
                                     </Panel.Body>
@@ -520,7 +515,7 @@ class LetterResults extends Component {
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row style={{marginLeft: 10}}>
+                                        <h6>Actions:</h6><Row style={{marginLeft: 10}}>
                                             <ButtonToolbar>
                                                 <ButtonGroup>
                                                     <Link to={"/" + this.props.item + "/" + program.id}><Button>More </Button>
@@ -549,11 +544,11 @@ class LetterResults extends Component {
                                             </ButtonToolbar>
                                         </Row>
                                         <hr/>
-                                        <h3>{(program.description === undefined) ?
+                                        <h6>Description:</h6><h3>{(program.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : program.description}</h3>
                                         <hr/>
-                                        <Label bsStyle="default"
+                                        <h6>Quick info:</h6><Label bsStyle="default"
                                                style={{marginLeft: 10}}>{program.periodType}</Label>&nbsp;
                                         <Label bsStyle="info">{program.formType}</Label>&nbsp;
                                         <Label
@@ -562,6 +557,7 @@ class LetterResults extends Component {
                                         <Label
                                             bsStyle={"danger"}>{this.props.item === "indicators" ? "Denominator: " : null}{program.denominatorDescription}
                                         </Label>&nbsp;
+                                        <Label bsStyle="info">Program Type: {program.programType}</Label>&nbsp;
                                         <Label bsStyle={"primary"}>{program.domainType}</Label>&nbsp;
                                         <Label bsStyle={"success"}>{program.valueType}</Label>&nbsp;
                                         <Label bsStyle={"info"}>{program.aggregationType}</Label><br/>
@@ -638,7 +634,7 @@ class LetterResults extends Component {
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row style={{marginLeft: 10}}>
+                                        <h6>Actions:</h6><Row style={{marginLeft: 10}}>
                                             <ButtonToolbar>
                                                 <ButtonGroup>
                                                     <Link to={"/" + this.props.item + "/" + indicator.id}><Button>More </Button>
@@ -667,11 +663,11 @@ class LetterResults extends Component {
                                             </ButtonToolbar>
                                         </Row>
                                         <hr/>
-                                        <h3>{(indicator.description === undefined) ?
+                                        <h6>Description:</h6><h3>{(indicator.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : indicator.description}</h3>
                                         <hr/>
-                                        <Label bsStyle="default"
+                                        <h6>Quick info:</h6><Label bsStyle="default"
                                                style={{marginLeft: 10}}>{indicator.periodType}</Label>&nbsp;
                                         <Label bsStyle="info">{indicator.formType}</Label>&nbsp;
                                         <Label
@@ -739,7 +735,7 @@ class LetterResults extends Component {
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row style={{marginLeft: 10}}>
+                                        <h6>Actions:</h6><Row style={{marginLeft: 10}}>
                                             <ButtonToolbar>
                                                 <ButtonGroup>
                                                     <Link to={"/" + this.props.item + "/" + dataset.id}><Button>More </Button>
@@ -768,11 +764,11 @@ class LetterResults extends Component {
                                             </ButtonToolbar>
                                         </Row>
                                         <hr/>
-                                        <h3>{(dataset.description === undefined) ?
+                                        <h6>Description:</h6><h3>{(dataset.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : dataset.description}</h3>
                                         <hr/>
-                                        <Label bsStyle="default"
+                                        <h6>Quick info:</h6><Label bsStyle="default"
                                                style={{marginLeft: 10}}>Period Type: {dataset.periodType}</Label>&nbsp;
                                         <Label bsStyle="info">Form Type: {dataset.formType}</Label>&nbsp;
                                     </Panel.Body>
@@ -830,7 +826,7 @@ class LetterResults extends Component {
                                         </Panel.Title>
                                     </Panel.Heading>
                                     <Panel.Body collapsible>
-                                        <Row style={{marginLeft: 10}}>
+                                        <h6>Actions:</h6><Row style={{marginLeft: 10}}>
                                             <ButtonToolbar>
                                                 <ButtonGroup>
                                                     <Link to={"/" + this.props.item + "/" + dataElements.id}><Button>More </Button>
@@ -859,11 +855,11 @@ class LetterResults extends Component {
                                             </ButtonToolbar>
                                         </Row>
                                         <hr/>
-                                        <h3>{(dataElements.description === undefined) ?
+                                        <h6>Description:</h6><h3>{(dataElements.description === undefined) ?
                                             <div style={{color: "#ff0000"}}>No description
                                                 provided.</div> : dataElements.description}</h3>
                                         <hr/>
-                                        <Label bsStyle={"primary"}>Domain Type: {dataElements.domainType}</Label>&nbsp;
+                                        <h6>Quick info:</h6><Label bsStyle={"primary"}>Domain Type: {dataElements.domainType}</Label>&nbsp;
                                         <Label bsStyle={"success"}>Value Type: {dataElements.valueType}</Label>&nbsp;
                                         <Label bsStyle={"info"}>Aggregation Type: {dataElements.aggregationType}</Label><br/>
                                     </Panel.Body>
