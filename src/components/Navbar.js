@@ -64,7 +64,7 @@ class NavbarCustom extends Component {
     handleSearch=(e)=> {
         this.setState({filterText: e.target.value});
         if(this.state.filterText!=="") {
-            fetch(config.url + `indicators.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+            fetch(config.url + `indicators.json?fields=description,displayName,id&filter=displayName:ilike:${this.state.filterText}`, headers)
                 .then(response => response.json())
                 .then(data => {
                     this.setState({
@@ -73,7 +73,7 @@ class NavbarCustom extends Component {
                     /*console.log('filtertext() state inside componentwillmount', this.state.filterText)
                     console.log(this.state.ind_results)*/
                 });
-            fetch(config.url + `dataSets.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+            fetch(config.url + `dataSets.json?fields=description,displayName,id&filter=displayName:ilike:${this.state.filterText}`, headers)
                 .then(response => response.json())
                 .then(data => {
 
@@ -83,7 +83,7 @@ class NavbarCustom extends Component {
                    /* console.log(this.state.ds_results)*/
                 });
 
-            fetch(config.url + `dataElements.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+            fetch(config.url + `dataElements.json?fields=description,displayName,id&filter=displayName:ilike:${this.state.filterText}`, headers)
                 .then(response => response.json())
                 .then(data => {
 
@@ -93,7 +93,7 @@ class NavbarCustom extends Component {
                     /*console.log(this.state.dataElements_results)*/
                 });
 
-            fetch(config.url + `programs.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+            fetch(config.url + `programs.json?fields=description,displayName,id&filter=displayName:ilike:${this.state.filterText}`, headers)
                 .then(response => response.json())
                 .then(data => {
 
@@ -117,10 +117,12 @@ class NavbarCustom extends Component {
                                 <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
                             </ButtonGroup>&nbsp;
                         </ButtonToolbar>
-                        <a href={"/indicators/"+post.id}>{post.name}</a>
                         <br/>
-                        {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
-                        <br/><Label bsStyle={"warning"}>Indicator</Label>
+                        <h6>Description:</h6>
+                        {post.description!==undefined?<div style={{color:"green"}}>{post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                        <hr/>
+                        <h6>Metadata Type:</h6>
+                        <Label bsStyle={"warning"}>Indicator</Label>
                     </Panel.Body>
                 </Panel>
             </div>
@@ -133,13 +135,16 @@ class NavbarCustom extends Component {
                         <h4>{post.displayName}</h4>
                         <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                             <ButtonGroup>
-                                <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
+                                <Link to={"/datasets/"+post.id}><Button >View</Button></Link>
                             </ButtonGroup>&nbsp;
                         </ButtonToolbar>
-                        <Link to={"/indicators/"+post.id}>{post.name}</Link>
+                        <Link to={"/datasets/"+post.id}>{post.name}</Link>
                         <br/>
-                        {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
-                        <br/><Label bsStyle={"primary"}>Dataset</Label>
+                        <h6>Description:</h6>
+                        {post.description!==undefined?<div style={{color:"green"}}>{post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                        <hr/>
+                        <h6>Metadata Type:</h6>
+                        <Label bsStyle={"primary"}>Dataset</Label>
                     </Panel.Body>
                 </Panel>
             </div>
@@ -151,13 +156,16 @@ class NavbarCustom extends Component {
                         <h4>{post.displayName}</h4>
                         <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                             <ButtonGroup>
-                                <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
+                                <Link to={"/dataelements/"+post.id}><Button >View</Button></Link>
                             </ButtonGroup>&nbsp;
                         </ButtonToolbar>
-                        <Link to={"/indicators/"+post.id}>{post.name}</Link>
+                        <Link to={"/dataelements/"+post.id}>{post.name}</Link>
                         <br/>
-                        {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
-                        <br/><Label bsStyle={"success"}>Data Element</Label>
+                        <h6>Description:</h6>
+                        {post.description!==undefined?<div style={{color:"green"}}>{post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                        <hr/>
+                        <h6>Metadata Type:</h6>
+                        <Label bsStyle={"success"}>Data Element</Label>
                         </Panel.Body>
                 </Panel>
             </div>
@@ -170,13 +178,16 @@ class NavbarCustom extends Component {
                         <h4>{post.displayName}</h4>
                         <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                             <ButtonGroup>
-                                <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
+                                <Link to={"/programs/"+post.id}><Button >View</Button></Link>
                             </ButtonGroup>&nbsp;
                         </ButtonToolbar>
-                        <Link to={"/indicators/"+post.id}>{post.name}</Link>
+                        <Link to={"/programs/"+post.id}>{post.name}</Link>
                         <br/>
-                        {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
-                        <br/><Label bsStyle={"danger"}>Program</Label>
+                        <h6>Description:</h6>
+                        {post.description!==undefined?<div style={{color:"green"}}>{post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                        <hr/>
+                        <h6>Metadata Type:</h6>
+                        <Label bsStyle={"danger"}>Program</Label>
                         </Panel.Body>
                 </Panel>
             </div>
