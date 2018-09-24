@@ -12,8 +12,7 @@ export default function reducer(state = {
             return {...state, fetching: false, error: action.payload} //error fetching
         }
         case 'FETCH_PROGRAMS_FULLFILLED': {
-            //console.log('tuko hapa',action.payload.programs)
-            return {...state, fetching: false, fetched: true, programs: action.payload.programs} //fetching successful
+             return {...state, fetching: false, fetched: true, programs: action.payload.programs} //fetching successful
         }
         default: {
             return {...state}

@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import * as ReactBootstrap from 'react-bootstrap';
+import {
+    ButtonGroup,
+    ButtonToolbar,
+    Button
+} from 'react-bootstrap';
 import './Tabpane.css';
 import LetterResults from "./LetterResults";
 import CustomAlert from "./CustomAlert";
-
-let valuePassed = "";
-
-class ButtonGroup extends Component {
+class ButtonGroupNav extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,33 +18,32 @@ class ButtonGroup extends Component {
     }
 
     handleClick(message) {
-        valuePassed = message;
         this.setState({
             showComponent: true,
+            valuePassed:message
         });
     }
 
     genCharArray(charA, charZ) {
-        var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);
+        let a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);
         for (i; i <= j; ++i) {
             let letGot = String.fromCharCode(i);
-            a.push(<ReactBootstrap.Button onClick={this.handleClick.bind(this, letGot)}
-                                          key={i}>{String.fromCharCode(i)}</ReactBootstrap.Button>);
+            a.push(<Button onClick={this.handleClick.bind(this, letGot)}
+                                          key={i}>{String.fromCharCode(i)}</Button>);
         }
         return a;
     };
-
     render() {
         return (
             <div className="container buttonGroup">
-                <ReactBootstrap.ButtonToolbar>
-                    <ReactBootstrap.ButtonGroup>
-                        <ReactBootstrap.Button onClick={this.handleClick.bind(this, "#")}>#</ReactBootstrap.Button>
+                <ButtonToolbar>
+                    <ButtonGroup>
+                        <Button onClick={this.handleClick.bind(this, "#")}>#</Button>
                         {this.genCharArray('A', 'Z')}
-                    </ReactBootstrap.ButtonGroup>
-                </ReactBootstrap.ButtonToolbar>
+                    </ButtonGroup>
+                </ButtonToolbar>
                 {this.state.showComponent ?
-                    <LetterResults letter={valuePassed} item={this.props.item}/> :
+                    <LetterResults letter={this.state.valuePassed} item={this.props.item}/> :
                     <CustomAlert for={this.props.item}/>
                 }
             </div>
@@ -51,4 +51,4 @@ class ButtonGroup extends Component {
     }
 }
 
-export default ButtonGroup;
+export default ButtonGroupNav;
