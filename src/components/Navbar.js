@@ -12,7 +12,7 @@ import {
     InputGroup,
     DropdownButton,
     Glyphicon,
-    Panel, ButtonToolbar, ButtonGroup
+    Panel, ButtonToolbar, ButtonGroup,Pagination
 } from 'react-bootstrap';
 import Link from "react-router-dom/es/Link";
 import Label from "react-bootstrap/es/Label";
@@ -259,11 +259,11 @@ class NavbarCustom extends Component {
                         <h3>Search results:</h3>
                         <hr/>
                         <Online>
-                        {this.state.selectedItem.item===1?<div>{dataSets_Items}{indicator_Items}{programs_Items}{dataElements_Items}</div>:null}
-                        {this.state.selectedItem.item===2?dataSets_Items:null}
-                        {this.state.selectedItem.item===3?indicator_Items:null}
-                        {this.state.selectedItem.item===4?programs_Items:null}
-                        {this.state.selectedItem.item===5?dataElements_Items:null}
+                        {this.state.selectedItem.item===1?(this.state.ds_results.length>0||this.state.ind_results.length>0||this.state.programs_results.length>0||this.state.dataElements_results.length>0)?<div>{dataSets_Items}{indicator_Items}{programs_Items}{dataElements_Items}</div>:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
+                        {this.state.selectedItem.item===2?this.state.ds_results.length>0?dataSets_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
+                        {this.state.selectedItem.item===3?this.state.ind_results.length>0?indicator_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
+                        {this.state.selectedItem.item===4?this.state.programs_results.length>0?programs_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
+                        {this.state.selectedItem.item===5?this.state.dataElements_results.length>0?dataElements_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
                         </Online>
                         <Offline>
                             <Alert bsStyle={"danger"}>You are offline. Check your internet connection and try again</Alert>
@@ -275,6 +275,18 @@ class NavbarCustom extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose}>Close</Button>
+                        <Pagination className={"pull-left"}>
+                            <Pagination.First />
+                            <Pagination.Prev />
+                            <Pagination.Item active>{1}</Pagination.Item>
+                            <Pagination.Item>{2}</Pagination.Item>
+                            <Pagination.Item>{3}</Pagination.Item>
+                            <Pagination.Item>{4}</Pagination.Item>
+                            <Pagination.Item>{5}</Pagination.Item>
+                            <Pagination.Item>{6}</Pagination.Item>
+                            <Pagination.Next />
+                            <Pagination.Last />
+                        </Pagination>
                     </Modal.Footer>
                 </Modal>
             </div>
