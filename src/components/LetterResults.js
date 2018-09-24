@@ -51,7 +51,8 @@ class LetterResults extends Component {
             numerator:"",
             denominator:"",
             shortname:"",
-            programType: ""
+            programType: "",
+            updated:0
         };
     }
     handleClose() {
@@ -64,7 +65,7 @@ class LetterResults extends Component {
         this.setState({isLoading: true, show: true,itemType:"ds",descriptionView:description,description:description,id:id,name:name,periodType:periodType});
     }
     handleShowindicators(id,description,name,indicatorType,numerator,denominator,shortname) {
-        this.setState({isLoading: true, show: true,itemType:"indi",descriptionView:description,description:description,id:id,name:name,indicatorType:indicatorType.id, numerator:numerator, denominator:denominator, shortname:shortname});
+        this.setState({isLoading: true, show: true,itemType:"indi",descriptionView:description,description:description,id:id,name:name,indicatorType:indicatorType.id, numerator:numerator, denominator:denominator, shortname:shortname}, console.log("numer:"+this.state.numerator+" denom:"+ this.state.denominator));
     }
     handleShowprograms(id,description,name,shortname,programType) {
         this.setState({isLoading: true, show:true,itemType:"prog",descriptionView:description,description:description,id:id,name:name, programType:programType,
@@ -123,9 +124,16 @@ class LetterResults extends Component {
             }
         })
             .then(response => response.json())
-            .then(json => console.log(json));
-        window.alert("Updated");
-        this.handleClose();
+            .then(json => {
+                if(json.httpStatusCode===200){
+                    this.setState({updated:1,descriptionView:this.state.description});
+                }
+                else{
+                    this.setState({updated:2});
+                }
+            });
+        //window.alert("Updated");
+        //this.handleClose();
     }
     handledescriptionChange=(e)=> {
         this.setState({description: e.target.value});
@@ -932,6 +940,8 @@ class LetterResults extends Component {
                         <Modal.Title>{this.state.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                        {this.state.updated===1?<Alert bsStyle={"success"}>The Description has been updated successfully <Glyphicon glyph={"ok"} className={"pull-right"}/></Alert>:null}
+                        {this.state.updated===2?<Alert bsStyle={"danger"}>Could not update the description <Glyphicon glyph={"remove"} className={"pull-right"}/></Alert>:null}
                         <h4>Current Description:</h4>
                         {(this.state.descriptionView === undefined) ?
                             <div style={{color: "#ff0000"}}>No description
