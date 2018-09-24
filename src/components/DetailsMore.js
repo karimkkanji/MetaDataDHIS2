@@ -255,20 +255,15 @@ const dataelements = (deets) => (<tbody>
 {/* End of Datasets*/}
 
 </tbody>);
-const numDenom = (deets) =>(
-    <div>
+const numDenom = (deets) =>(<div>
     <h5>Numerator Description</h5>
     <code>{deets.numeratorDescription}</code>
 <h5>Denominator Description</h5>
 <code>{deets.denominatorDescription}</code>
-    </div>
-);
+    </div>);
 function IndicatorGroup({groupsGotten}){
     return <div>-{groupsGotten.name}</div>;
 }
-
-// DataSet List
-
 function IndicatorGroupList({indicatorGroups}){
     return (
         <div>{indicatorGroups.map((groups) => <IndicatorGroup groupsGotten={groups} key={groups.name}/>)}</div>
@@ -280,7 +275,7 @@ class DetailsMore extends Component {
         myNumerator:[]
     };
     componentDidMount () {
-        fetch(`http://197.136.81.99:8082/test/api/${this.props.item}/${this.props.id}`, headers //youtube guy this.props.location.state.dynamicData
+        fetch(`http://197.136.81.99:8082/test/api/${this.props.item}/${this.props.id}`, headers
         ).then((Response) => Response.json())
             .then((findresponse) => {
                 this.setState({

@@ -39,6 +39,7 @@ class LetterResults extends Component {
             show: false,
             itemType:"",
             description:"",
+            descriptionView:"",
             name:"",
             id:"",
             aggregationType: "",
@@ -57,16 +58,16 @@ class LetterResults extends Component {
         this.setState({ show: false,isLoading: false });
     }
     handleShow(id,description,name,aggregationType,domainType,valueType,shortName) {
-        this.setState({isLoading: true, show: true, itemType:"de", description:description,id:id,name:name,aggregationType:aggregationType,domainType:domainType,valueType:valueType,shortName:shortName});
+        this.setState({isLoading: true, show: true, itemType:"de",descriptionView:description, description:description,id:id,name:name,aggregationType:aggregationType,domainType:domainType,valueType:valueType,shortName:shortName});
     }
     handleShowdatasets(id,description,name,periodType) {
-        this.setState({isLoading: true, show: true,itemType:"ds",description:description,id:id,name:name,periodType:periodType});
+        this.setState({isLoading: true, show: true,itemType:"ds",descriptionView:description,description:description,id:id,name:name,periodType:periodType});
     }
     handleShowindicators(id,description,name,indicatorType,numerator,denominator,shortname) {
-        this.setState({isLoading: true, show: true,itemType:"indi",description:description,id:id,name:name,indicatorType:indicatorType, numerator:numerator, denominator:denominator, shortname:shortname});
+        this.setState({isLoading: true, show: true,itemType:"indi",descriptionView:description,description:description,id:id,name:name,indicatorType:indicatorType, numerator:numerator, denominator:denominator, shortname:shortname});
     }
     handleShowprograms(id,description,name,shortname,programType) {
-        this.setState({isLoading: true, show:true,itemType:"prog",description:description,id:id,name:name, programType:programType,
+        this.setState({isLoading: true, show:true,itemType:"prog",descriptionView:description,description:description,id:id,name:name, programType:programType,
             shortname:shortname});
     }
     update(itemType) {
@@ -932,7 +933,7 @@ class LetterResults extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <h4>Current Description:</h4>
-                        {(this.state.description === undefined) ?
+                        {(this.state.descriptionView === undefined) ?
                             <div style={{color: "#ff0000"}}>No description
                                 provided.</div> : this.state.description}<br/>
                         <h4>New Description</h4>
