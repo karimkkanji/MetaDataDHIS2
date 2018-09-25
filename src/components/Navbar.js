@@ -3,10 +3,8 @@ import config from '../actions/config'
 import {
     Modal,
     Button,
-    Nav,
     Navbar,
     MenuItem,
-    NavDropdown,
     FormGroup,
     FormControl,
     InputGroup,
@@ -14,6 +12,7 @@ import {
     Glyphicon,
     Panel, ButtonToolbar, ButtonGroup,Pagination
 } from 'react-bootstrap';
+import '../scrollable.css';
 import Link from "react-router-dom/es/Link";
 import Label from "react-bootstrap/es/Label";
 import {Offline, Online} from "react-detect-offline";
@@ -23,6 +22,7 @@ const headers = {
         'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
     }
 };
+
 class NavbarCustom extends Component {
     constructor(props, context) {
         super(props, context);
@@ -33,6 +33,7 @@ class NavbarCustom extends Component {
             value: '',
             ind_results:[],
             ds_results: [],
+            data:[],
             dataElements_results:[],
             programs_results:[],
             filterText:'',
@@ -42,7 +43,8 @@ class NavbarCustom extends Component {
             }
         };
     }
-      handleClose() {
+
+    handleClose() {
         document.getElementById("searchField").value="";
         this.setState({ show: false });
     }
@@ -203,15 +205,7 @@ class NavbarCustom extends Component {
                         <Navbar.Toggle />
                     </Navbar.Header>
                     <Navbar.Collapse>
-                        <Nav pullRight>
-                            <NavDropdown  title="Filters" id="basic-nav-dropdown" >
-                                <MenuItem>Action</MenuItem>
-                                <MenuItem>Another action</MenuItem>
-                                <MenuItem>Something else here</MenuItem>
-                                <MenuItem divider />
-                                <MenuItem>Separated link</MenuItem>
-                            </NavDropdown>
-                        </Nav>
+
                         <Navbar.Form pullRight={true}>
                                 <FormGroup>
                                     <InputGroup>
