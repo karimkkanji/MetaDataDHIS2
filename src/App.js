@@ -20,7 +20,7 @@ const Home = () => (
 const Programs = ({match}) => (
     <div>
         {/*This is the navbar component*/}
-        <Navbar item="Data Elements"/>
+        <Navbar item="programs"/>
         <DetailsMore id={match.params.child} item={"programs"}/>
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
@@ -29,7 +29,7 @@ const Programs = ({match}) => (
 const Indicators = ({match}) => (
     <div>
         {/*This is the navbar component*/}
-        <Navbar item="Data Elements"/>
+        <Navbar item="indicators"/>
         <DetailsMore id={match.params.child} item ={"indicators"}/>
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
@@ -38,7 +38,7 @@ const Indicators = ({match}) => (
 const DataElements = ({match}) => (
     <div>
         {/*This is the navbar component*/}
-        <Navbar item="Data Elements"/>
+        <Navbar item="dataelements"/>
         <DetailsMore id={match.params.child} item={"dataElements"}/>
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
@@ -47,7 +47,7 @@ const DataElements = ({match}) => (
 const Datasets = ({match}) => (
     <div>
         {/*This is the navbar component*/}
-        <Navbar item="Data Elements"/>
+        <Navbar item="datasets"/>
         <DetailsMore id={match.params.child} item={"dataSets"}/>
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}

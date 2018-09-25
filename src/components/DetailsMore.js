@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import {Row, Col, Panel, Label, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table} from 'react-bootstrap';
 import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
+import Link from "react-router-dom/es/Link";
 const headers = {
     headers: {
         'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
@@ -305,7 +306,7 @@ class DetailsMore extends Component {
                             </Col>
                             <Col xs={9} md={9}>
                                 <Breadcrumb>
-                                    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                                    <Breadcrumb.Item><Link to={"/"}>Home</Link></Breadcrumb.Item>
                                     <Breadcrumb.Item active>{this.props.item}</Breadcrumb.Item>
                                     <Breadcrumb.Item active>{this.props.id}</Breadcrumb.Item>
                                 </Breadcrumb>
