@@ -404,6 +404,7 @@ class DetailsMore extends Component {
                 }
             ).then(function (jsonData) {
             //handle json data processing here
+            //console.log(jsonData.indicatorGroups);
             ReactDOM.render(<IndicatorGroupList indicatorGroups={jsonData.indicatorGroups}/>, document.querySelector("#indicatorGroups"));
         });
     }
