@@ -405,7 +405,7 @@ class LetterResults extends Component {
                 </div>
             </Online>
             <Offline>
-                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+                <Alert bsStyle={"danger"}>You are offline. Check your Internet connection and try again!</Alert>
             </Offline>
         </div>
             );
