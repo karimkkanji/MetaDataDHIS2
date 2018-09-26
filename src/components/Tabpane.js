@@ -103,7 +103,7 @@ class Tabpane extends Component {
                 }).then(findresponse => {
                 /* console.log(findresponse.dataElementGroups);*/
                 this.setState({
-                    data: findresponse.dataElementGroups,
+                    data: findresponse.dataElementGroups,selectedGroup:"Filter"
                 })
             }).catch(error => {
                 console.log(error);
@@ -116,7 +116,7 @@ class Tabpane extends Component {
                 }).then(findresponse => {
                 /* console.log(findresponse.dataElementGroups);*/
                 this.setState({
-                    data: findresponse.indicatorGroups,
+                    data: findresponse.indicatorGroups,selectedGroup:"Filter"
                 })
             }).catch(error => {
                 console.log(error);
@@ -124,7 +124,7 @@ class Tabpane extends Component {
         }
         else{
             this.setState({
-                data:[]
+                data:[],selectedGroup:"Filter"
             })
         }
 
