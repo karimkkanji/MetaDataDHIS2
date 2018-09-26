@@ -1,11 +1,23 @@
 import React, {Component} from 'react';
 import './Tabpane.css';
-import {Nav, NavItem, Col, Row, Tab, Button, FormControl, MenuItem} from 'react-bootstrap';
+import {
+    Nav,
+    NavItem,
+    Col,
+    Row,
+    Tab,
+    Button,
+    FormControl,
+    MenuItem,
+    Glyphicon,
+    DropdownButton
+} from 'react-bootstrap';
 import ButtonGroupNav from "./ButtonGroupNav";
 import './Tabpane.css';
 import * as ReactDOM from "react-dom";
 import Dropdown from "react-bootstrap/es/Dropdown";
 import config from "../actions/config";
+import ShowAll from "./ShowAll";
 const headers = {
     headers: {
         'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
@@ -22,9 +34,11 @@ class CustomToggle extends React.Component {
     }
     render() {
         return (
+            <div ref={node=>this.node=node}>
             <Button onClick={this.handleClick}>
                 {this.props.children}
             </Button>
+            </div>
         );
     }
 }
@@ -55,7 +69,7 @@ class CustomMenu extends React.Component {
         const { value } = this.state;
 
         return (
-            <div className="dropdown-menu" style={{ padding: '' }}>
+            <div className="dropdown-menu">
                 <FormControl ref={c => {this.input = c;}}
                              type="text"
                              placeholder="Type to filter..."
@@ -77,23 +91,40 @@ class Tabpane extends Component {
     constructor(){
         super();
         this.state = {
+            viewTabs:true,
             selectedGroup: "Filter",
             data:[],
-            selectedItem:"datasets"
+            selectedItem:"datasets",
+            selectedId:"",
+            selectedItemdd:{
+                "item": 1,
+                "name":"All"
+            }
+        };
+        this.showAllButton = this.showAllButton.bind(this);
+        this.removeAllButton = this.removeAllButton.bind(this);
+    }
+    handleClick(id){
+        switch (id) {
+            case 1:this.setState({selectedItem:"Filter",selectedItemdd:{"item":1,"name":"All"}});break;
+            case 2:this.setState({selectedItem:"datasets",selectedItemdd:{"item":2,"name":"Datasets"}},this.callGroups.bind(this,"datasets"));break;
+            case 3:this.setState({selectedItem:"indicators",selectedItemdd:{"item":3,"name":"Indicators"}},this.callGroups.bind(this,"indicators"));break;
+            case 4:this.setState({selectedItem:"programs",selectedItemdd:{"item":4,"name":"Programs"}},this.callGroups.bind(this,"programs"));break;
+            case 5:this.setState({selectedItem:"dataelements",selectedItemdd:{"item":5,"name":"Data Elements"}},this.callGroups.bind(this,"dataelements"));break;
+            default:this.setState({selectedItem:"dataelements",selectedItemdd:{"item":0,"name":"None"}},this.callGroups.bind(this,"dataelements"))
         }
     }
-    changeItemSelected(itemSel){
-        switch (itemSel) {
-            case "de":this.setState({selectedItem:"dataelements"},this.callGroups.bind(this,"dataelements"));break;
-            case "prog":this.setState({selectedItem:"programs"},this.callGroups.bind(this,"programs"));break;
-            case "ind":this.setState({selectedItem:"indicators"},this.callGroups.bind(this,"indicators"));break;
-            case "ds":this.setState({selectedItem:"datasets"},this.callGroups.bind(this,"datasets"));break;
-            default:this.setState({selectedItem:"dataelements"},this.callGroups.bind(this,"dataelements"));break;
-        }
+    handleGroup(name,id){
+        //console.log(name);
+        this.setState({selectedGroup:name,selectedId:id});
     }
-    handleGroup(name){
-        console.log(name);
-        this.setState({selectedGroup:name});
+    showAllButton(){
+        this.setState({viewTabs:false});
+        ReactDOM.render(<ShowAll groups={this.state.selectedItem} id={this.state.selectedId}/>,document.querySelector("#displayHereAfter"))
+    }
+    removeAllButton(){
+        this.setState({viewTabs:true,selectedGroup: "Filter",selectedItem:"Filter",selectedItemdd:{"item":1,"name":"All"}});
+        ReactDOM.render("",document.querySelector("#displayHereAfter"))
     }
     callGroups(itemCalled) {
         if(itemCalled==="dataelements") {
@@ -133,24 +164,37 @@ class Tabpane extends Component {
         return (
             <div className="tabpanebody">
                 <div className="container">
-                    <label>Choose a filter:</label>&nbsp;
-                    <Dropdown id="dropdown-custom-menu" style={{marginBottom:8}}>
-                        <CustomToggle bsRole="toggle">{this.state.selectedGroup} <span className={"caret"}/></CustomToggle>
-                        <CustomMenu bsRole="menu">
-                            {this.state.data.map( (dynamicData,key) =>
-                                <MenuItem onClick={this.handleGroup.bind(this,dynamicData.name)} key={key}> {dynamicData.name}</MenuItem>
-                            )}
-                        </CustomMenu>
-                    </Dropdown>
                     <hr/>
-                    <Tab.Container id="tabs-with-dropdown" defaultActiveKey="first">
+                    <Row className={"div-inline"}>
+                        <label>Filter by Groups</label>&nbsp;
+                        <DropdownButton
+                                                         id="input-dropdown-addon"
+                                                         title={this.state.selectedItemdd.name}>
+                        <MenuItem key="nav2" onClick={this.handleClick.bind(this,2)}>Data Sets{this.state.selectedItemdd.item===2?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                        <MenuItem key="nav3" onClick={this.handleClick.bind(this,3)}>Indicators{this.state.selectedItemdd.item===3?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                        <MenuItem key="nav4" onClick={this.handleClick.bind(this,4)}>Programs{this.state.selectedItemdd.item===4?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                        <MenuItem key="nav5" onClick={this.handleClick.bind(this,5)}>Data Elements{this.state.selectedItemdd.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                    </DropdownButton>&nbsp;
+                        <Dropdown id="dropdown-custom-menu">
+                            <CustomToggle bsRole="toggle">{this.state.selectedGroup} <span className={"caret"}/></CustomToggle>
+                            <CustomMenu bsRole="menu">
+                                {this.state.data.map( (dynamicData,key) =>
+                                    <MenuItem onClick={this.handleGroup.bind(this,dynamicData.name,dynamicData.id)} key={key}> {dynamicData.name}</MenuItem>
+                                )}
+                            </CustomMenu>
+                        </Dropdown>&nbsp;
+                        {this.state.viewTabs?<Button onClick={this.showAllButton}>View All</Button>:null}&nbsp;
+                        {!this.state.viewTabs? <Button bsStyle="danger" onClick={this.removeAllButton}><Glyphicon glyph={"repeat"}/></Button>:null}
+                    </Row>
+                    <hr/>
+                    {this.state.viewTabs?<Tab.Container id="tabs-with-dropdown" defaultActiveKey="first">
                         <Row className="clearfix">
                             <Col sm={12}>
                                 <Nav bsStyle="tabs">
-                                    <NavItem eventKey="first" onClick={this.changeItemSelected.bind(this,"ds")}>Datasets</NavItem>
-                                    <NavItem eventKey="second" onClick={this.changeItemSelected.bind(this,"ind")}>Indicators</NavItem>
-                                    <NavItem eventKey="third" onClick={this.changeItemSelected.bind(this,"prog")}>Programs</NavItem>
-                                    <NavItem eventKey="fourth" onClick={this.changeItemSelected.bind(this,"de")}>Data Elements</NavItem>
+                                    <NavItem eventKey="first">Datasets</NavItem>
+                                    <NavItem eventKey="second">Indicators</NavItem>
+                                    <NavItem eventKey="third">Programs</NavItem>
+                                    <NavItem eventKey="fourth">Data Elements</NavItem>
                                     </Nav>
                             </Col>
                             <Col sm={12}>
@@ -164,7 +208,8 @@ class Tabpane extends Component {
                                 </div>
                             </Col>
                         </Row>
-                    </Tab.Container>
+                    </Tab.Container>:null}
+                    <div id={"displayHereAfter"}></div>
                 </div>
             </div>
 
