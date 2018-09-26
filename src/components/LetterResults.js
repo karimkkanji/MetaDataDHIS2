@@ -67,9 +67,9 @@ class LetterResults extends Component {
     handleShowindicators(id,description,name,indicatorType,numerator,denominator,shortname) {
         this.setState({isLoading: true, show: true,itemType:"indi",descriptionView:description,description:description,id:id,name:name,indicatorType:indicatorType.id, numerator:numerator, denominator:denominator, shortname:shortname}, console.log("numer:"+this.state.numerator+" denom:"+ this.state.denominator));
     }
-    handleShowprograms(id,description,name,shortname,programType) {
-        this.setState({isLoading: true, show:true,itemType:"prog",descriptionView:description,description:description,id:id,name:name, programType:programType,
-            shortname:shortname});
+    handleShowprograms(id,description,name,programType,shortname,) {
+        console.log(programType);
+        this.setState({isLoading: true, show:true,itemType:"prog",descriptionView:description,description:description,id:id,name:name, programType:programType,shortName:shortname});
     }
     update(itemType) {
         let placeholder="", headerPlace ="";
@@ -84,6 +84,7 @@ class LetterResults extends Component {
                     shortName: this.state.shortName
                 });
                 headerPlace ="dataElements/";
+                
             break;
             case "prog":
                 placeholder = JSON.stringify({
@@ -91,7 +92,9 @@ class LetterResults extends Component {
                     description: this.state.description,
                     shortName: this.state.shortName,
                     programType:this.state.programType
+                    
                 });
+            
                 headerPlace ="programs/";
             break;
             case "ds":
@@ -125,6 +128,7 @@ class LetterResults extends Component {
         })
             .then(response => response.json())
             .then(json => {
+                console.log(json);
                 if(json.httpStatusCode===200){
                     this.setState({updated:1,descriptionView:this.state.description});
                 }
@@ -275,7 +279,7 @@ class LetterResults extends Component {
                                                     <Button> <Glyphicon glyph="share"/> Share</Button>
                                                 </ButtonGroup>&nbsp;
                                                 <ButtonGroup>
-                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowprograms.bind(this,program.id,program.description,program.name,program.periodType)}>{this.state.isLoading ?
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowprograms.bind(this,program.id,program.description,program.name,program.programType,program.shortName)}>{this.state.isLoading ?
                                                         <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                                 </ButtonGroup>
                                             </ButtonToolbar>
