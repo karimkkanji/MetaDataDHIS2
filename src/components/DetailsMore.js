@@ -6,11 +6,7 @@ import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
 import Link from "react-router-dom/es/Link";
 
-const headers = {
-    headers: {
-        'Authorization': `Basic ${btoa(config.username + ":" + config.password)}`
-    }
-};
+
 const dataSets = (deets) => (<tbody>
 {/*Datasets*/}
 <tr>
@@ -352,9 +348,6 @@ class DetailsMore extends Component {
                                 <hr/>
                                 {this.props.item === "indicators" ? numDenom(deets) : null}
                             </Panel.Body>
-                        </Panel>
-                        <Panel>
-                            <Panel.Body>Basic panel example</Panel.Body>
                         </Panel>
                     </Col>
                     <Col xs={12} md={8}>
