@@ -24,7 +24,11 @@ import {fetchDataElements} from "../actions/dataelementsActions";
 import {fetchIndicators} from "../actions/indicatorActions";
 import config from '../actions/config';
 import {Offline, Online} from "react-detect-offline";
-
+const headers = {
+    headers: {
+        'Authorization': `Basic ${btoa(config.username + ":" + config.password)}`
+    }
+};
 class LetterResults extends Component {
     handledescriptionChange = (e) => {
         this.setState({description: e.target.value});

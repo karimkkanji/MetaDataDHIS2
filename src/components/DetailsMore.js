@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import config from '../actions/config';
 import ReactDOM from 'react-dom';
-import {Breadcrumb, Col, Dropdown, Glyphicon, Label, MenuItem, Panel, Row, Table} from 'react-bootstrap';
+import {Breadcrumb, Col, Dropdown, Glyphicon, MenuItem, Panel, Row, Table} from 'react-bootstrap';
 import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
 import Link from "react-router-dom/es/Link";
-
 const headers = {
     headers: {
         'Authorization': `Basic ${btoa(config.username + ":" + config.password)}`
@@ -194,6 +193,27 @@ const programs = (deets) => (<tbody>
     <td>{deets.shortName}</td>
 
 </tr>
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>
+        Name:
+    </td>
+    <td>{deets.name}</td>
+
+</tr>
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>
+       Display Name:
+    </td>
+    <td>{deets.displayName}</td>
+
+</tr>
+<tr>
+    <td className="text-primary" style={{borderRight: '2px solid black'}}>
+        Display Short Name:
+    </td>
+    <td>{deets.displayShortName}</td>
+
+</tr>
 {/* End of Datasets*/}
 
 </tbody>);
@@ -284,17 +304,17 @@ class DetailsMore extends Component {
         myNumerator: []
     };
 
-    componentDidMount() {
-        fetch(`http://197.136.81.99:8082/test/api/${this.props.item}/${this.props.id}`, headers
+    callFromApi(){
+        fetch(config.url+`${this.props.item}/${this.props.id}`, headers
         ).then((Response) => Response.json())
             .then((findresponse) => {
                 this.setState({
                     activeDetails: findresponse,
                 })
             });
-    };
-
+    }
     render() {
+        {this.callFromApi()}
         const deets = this.state.activeDetails;
         return (
             <div className={"detailsMoreBody container"}>
@@ -338,23 +358,14 @@ class DetailsMore extends Component {
                                 <hr/>
                                 <b>Identifier:</b><code>{this.props.id}</code>
                                 <hr/>
-                                <b>Version:</b><code>{deets.version}</code>
-                                <hr/>
+                                {deets.version!==undefined?<div><b>Version:</b><code>{deets.version}</code><hr/></div>:null}
                                 <h5>Related links</h5>
                                 <ul type="none">
                                     <li><a href={deets.href}>API link</a></li>
                                 </ul>
                                 <hr/>
-                                <h5>Tags</h5>
-                                <Label bsStyle="default">Default</Label>{' '}
-                                <Label bsStyle="primary">Primary</Label>{' '}
-                                <Label bsStyle="success">Success</Label>
-                                <hr/>
                                 {this.props.item === "indicators" ? numDenom(deets) : null}
                             </Panel.Body>
-                        </Panel>
-                        <Panel>
-                            <Panel.Body>Basic panel example</Panel.Body>
                         </Panel>
                     </Col>
                     <Col xs={12} md={8}>
@@ -404,7 +415,7 @@ class DetailsMore extends Component {
         expression = expression.replace(/}/g, "%7D");
         expression = expression.replace(/\s/g, "%20");
         expression = expression.replace(/\+/g, "%2B");
-        fetch('http://197.136.81.99:8082/test/api/26/expressions/description.json?expression=' + expression, headers)
+        fetch(config.url+'expressions/description.json?expression=' + expression, headers)
             .then(
                 function (response) {
                     return response.json();
@@ -417,7 +428,7 @@ class DetailsMore extends Component {
 
     getIndicatorGroups() {
         let expression = this.props.id;
-        fetch('http://197.136.81.99:8082/test/api/indicators/' + expression + '.json?fields=indicatorGroups[name]', headers)
+        fetch(config.url+'indicators/' + expression + '.json?fields=indicatorGroups[name]', headers)
             .then(
                 function (response) {
                     return response.json();
@@ -432,7 +443,7 @@ class DetailsMore extends Component {
 
     getIndicatorTypes() {
         let expression = this.props.id;
-        fetch('http://197.136.81.99:8082/test/api/indicators/' + expression + '.json?fields=indicatorType[name]', headers)
+        fetch(config.url+'indicators/' + expression + '.json?fields=indicatorType[name]', headers)
             .then(
                 function (response) {
                     return response.json();
