@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import Store from './Store';
 import {Provider} from 'react-redux'
 import './App.css';
@@ -8,6 +8,7 @@ import DetailsMore from "./components/DetailsMore";
 import {Checkbox, Form, FormGroup, Panel, Row} from "react-bootstrap";
 import BrowserRouter from "react-router-dom/es/HashRouter";
 import {Route, Switch} from "react-router-dom";
+
 const Home = () => (
     <div>
         {/*This is the navbar component*/}
@@ -30,7 +31,7 @@ const Indicators = ({match}) => (
     <div>
         {/*This is the navbar component*/}
         <Navbar item="indicators"/>
-        <DetailsMore id={match.params.child} item ={"indicators"}/>
+        <DetailsMore id={match.params.child} item={"indicators"}/>
         {/*Tabpane component shows the tabs*/}
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
@@ -59,7 +60,7 @@ const Search = () => (
         <Navbar item="Data Elements"/>
         <div className={"pageMargin container"}>
             <Row>
-                <Panel style={{padding:10}}>
+                <Panel style={{padding: 10}}>
                     <h3>Filters:</h3>
                     <Form>
                         <FormGroup>
@@ -71,7 +72,7 @@ const Search = () => (
                 </Panel>
             </Row>
             <Row>
-                <Panel style={{padding:10}}>
+                <Panel style={{padding: 10}}>
                     <h1>
                         Results
                     </h1>
@@ -82,6 +83,7 @@ const Search = () => (
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
 );
+
 /*
 const NoMatch = () => (
     <div>
@@ -99,7 +101,7 @@ const NoMatch = () => (
     </div>
 );
 */
-class App extends Component{
+class App extends Component {
     render() {
         return (
             <Provider store={Store}>
@@ -121,4 +123,5 @@ class App extends Component{
         );
     }
 }
+
 export default App;

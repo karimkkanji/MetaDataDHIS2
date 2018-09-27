@@ -1,21 +1,16 @@
 import React, {Component} from 'react';
 import config from '../actions/config';
-import {
-    Alert,
-    Button,
-    ButtonGroup,
-    ButtonToolbar, Col,
-    ListGroup,
-    Panel,
-} from 'react-bootstrap';
+import {Alert, Button, ButtonGroup, ButtonToolbar, Col, ListGroup, Panel,} from 'react-bootstrap';
 import './Tabpane.css';
 import Link from "react-router-dom/es/Link";
+
 let output = "";
-const headers ={
-    headers:{
-        'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
+const headers = {
+    headers: {
+        'Authorization': `Basic ${btoa(config.username + ":" + config.password)}`
     }
 };
+
 class LetterResultsDetails extends Component {
     constructor(props) {
         super(props);
@@ -25,12 +20,13 @@ class LetterResultsDetails extends Component {
             filterText: ''
         }
     }
+
     componentDidMount() {
         this.setState({isLoading: true});
         let item = this.props.item;
 
         if (item === "programs") {
-            fetch(config.url+`programs.json?fields=:all&paging=false`, headers
+            fetch(config.url + `programs.json?fields=:all&paging=false`, headers
             ).then((Response) => Response.json())
                 .then((findresponse) => {
                     this.setState({
@@ -39,7 +35,7 @@ class LetterResultsDetails extends Component {
                 })
         }
         else if (item === "dataSets") {
-            fetch(config.url+'dataSets.json?fields=:all&paging=false', headers
+            fetch(config.url + 'dataSets.json?fields=:all&paging=false', headers
             ).then((Response) => Response.json())
                 .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     this.setState({
@@ -48,7 +44,7 @@ class LetterResultsDetails extends Component {
                 })
         }
         else if (item === "indicators") {
-            fetch(config.url+'indicators.json?fields=:all&paging=false', headers
+            fetch(config.url + 'indicators.json?fields=:all&paging=false', headers
             ).then((Response) => Response.json())
                 .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     this.setState({
@@ -57,7 +53,7 @@ class LetterResultsDetails extends Component {
                 })
         }
         else if (item === "dataElements") {
-            fetch(config.url+'dataElements.json?fields=:all&paging=false', headers
+            fetch(config.url + 'dataElements.json?fields=:all&paging=false', headers
             ).then((Response) => Response.json())
                 .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
                     console.log(findresponse.dataElements); //hapa ndio jackpot
@@ -67,13 +63,14 @@ class LetterResultsDetails extends Component {
                 })
         }
     }
+
     render() {
         const {isLoading} = this.state;
         /*This allows a loader to show while data is being loaded to states, once loaded, the state will change to true then rendering will occur*/
         if (isLoading) {
             return <div className="spinner">
-                <div className="double-bounce1"></div>
-                <div className="double-bounce2"></div>
+                <div className="double-bounce1"/>
+                <div className="double-bounce2"/>
             </div>;
         }
         if (this.props.letter === "char") {
@@ -84,7 +81,7 @@ class LetterResultsDetails extends Component {
                     if (dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
                         return dynamicData.name[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
                     }
-                    else{
+                    else {
                         return undefined;
                     }
                 })
@@ -94,15 +91,17 @@ class LetterResultsDetails extends Component {
                             <Panel.Body>
                                 <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                     <ButtonGroup>
-                                        <Link to={"/"+this.props.item+"/"+dynamicData.id}>
-                                        <Button>View
-                                        </Button>
+                                        <Link to={"/" + this.props.item + "/" + dynamicData.id}>
+                                            <Button>View
+                                            </Button>
                                         </Link>
                                     </ButtonGroup>&nbsp;
                                 </ButtonToolbar>
-                                <a href={"/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
+                                <a href={"/" + this.props.item + "/" + dynamicData.id}>{dynamicData.name}</a>
                                 <br/>
-                                {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                                {dynamicData.description !== undefined ?
+                                    <div style={{color: "green"}}>Description: {dynamicData.description}</div> :
+                                    <div style={{color: "red"}}>No description provided</div>}
                             </Panel.Body>
                         </Panel>
                     </div>
@@ -121,14 +120,16 @@ class LetterResultsDetails extends Component {
                             <Panel.Body>
                                 <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                                     <ButtonGroup>
-                                        <Link to={"/"+this.props.item+"/"+dynamicData.id}>
-                                        <Button>View</Button>
-                                    </Link>
+                                        <Link to={"/" + this.props.item + "/" + dynamicData.id}>
+                                            <Button>View</Button>
+                                        </Link>
                                     </ButtonGroup>&nbsp;
                                 </ButtonToolbar>
-                                <a href={"/"+this.props.item+"/"+dynamicData.id}>{dynamicData.name}</a>
+                                <a href={"/" + this.props.item + "/" + dynamicData.id}>{dynamicData.name}</a>
                                 <br/>
-                                {dynamicData.description!==undefined?<div style={{color:"green"}}>Description: {dynamicData.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                                {dynamicData.description !== undefined ?
+                                    <div style={{color: "green"}}>Description: {dynamicData.description}</div> :
+                                    <div style={{color: "red"}}>No description provided</div>}
                             </Panel.Body>
                         </Panel>
                     </div>

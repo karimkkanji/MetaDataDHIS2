@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
-import {
-    ButtonGroup,
-    ButtonToolbar,
-    Button
-} from 'react-bootstrap';
+import {Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
 import './Tabpane.css';
 import LetterResults from "./LetterResults";
 import CustomAlert from "./CustomAlert";
+
 class ButtonGroupNav extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +17,7 @@ class ButtonGroupNav extends Component {
     handleClick(message) {
         this.setState({
             showComponent: true,
-            valuePassed:message
+            valuePassed: message
         });
     }
 
@@ -29,10 +26,11 @@ class ButtonGroupNav extends Component {
         for (i; i <= j; ++i) {
             let letGot = String.fromCharCode(i);
             a.push(<Button onClick={this.handleClick.bind(this, letGot)}
-                                          key={i}>{String.fromCharCode(i)}</Button>);
+                           key={i}>{String.fromCharCode(i)}</Button>);
         }
         return a;
     };
+
     render() {
         return (
             <div className="container buttonGroup">

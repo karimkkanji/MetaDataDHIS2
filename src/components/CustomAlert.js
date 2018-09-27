@@ -6,12 +6,15 @@ class CustomAlert extends Component {
     render() {
         return (
             <div className={"alertHome"}>
-                <Col xs={6}> <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="100.000000pt" height="100.000000pt" viewBox="0 0 700.000000 700.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.12, written by Peter Selinger 2001-2015
-                    </metadata>
-                    <g transform="translate(0.000000,700.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                        <path d="M1073 6979 c-55 -27 -73 -58 -132 -225 -61 -172 -115 -294 -242 -544
+                <Col xs={6}>
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="100.000000pt" height="100.000000pt"
+                         viewBox="0 0 700.000000 700.000000" preserveAspectRatio="xMidYMid meet">
+                        <metadata>
+                            Created by potrace 1.12, written by Peter Selinger 2001-2015
+                        </metadata>
+                        <g transform="translate(0.000000,700.000000) scale(0.100000,-0.100000)" fill="#000000"
+                           stroke="none">
+                            <path d="M1073 6979 c-55 -27 -73 -58 -132 -225 -61 -172 -115 -294 -242 -544
 -92 -182 -145 -280 -306 -570 -84 -149 -296 -581 -317 -644 -33 -99 19 -208
 107 -223 27 -4 58 3 129 32 218 88 503 235 721 372 64 40 124 76 131 79 13 5
 14 -78 9 -628 -7 -719 2 -1024 47 -1603 27 -353 112 -923 182 -1230 170 -744
@@ -31,13 +34,14 @@ class CustomAlert extends Component {
 c-41 21 -92 40 -113 44 -25 4 -44 15 -54 31 -27 40 -71 57 -133 49 -151 -19
 -318 -92 -581 -255 -90 -56 -166 -100 -168 -98 -2 3 55 112 127 244 72 131
 161 293 196 359 67 124 239 471 266 538 9 20 20 37 24 37 4 0 108 -192 230
--428z"></path>
-                    </g>
-                </svg>
+-428z"/>
+                        </g>
+                    </svg>
                     <Alert bsStyle={"info"}>
                         <strong>Hello there </strong> Click any of the buttons to
-                        show {this.props.for} according to Alphabetical order! <p style={{color:"#7d0f89"}}>If it doesn't start
-                    with an alphabet use # instead</p>
+                        show {this.props.for} according to Alphabetical order! <p style={{color: "#7d0f89"}}>If it
+                        doesn't start
+                        with an alphabet use # instead</p>
                     </Alert>
                 </Col>
             </div>

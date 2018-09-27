@@ -1,22 +1,25 @@
 import React, {Component} from 'react';
 import config from '../actions/config'
 import {
-    Modal,
     Button,
-    Navbar,
-    MenuItem,
-    FormGroup,
-    FormControl,
-    InputGroup,
+    ButtonGroup,
+    ButtonToolbar,
     DropdownButton,
+    FormControl,
+    FormGroup,
     Glyphicon,
-    Panel, ButtonToolbar, ButtonGroup,Pagination
+    InputGroup,
+    MenuItem,
+    Modal,
+    Navbar,
+    Pagination,
+    Panel
 } from 'react-bootstrap';
-import '../scrollable.css';
 import Link from "react-router-dom/es/Link";
 import Label from "react-bootstrap/es/Label";
 import {Offline, Online} from "react-detect-offline";
 import Alert from "react-bootstrap/es/Alert";
+
 const headers = {
     headers: {
         'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
@@ -37,9 +40,9 @@ class NavbarCustom extends Component {
             dataElements_results:[],
             programs_results:[],
             filterText:'',
-            selectedItem:{
+            selectedItem: {
                 "item": 1,
-                "name":"All"
+                "name": "All"
             }
         };
     }
@@ -217,7 +220,10 @@ class NavbarCustom extends Component {
                                                 <MenuItem key="nav2" onClick={this.handleClick.bind(this,2)}>Data Sets{this.state.selectedItem.item===2?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                                 <MenuItem key="nav3" onClick={this.handleClick.bind(this,3)}>Indicators{this.state.selectedItem.item===3?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                                 <MenuItem key="nav4" onClick={this.handleClick.bind(this,4)}>Programs{this.state.selectedItem.item===4?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
-                                                <MenuItem key="nav5"onClick={this.handleClick.bind(this,5)}>Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                                <MenuItem key="nav5" onClick={this.handleClick.bind(this, 5)}>Data
+                                                    Elements{this.state.selectedItem.item === 5 ?
+                                                        <Glyphicon glyph="ok" bsStyle={"primary"}
+                                                                   className={"pull-right"}/> : null}</MenuItem>
                                             </DropdownButton>
                                         </InputGroup.Button>
                                         <FormControl type="text" placeholder={"Search metadata here..."} style={{width: 300}} id={"searchField"} onChange={()=>{this.handleInput()}}/>
@@ -240,7 +246,10 @@ class NavbarCustom extends Component {
                                             <MenuItem key="mod2" onClick={this.handleClick.bind(this,2)}>Data Sets{this.state.selectedItem.item===2?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                             <MenuItem key="mod3" onClick={this.handleClick.bind(this,3)}>Indicators{this.state.selectedItem.item===3?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                             <MenuItem key="mod4" onClick={this.handleClick.bind(this,4)}>Programs{this.state.selectedItem.item===4?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
-                                            <MenuItem key="mod5"onClick={this.handleClick.bind(this,5)}>Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                            <MenuItem key="mod5" onClick={this.handleClick.bind(this, 5)}>Data
+                                                Elements{this.state.selectedItem.item === 5 ?
+                                                    <Glyphicon glyph="ok" bsStyle={"primary"}
+                                                               className={"pull-right"}/> : null}</MenuItem>
                                         </DropdownButton>
                                     </InputGroup.Button>
                                     <FormControl type="text" placeholder={"Search metadata here..."} autoFocus={true} style={{width: 500}} onChange={this.handleSearch } value={this.state.filterText}/>

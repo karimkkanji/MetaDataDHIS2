@@ -1,6 +1,7 @@
 .tabpanebody {
-    margin-top: 65px;
+    margin-top: 35px;
 }
+
 .detailsMoreBody {
     margin-top: 100px;
 }
@@ -72,21 +73,23 @@
         -webkit-transform: scale(1.0);
     }
 }
+
 .lds-dual-ring {
     display: inline-block;
     width: 18px;
     height: 18px;
 }
+
 .lds-dual-ring:after {
     content: " ";
     display: block;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 5px solid #cef;
     border-color: #cef transparent #cef transparent;
     animation: lds-dual-ring 1.2s linear infinite;
 }
+
 @keyframes lds-dual-ring {
     0% {
         transform: rotate(0deg);
@@ -94,4 +97,24 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #D8ECF6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #3CBFDB;
 }
