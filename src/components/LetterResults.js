@@ -28,7 +28,7 @@ import {Offline, Online} from "react-detect-offline";
 class LetterResults extends Component {
     handledescriptionChange = (e) => {
         this.setState({description: e.target.value});
-        console.log(e.target.value);
+        // console.log(e.target.value);
     };
 
     constructor(props, context) {
@@ -70,6 +70,7 @@ class LetterResults extends Component {
     }
 
     handleShow(id, description, name, aggregationType, domainType, valueType, shortName) {
+         /*console.log(id+" desc "+description+" name "+name+" agg: "+aggregationType+" domain: "+domainType+" value:"+valueType+" short: "+shortName);*/
         this.setState({
             isLoading: true,
             show: true,
@@ -81,7 +82,7 @@ class LetterResults extends Component {
             aggregationType: aggregationType,
             domainType: domainType,
             valueType: valueType,
-            shortName: shortName
+            shortName: shortName,
         });
     }
 
@@ -530,7 +531,7 @@ class LetterResults extends Component {
                                             </ButtonGroup>&nbsp;
                                             <ButtonGroup>
                                                 <Button disabled={this.state.isLoading}
-                                                        onClick={this.handleShow.bind(this, dataElements.id, dataElements.description, dataElements.name, dataElements.periodType)}>{this.state.isLoading ?
+                                                        onClick={this.handleShow.bind(this, dataElements.id, dataElements.description, dataElements.name, dataElements.aggregationType, dataElements.domainType, dataElements.valueType, dataElements.shortName)}>{this.state.isLoading ?
                                                     <div className="lds-dual-ring"/> :
                                                     <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                             </ButtonGroup>
@@ -625,7 +626,7 @@ class LetterResults extends Component {
                                             </ButtonGroup>&nbsp;
                                             <ButtonGroup>
                                                 <Button disabled={this.state.isLoading}
-                                                        onClick={this.handleShowprograms.bind(this, program.id, program.description, program.name, program.periodType)}>{this.state.isLoading ?
+                                                        onClick={this.handleShowprograms.bind(this, program.id, program.description, program.name, program.programType, program.shortName)}>{this.state.isLoading ?
                                                     <div className="lds-dual-ring"/> :
                                                     <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                             </ButtonGroup>
@@ -949,7 +950,7 @@ class LetterResults extends Component {
                                             </ButtonGroup>&nbsp;
                                             <ButtonGroup>
                                                 <Button disabled={this.state.isLoading}
-                                                        onClick={this.handleShow.bind(this, dataElements.id, dataElements.description, dataElements.name, dataElements.periodType)}>{this.state.isLoading ?
+                                                        onClick={this.handleShow.bind(this, dataElements.id, dataElements.description, dataElements.name, dataElements.aggregationType, dataElements.domainType, dataElements.valueType, dataElements.shortName)}>{this.state.isLoading ?
                                                     <div className="lds-dual-ring"/> :
                                                     <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
                                             </ButtonGroup>
