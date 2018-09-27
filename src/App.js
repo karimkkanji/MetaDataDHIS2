@@ -106,7 +106,7 @@ class App extends Component {
         return (
             <Provider store={Store}>
                 <div>
-                    <BrowserRouter>
+                    <BrowserRouter forceRefresh={true}>
                         <Switch>
                             <Route exact path={"/"} component={Home}/>
                             <Route path={"/index.html"} component={Home}/>
