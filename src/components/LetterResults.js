@@ -20,6 +20,7 @@ import {fetchPrograms} from "../actions/programActions";
 import {fetchDataSets} from "../actions/datasetActions";
 import {fetchDataElements} from "../actions/dataelementsActions";
 import {fetchIndicators} from "../actions/indicatorActions";
+import {fetchProgramDataElements} from "../actions/programdataelementsActions"
 import config from '../actions/config';
 import {Online,Offline} from "react-detect-offline";
 class LetterResults extends Component {
@@ -28,6 +29,7 @@ class LetterResults extends Component {
         this.props.dispatch(fetchIndicators());
         this.props.dispatch(fetchDataSets());
         this.props.dispatch(fetchDataElements());
+        this.props.dispatch(fetchProgramDataElements());
     }
     constructor(props, context) {
         super(props, context);
@@ -68,6 +70,9 @@ class LetterResults extends Component {
     handleShowprograms(id,description,name,shortname,programType) {
         this.setState({isLoading: true, show:true,itemType:"prog",description:description,id:id,name:name, programType:programType,
             shortname:shortname});
+    }
+    handleShowProgramde(id,description,name,aggregationType,shortName) {
+        this.setState({isLoading: true, show: true, itemType:"pde", description:description,id:id,name:name,aggregationType:aggregationType,shortName:shortName});
     }
     update(itemType) {
         let placeholder="", headerPlace ="";
@@ -111,6 +116,16 @@ class LetterResults extends Component {
                 });
                 headerPlace ="indicators/";
             break;
+            case "pde" :
+            placeholder = JSON.stringify({
+                name: this.state.name,
+                description: this.state.description,
+                aggregationType: this.state.aggregationType,
+                valueType: this.state.valueType,
+                shortName: this.state.shortName
+            });
+            headerPlace ="programDataElements/";
+        break;  
             default: placeholder=undefined; headerPlace=undefined;
             }
         fetch(config.url + headerPlace + this.state.id, {
@@ -491,6 +506,91 @@ class LetterResults extends Component {
         }
         //add returning functions here
     }
+    getProgramDataElements(){
+        //console.log('received DataElements',this.props.dataElements)
+        //console.log('received DataSets',this.props.dataSets)
+        if(this.props.programDataElements) {
+            //add returning functions here
+            return this.props.ProgramDataElements
+                .filter((programDataElements) => {
+                    //console.log(dynamicData.name)
+                    return programDataElements.displayName[0].toLowerCase().indexOf(this.props.letter.toLowerCase()) >= 0
+                })
+                .map((programDataElements) => {
+                    return (
+                        <div key={programDataElements.id}><Col xs={11} md={11}>
+                            <PanelGroup accordion id={programDataElements.displayName}>
+                                <Panel eventKey={programDataElements.id} bsStyle="info">
+                                    <Panel.Heading>
+                                        <Panel.Title toggle>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Glyphicon glyph="chevron-down"/>
+                                                </ButtonGroup>
+                                            </ButtonToolbar>
+                                            <p>{programDataElements.displayName}</p>
+                                        </Panel.Title>
+                                    </Panel.Heading>
+                                    <Panel.Body collapsible>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
+                                                <ButtonGroup>
+                                                    <Link to={"/" + this.props.item + "/" + programDataElements.id}><Button>More </Button>
+                                                    </Link>
+                                                </ButtonGroup>&nbsp;
+                                                <Dropdown id="dropdown-custom-1">
+                                                    <Dropdown.Toggle>
+                                                        <Glyphicon glyph="print"/>&nbsp;Export / Print
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu className="super-colors">
+                                                        <MenuItem eventKey="1"
+                                                                  href={programDataElements.href + ".csv"}>CSV</MenuItem>
+                                                        <MenuItem eventKey="2"
+                                                                  href={programDataElements.href + ".xlsx"}>Excel</MenuItem>
+                                                        <MenuItem eventKey="3"
+                                                                  href={programDataElements.href + ".pdf"}>PDF</MenuItem>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="share"/> Share</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowProgramde.bind(this,programDataElements.id,programDataElements.description,programDataElements.name,programDataElements.periodType)}>{this.state.isLoading ?
+                                                        <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
+                                                </ButtonGroup>
+                                            </ButtonToolbar>
+                                        </Row>
+                                        <hr/>
+                                        <h3>{(programDataElements.description === undefined) ?
+                                            <div style={{color: "#ff0000"}}>No description
+                                                provided.</div> : programDataElements.description}</h3>
+                                        <hr/>
+                                       
+                                        <Label bsStyle={"success"}>Value Type: {programDataElements.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>Aggregation Type: {programDataElements.aggregationType}</Label><br/>
+                                    </Panel.Body>
+                                </Panel>
+                            </PanelGroup>
+                        </Col>
+                        </div>
+                    )
+                })
+        }
+        else{
+            return(
+                <div>
+            <Online>
+                <div className="spinner">
+                    <div className="double-bounce1"></div>
+                    <div className="double-bounce2"></div>
+                </div>
+            </Online>
+            <Offline>
+                <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+            </Offline>
+        </div>
+            );
+        }}
     getProgramsMixed(){
         //console.log('received programs',this.props.programs)
         if(this.props.programs) {
@@ -891,6 +991,99 @@ class LetterResults extends Component {
         }
         //add returning functions here
     }
+    
+    getprogramDataElementsMixed(){
+        //console.log('received DataElements',this.props.dataElements)
+        //console.log('received DataSets',this.props.dataSets)
+        if(this.props.programDataElements) {
+            //add returning functions here
+            return this.props.programDataElements
+                .filter((programDataElements) => {
+                    //console.log(dynamicData.name)
+                    if (programDataElements.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i)) {
+                        return programDataElements.displayName[0].toLowerCase().match(/[0-9*#!%&^$_]/i);
+                    }
+                    else{
+                        return undefined;
+                    }
+                })
+                .map((programDataElements) => {
+                    return (
+                        <div key={programDataElements.id}><Col xs={11} md={11}>
+                            <PanelGroup accordion id={programDataElements.displayName}>
+                                <Panel eventKey={programDataElements.id} bsStyle="info">
+                                    <Panel.Heading>
+                                        <Panel.Title toggle>
+                                            <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                                                <ButtonGroup>
+                                                    <Glyphicon glyph="chevron-down"/>
+                                                </ButtonGroup>
+                                            </ButtonToolbar>
+                                            <p>{programDataElements.displayName}</p>
+                                        </Panel.Title>
+                                    </Panel.Heading>
+                                    <Panel.Body collapsible>
+                                        <Row style={{marginLeft: 10}}>
+                                            <ButtonToolbar>
+                                                <ButtonGroup>
+                                                    <Link to={"/" + this.props.item + "/" + programDataElements.id}><Button>More </Button>
+                                                    </Link>
+                                                </ButtonGroup>&nbsp;
+                                                <Dropdown id="dropdown-custom-1">
+                                                    <Dropdown.Toggle>
+                                                        <Glyphicon glyph="print"/>&nbsp;Export / Print
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu className="super-colors">
+                                                        <MenuItem eventKey="1"
+                                                                  href={programDataElements.href + ".csv"}>CSV</MenuItem>
+                                                        <MenuItem eventKey="2"
+                                                                  href={programDataElements.href + ".xlsx"}>Excel</MenuItem>
+                                                        <MenuItem eventKey="3"
+                                                                  href={programDataElements.href + ".pdf"}>PDF</MenuItem>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button> <Glyphicon glyph="share"/> Share</Button>
+                                                </ButtonGroup>&nbsp;
+                                                <ButtonGroup>
+                                                    <Button disabled={this.state.isLoading} onClick={this.handleShowProgramde.bind(this,programDataElements.id,programDataElements.description,programDataElements.name,programDataElements.periodType)}>{this.state.isLoading ?
+                                                        <div className="lds-dual-ring"></div>: <div><Glyphicon glyph="pencil"/> Edit</div>}</Button>
+                                                </ButtonGroup>
+                                            </ButtonToolbar>
+                                        </Row>
+                                        <hr/>
+                                        <h3>{(programDataElements.description === undefined) ?
+                                            <div style={{color: "#ff0000"}}>No description
+                                                provided.</div> : programDataElements.description}</h3>
+                                        <hr/>
+                                        
+                                        <Label bsStyle={"success"}>Value Type: {programDataElements.valueType}</Label>&nbsp;
+                                        <Label bsStyle={"info"}>Aggregation Type: {programDataElements.aggregationType}</Label><br/>
+                                    </Panel.Body>
+                                </Panel>
+                            </PanelGroup>
+                        </Col>
+                        </div>
+                    )
+                })
+        }
+        else{
+            return(
+                <div>
+                    <Online>
+                        <div className="spinner">
+                            <div className="double-bounce1"></div>
+                            <div className="double-bounce2"></div>
+                        </div>
+                    </Online>
+                    <Offline>
+                        <Alert bsStyle={"danger"}>You are offline. Check your interner connection and try again!</Alert>
+                    </Offline>
+                </div>
+            );
+        }
+        //add returning functions here
+    }
     render() {
         let output = "";
         if (this.props.letter === "#") {
@@ -906,6 +1099,9 @@ class LetterResults extends Component {
             else if (this.props.item === "dataelements") {
                 output = this.getDataElementsMixed();
             }
+            else if (this.props.item === "programdataelements") {
+                output = this.getProgramDataElementsMixed();
+            }
         }
         else{
             if (this.props.item === "programs") {
@@ -919,6 +1115,9 @@ class LetterResults extends Component {
             }
             else if (this.props.item === "dataelements") {
                 output = this.getDataElements();
+            }
+            else if (this.props.item === "programdataelements") {
+                output = this.getProgramDataElements();
             }
         }
         return (
@@ -959,6 +1158,7 @@ function mapStateToProps(state) {
         indicators: state.indicators.indicators.indicators,
         dataSets: state.dataSets.dataSet.dataSets,
         dataElements: state.dataElements.dataElements.dataElements,
+        programDataElements: state.programDataElements.programDataElements.programDataElements,
     }
 }
 export default connect(mapStateToProps)(LetterResults);

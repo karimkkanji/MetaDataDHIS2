@@ -1,296 +1,363 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import config from '../actions/config';
 import ReactDOM from 'react-dom';
-import {Row, Col, Panel, Label, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table} from 'react-bootstrap';
+import { Row, Col, Panel, Label, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table } from 'react-bootstrap';
 import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
 const headers = {
     headers: {
-        'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
+        'Authorization': `Basic ${btoa(config.username + ":" + config.password)}`
     }
 };
 const dataSets = (deets) => (<tbody>
-{/*Datasets*/}
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Date
-        Created:
+    {/*Datasets*/}
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Created:
     </td>
-    <td>{new Date(deets.created).toUTCString()}</td>
+        <td>{new Date(deets.created).toUTCString()}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Date
-        Last Updated:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Last Updated:
     </td>
-    <td>{new Date(deets.lastUpdated).toUTCString()}</td>
+        <td>{new Date(deets.lastUpdated).toUTCString()}</td>
 
-</tr>
-<tr>
-    <td className="text-primary"
-        style={{borderRight: '2px solid black'}}>Description:
+    </tr>
+    <tr>
+        <td className="text-primary"
+            style={{ borderRight: '2px solid black' }}>Description:
     </td>
-    <td>{(deets.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:deets.description}</td>
+        <td>{(deets.description === undefined) ? <div style={{ color: "#ff0000" }}>No description provided.</div> : deets.description}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Dimension
-        Item Type:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Dimension
+            Item Type:
     </td>
-    <td>{deets.dimensionItemType}</td>
+        <td>{deets.dimensionItemType}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Form
-        Type::
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Form
+            Type::
     </td>
-    <td>{deets.formType}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Period
-        Type:
+        <td>{deets.formType}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Period
+            Type:
     </td>
-    <td>{deets.periodType}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Short
-        Name:
+        <td>{deets.periodType}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Short
+            Name:
     </td>
-    <td>{deets.shortName}</td>
+        <td>{deets.shortName}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Timely
-        submission days:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Timely
+            submission days:
     </td>
-    <td>{deets.timelyDays}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Version:
+        <td>{deets.timelyDays}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Version:
     </td>
-    <td>{deets.version}</td>
+        <td>{deets.version}</td>
 
-</tr>
-{/* End of Datasets*/}
+    </tr>
+    {/* End of Datasets*/}
 
 </tbody>);
 const indicators = (deets) => (<tbody>
-{/*Datasets*/}
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Date
-        Created:
+    {/*Datasets*/}
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Created:
     </td>
-    <td>{new Date(deets.created).toUTCString()}</td>
+        <td>{new Date(deets.created).toUTCString()}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Date
-        Last Updated:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Last Updated:
     </td>
-    <td>{new Date(deets.lastUpdated).toUTCString()}</td>
+        <td>{new Date(deets.lastUpdated).toUTCString()}</td>
 
-</tr>
-<tr>
-    <td className="text-primary"
-        style={{borderRight: '2px solid black'}}>Description:
+    </tr>
+    <tr>
+        <td className="text-primary"
+            style={{ borderRight: '2px solid black' }}>Description:
     </td>
-    <td>{(deets.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:deets.description}</td>
+        <td>{(deets.description === undefined) ? <div style={{ color: "#ff0000" }}>No description provided.</div> : deets.description}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Dimension
-        Item Type:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Dimension
+            Item Type:
     </td>
-    <td>{deets.dimensionItemType}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Indicator Type:
+        <td>{deets.dimensionItemType}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Indicator Type:
     </td>
-    <td id={"indicatorTypes"}>Denominator will appear here</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Annualised:
+        <td id={"indicatorTypes"}>Denominator will appear here</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Annualised:
     </td>
-    <td>{(deets.annualized===false)?<span>No</span>:<span>Yes</span>}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Short
-        Name:
+        <td>{(deets.annualized === false) ? <span>No</span> : <span>Yes</span>}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Short
+            Name:
     </td>
-    <td>{deets.shortName}</td>
+        <td>{deets.shortName}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Name:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Name:
     </td>
-    <td>{deets.name}</td>
+        <td>{deets.name}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Display Name:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Display Name:
     </td>
-    <td>{deets.displayName}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Display Short Name:
+        <td>{deets.displayName}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Display Short Name:
     </td>
-    <td>{deets.displayShortName}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Numerator formula:
+        <td>{deets.displayShortName}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Numerator formula:
     </td>
-    <td id={"numerator"}>Numerator will appear here</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Denominator formula:
+        <td id={"numerator"}>Numerator will appear here</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Denominator formula:
     </td>
-    <td id={"denominator"}>Denominator will appear here</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Indicator Groups:
+        <td id={"denominator"}>Denominator will appear here</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Indicator Groups:
     </td>
-    <td id={"indicatorGroups"}>Indicator Groups will appear here</td>
-</tr>
-{/* End of Datasets*/}
+        <td id={"indicatorGroups"}>Indicator Groups will appear here</td>
+    </tr>
+    {/* End of Datasets*/}
 
 </tbody>);
 const programs = (deets) => (<tbody>
-{/*Datasets*/}
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Date
-        Created:
+    {/*Datasets*/}
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Created:
     </td>
-    <td>{new Date(deets.created).toUTCString()}</td>
+        <td>{new Date(deets.created).toUTCString()}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Date
-        Last Updated:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Last Updated:
     </td>
-    <td>{new Date(deets.lastUpdated).toUTCString()}</td>
+        <td>{new Date(deets.lastUpdated).toUTCString()}</td>
 
-</tr>
-<tr>
-    <td className="text-primary"
-        style={{borderRight: '2px solid black'}}>Description:
+    </tr>
+    <tr>
+        <td className="text-primary"
+            style={{ borderRight: '2px solid black' }}>Description:
     </td>
-    <td>{(deets.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:deets.description}</td>
+        <td>{(deets.description === undefined) ? <div style={{ color: "#ff0000" }}>No description provided.</div> : deets.description}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Program Type::
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Program Type::
     </td>
-    <td>{deets.programType}</td>
+        <td>{deets.programType}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Short
-        Name:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Short
+            Name:
     </td>
-    <td>{deets.shortName}</td>
+        <td>{deets.shortName}</td>
 
-</tr>
-{/* End of Datasets*/}
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>No of org units assigned
+     </td>
+        <td>{new DetailsMore().state.orgnits}</td>
+        {/* <td>orgs</td> */}
+    </tr>
+    {/* End of Datasets*/}
 
 </tbody>);
 const dataelements = (deets) => (<tbody>
-{/*Datasets*/}
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Date
-        Created:
+    {/*Datasets*/}
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Created:
     </td>
-    <td>{new Date(deets.created).toUTCString()}</td>
+        <td>{new Date(deets.created).toUTCString()}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Date
-        Last Updated:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Last Updated:
     </td>
-    <td>{new Date(deets.lastUpdated).toUTCString()}</td>
+        <td>{new Date(deets.lastUpdated).toUTCString()}</td>
 
-</tr>
-<tr>
-    <td className="text-primary"
-        style={{borderRight: '2px solid black'}}>Description:
+    </tr>
+    <tr>
+        <td className="text-primary"
+            style={{ borderRight: '2px solid black' }}>Description:
     </td>
-    <td>{(deets.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:deets.description}</td>
+        <td>{(deets.description === undefined) ? <div style={{ color: "#ff0000" }}>No description provided.</div> : deets.description}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Dimension
-        Item Type:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Dimension
+            Item Type:
     </td>
-    <td>{deets.dimensionItemType}</td>
+        <td>{deets.dimensionItemType}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Form
-        Name:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Form
+            Name:
     </td>
-    <td>{deets.formName}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Value
-        Type:
+        <td>{deets.formName}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Value
+            Type:
     </td>
-    <td>{deets.valueType}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Short
-        Name:
+        <td>{deets.valueType}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Short
+            Name:
     </td>
-    <td>{deets.shortName}</td>
+        <td>{deets.shortName}</td>
 
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Domain Type:
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Domain Type:
     </td>
-    <td>{deets.domainType}</td>
-</tr>
-<tr>
-    <td className="text-primary" style={{borderRight: '2px solid black'}}>Aggregation Type:
+        <td>{deets.domainType}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Aggregation Type:
     </td>
-    <td>{deets.aggregationType}</td>
+        <td>{deets.aggregationType}</td>
 
-</tr>
-{/* End of Datasets*/}
+    </tr>
+    {/* End of Datasets*/}
 
 </tbody>);
-const numDenom = (deets) =>(
+const programdataelements = (deets) => (<tbody>
+    {/*Datasets*/}
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Created:
+    </td>
+        <td>{new Date(deets.created).toUTCString()}</td>
+
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Date
+            Last Updated:
+    </td>
+        <td>{new Date(deets.lastUpdated).toUTCString()}</td>
+
+    </tr>
+    <tr>
+        <td className="text-primary"
+            style={{ borderRight: '2px solid black' }}>Description:
+    </td>
+        <td>{(deets.description === undefined) ? <div style={{ color: "#ff0000" }}>No description provided.</div> : deets.description}</td>
+
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Dimension
+            Item Type:
+    </td>
+        <td>{deets.dimensionItemType}</td>
+
+    </tr>
+  
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Value
+            Type:
+    </td>
+        <td>{deets.valueType}</td>
+    </tr>
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Short
+            Name:
+    </td>
+        <td>{deets.shortName}</td>
+
+    </tr>
+   
+    <tr>
+        <td className="text-primary" style={{ borderRight: '2px solid black' }}>Aggregation Type:
+    </td>
+        <td>{deets.aggregationType}</td>
+
+    </tr>
+    {/* End of Datasets*/}
+
+</tbody>);
+const numDenom = (deets) => (
     <div>
-    <h5>Numerator Description</h5>
-    <code>{deets.numeratorDescription}</code>
-<h5>Denominator Description</h5>
-<code>{deets.denominatorDescription}</code>
+        <h5>Numerator Description</h5>
+        <code>{deets.numeratorDescription}</code>
+        <h5>Denominator Description</h5>
+        <code>{deets.denominatorDescription}</code>
     </div>
 );
-function IndicatorGroup({groupsGotten}){
+function IndicatorGroup({ groupsGotten }) {
     return <div>-{groupsGotten.name}</div>;
 }
 
 // DataSet List
 
-function IndicatorGroupList({indicatorGroups}){
+function IndicatorGroupList({ indicatorGroups }) {
     return (
-        <div>{indicatorGroups.map((groups) => <IndicatorGroup groupsGotten={groups} key={groups.name}/>)}</div>
+        <div>{indicatorGroups.map((groups) => <IndicatorGroup groupsGotten={groups} key={groups.name} />)}</div>
     );
 }
 class DetailsMore extends Component {
     state = {
         activeDetails: [],
-        myNumerator:[]
+        myNumerator: [],
+        orgnits: []
     };
-    componentDidMount () {
+    componentDidMount() {
         fetch(`http://197.136.81.99:8082/test/api/${this.props.item}/${this.props.id}`, headers //youtube guy this.props.location.state.dynamicData
         ).then((Response) => Response.json())
             .then((findresponse) => {
+                console.log(findresponse.organisationUnits)
+                console.log(findresponse.organisationUnits.length)
                 this.setState({
                     activeDetails: findresponse,
+                    orgnits: findresponse.organisationUnits.length
                 })
+                console.log(this.state.orgnits)
+
             });
     };
 
-    render(){
+    render() {
         const deets = this.state.activeDetails;
+
         return (
             <div className={"detailsMoreBody container"}>
                 <Row className="show-grid">
@@ -299,7 +366,7 @@ class DetailsMore extends Component {
                             <Col xs={3} md={3}>
                                 <Dropdown id="dropdown-custom-1">
                                     <Dropdown.Toggle>
-                                        <Glyphicon glyph="print"/>&nbsp;Export / Print Metadata
+                                        <Glyphicon glyph="print" />&nbsp;Export / Print Metadata
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu className="super-colors">
                                         <MenuItem eventKey="1" href={deets.href + ".csv"}>CSV</MenuItem>
@@ -317,7 +384,7 @@ class DetailsMore extends Component {
                             </Col>
                         </Row>
                         <div className={'buttongroupDetsmarg'}>
-                            <ButtonGroupDetails metadata={this.props.item}/>
+                            <ButtonGroupDetails metadata={this.props.item} />
                         </div>
                     </Col>
                     <Col xs={4} md={3}>
@@ -330,22 +397,22 @@ class DetailsMore extends Component {
                         <Panel>
                             <Panel.Body>
                                 <h4>{deets.name}</h4>
-                                <hr/>
+                                <hr />
                                 <b>Identifier:</b><code>{this.props.id}</code>
-                                <hr/>
+                                <hr />
                                 <b>Version:</b><code>{deets.version}</code>
-                                <hr/>
+                                <hr />
                                 <h5>Related links</h5>
                                 <ul type="none">
                                     <li><a href={deets.href}>API link</a></li>
                                 </ul>
-                                <hr/>
+                                <hr />
                                 <h5>Tags</h5>
                                 <Label bsStyle="default">Default</Label>{' '}
                                 <Label bsStyle="primary">Primary</Label>{' '}
                                 <Label bsStyle="success">Success</Label>
-                                <hr/>
-                                {this.props.item==="indicators"?numDenom(deets):null}
+                                <hr />
+                                {this.props.item === "indicators" ? numDenom(deets) : null}
                             </Panel.Body>
                         </Panel>
                         <Panel>
@@ -359,11 +426,12 @@ class DetailsMore extends Component {
                                     {
                                         (() => {
                                             switch (this.props.item) {
-                                                case "dataSets":   return dataSets(deets);
-                                                case "indicators":  this.getIndicatorTypes();this.getIndicatorGroups(); this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
-                                                case "programs":  return programs(deets);
-                                                case "dataElements":  return dataelements(deets);
-                                                default:      return "#FFFFFF";
+                                                case "dataSets": return dataSets(deets);
+                                                case "indicators": this.getIndicatorTypes(); this.getIndicatorGroups(); this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
+                                                case "programs": return programs(deets);
+                                                case "dataElements": return dataelements(deets);
+                                                case "dataElements": return programdataelements(deets);
+                                                default: return "#FFFFFF";
                                             }
                                         })()
                                     }
@@ -376,52 +444,52 @@ class DetailsMore extends Component {
         );
     }
     getFormula(whattofetch) {
-            const deets = this.state.activeDetails;
-            let expression;
-            if(whattofetch==="numerator"){
-                expression = "" + deets.numerator + "";
-            }
-            else{
-                expression = "" + deets.denominator + "";
-            }
-            expression = expression.replace(/#/g, "%23");
-            expression = expression.replace(/{/g, "%7B");
-            expression = expression.replace(/}/g, "%7D");
-            expression = expression.replace(/\s/g, "%20");
-            expression = expression.replace(/\+/g, "%2B");
-            fetch('http://197.136.81.99:8082/test/api/26/expressions/description.json?expression=' + expression, headers)
-                .then(
-                    function (response) {
-                        return response.json();
-                    }
-                ).then(function (jsonData) {
-                //handle json data processing here
-                    ReactDOM.render(jsonData.description, document.querySelector("#"+whattofetch));
-                });
+        const deets = this.state.activeDetails;
+        let expression;
+        if (whattofetch === "numerator") {
+            expression = "" + deets.numerator + "";
         }
-    getIndicatorGroups() {
-        let expression = this.props.id;
-        fetch('http://197.136.81.99:8082/test/api/indicators/'+expression+'.json?fields=indicatorGroups[name]', headers)
+        else {
+            expression = "" + deets.denominator + "";
+        }
+        expression = expression.replace(/#/g, "%23");
+        expression = expression.replace(/{/g, "%7B");
+        expression = expression.replace(/}/g, "%7D");
+        expression = expression.replace(/\s/g, "%20");
+        expression = expression.replace(/\+/g, "%2B");
+        fetch('http://197.136.81.99:8082/test/api/26/expressions/description.json?expression=' + expression, headers)
             .then(
                 function (response) {
                     return response.json();
                 }
             ).then(function (jsonData) {
-            //handle json data processing here
-            ReactDOM.render(<IndicatorGroupList indicatorGroups={jsonData.indicatorGroups}/>, document.querySelector("#indicatorGroups"));
-        });
+                //handle json data processing here
+                ReactDOM.render(jsonData.description, document.querySelector("#" + whattofetch));
+            });
+    }
+    getIndicatorGroups() {
+        let expression = this.props.id;
+        fetch('http://197.136.81.99:8082/test/api/indicators/' + expression + '.json?fields=indicatorGroups[name]', headers)
+            .then(
+                function (response) {
+                    return response.json();
+                }
+            ).then(function (jsonData) {
+                //handle json data processing here
+                ReactDOM.render(<IndicatorGroupList indicatorGroups={jsonData.indicatorGroups} />, document.querySelector("#indicatorGroups"));
+            });
     }
     getIndicatorTypes() {
         let expression = this.props.id;
-        fetch('http://197.136.81.99:8082/test/api/indicators/'+expression+'.json?fields=indicatorType[name]', headers)
+        fetch('http://197.136.81.99:8082/test/api/indicators/' + expression + '.json?fields=indicatorType[name]', headers)
             .then(
                 function (response) {
                     return response.json();
                 }
             ).then(function (jsonData) {
-            //handle json data processing here
-            ReactDOM.render(jsonData.indicatorType.name, document.querySelector("#indicatorTypes"));
-        });
+                //handle json data processing here
+                ReactDOM.render(jsonData.indicatorType.name, document.querySelector("#indicatorTypes"));
+            });
     }
 }
 

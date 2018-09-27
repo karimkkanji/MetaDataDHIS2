@@ -35,6 +35,7 @@ class NavbarCustom extends Component {
             ds_results: [],
             dataElements_results:[],
             programs_results:[],
+            program_dataelement:[],
             filterText:'',
             selectedItem:{
                 "item": 1,
@@ -53,6 +54,7 @@ class NavbarCustom extends Component {
             case 3:this.setState({selectedItem:{"item":3,"name":"Indicators"}});break;
             case 4:this.setState({selectedItem:{"item":4,"name":"Programs"}});break;
             case 5:this.setState({selectedItem:{"item":5,"name":"Data Elements"}});break;
+               case 6:this.setState({selectedItem:{"item":6,"name":"Program Data Elements"}});break;
             default:this.setState({selectedItem:{"item":0,"name":"None"}})
         }
     }
@@ -103,6 +105,15 @@ class NavbarCustom extends Component {
                    /* console.log(this.state.programs_results)*/
                 });
 
+                fetch(config.url + `programDataElements.json?filter=displayName:ilike:${this.state.filterText}`, headers)
+                .then(response => response.json())
+                .then(data => {
+
+                    this.setState({
+                        program_dataelement: data.programDataElements
+                    });
+                   /* console.log(this.state.programs_results)*/
+                });
            /* console.log(this.state.filterText);*/
         }
     };
@@ -181,7 +192,24 @@ class NavbarCustom extends Component {
                 </Panel>
             </div>
         ));
-
+        const programsdataelement_Items = this.state.program_dataelement.map( post => (
+            <div key={post.id}>
+                <Panel>
+                    <Panel.Body>
+                        <h4>{post.displayName}</h4>
+                        <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
+                            <ButtonGroup>
+                                <Link to={"/indicators/"+post.id}><Button >View</Button></Link>
+                            </ButtonGroup>&nbsp;
+                        </ButtonToolbar>
+                        <Link to={"/indicators/"+post.id}>{post.name}</Link>
+                        <br/>
+                        {post.description!==undefined?<div style={{color:"green"}}>Description: {post.description}</div>:<div style={{color:"red"}}>No description provided</div>}
+                        <br/><Label bsStyle={"danger"}>Program dataElements</Label>
+                        </Panel.Body>
+                </Panel>
+            </div>
+        ));
         return (
             <div>
                 <Navbar fixedTop={true}>
@@ -213,6 +241,7 @@ class NavbarCustom extends Component {
                                                 <MenuItem key="nav3" onClick={this.handleClick.bind(this,3)}>Indicators{this.state.selectedItem.item===3?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                                 <MenuItem key="nav4" onClick={this.handleClick.bind(this,4)}>Programs{this.state.selectedItem.item===4?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                                 <MenuItem key="nav5"onClick={this.handleClick.bind(this,5)}>Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                                <MenuItem key="nav6"onClick={this.handleClick.bind(this,6)}>Program Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                             </DropdownButton>
                                         </InputGroup.Button>
                                         <FormControl type="text" placeholder={"Search metadata here..."} style={{width: 300}} id={"searchField"} onChange={()=>{this.handleInput()}}/>
@@ -236,6 +265,8 @@ class NavbarCustom extends Component {
                                             <MenuItem key="mod3" onClick={this.handleClick.bind(this,3)}>Indicators{this.state.selectedItem.item===3?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                             <MenuItem key="mod4" onClick={this.handleClick.bind(this,4)}>Programs{this.state.selectedItem.item===4?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                             <MenuItem key="mod5"onClick={this.handleClick.bind(this,5)}>Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                            <MenuItem key="mod6"onClick={this.handleClick.bind(this,6)}>prgram Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+
                                         </DropdownButton>
                                     </InputGroup.Button>
                                     <FormControl type="text" placeholder={"Search metadata here..."} autoFocus={true} style={{width: 500}} onChange={this.handleSearch } value={this.state.filterText}/>
@@ -248,11 +279,12 @@ class NavbarCustom extends Component {
                         <h3>Search results:</h3>
                         <hr/>
                         <Online>
-                        {this.state.selectedItem.item===1?<div>{dataSets_Items}{indicator_Items}{programs_Items}{dataElements_Items}</div>:null}
+                        {this.state.selectedItem.item===1?<div>{dataSets_Items}{indicator_Items}{programs_Items}{dataElements_Items}{programsdataelement_Items}</div>:null}
                         {this.state.selectedItem.item===2?dataSets_Items:null}
                         {this.state.selectedItem.item===3?indicator_Items:null}
                         {this.state.selectedItem.item===4?programs_Items:null}
                         {this.state.selectedItem.item===5?dataElements_Items:null}
+                        {this.state.selectedItem.item===6?programsdataelement_Items:null}
                         </Online>
                         <Offline>
                             <Alert bsStyle={"danger"}>You are offline. Check your internet connection and try again</Alert>

@@ -16,6 +16,7 @@ class Tabpane extends Component {
                                     <NavItem eventKey="second">Indicators</NavItem>
                                     <NavItem eventKey="third">Programs</NavItem>
                                     <NavItem eventKey="fourth">Data Elements</NavItem>
+                                    <NavItem eventKey="fifth">Program Data Elements</NavItem>
                                 </Nav>
                             </Col>
                             <Col sm={12}>
@@ -25,6 +26,7 @@ class Tabpane extends Component {
                                         <Tab.Pane eventKey="second"><ButtonGroupNav item={"indicators"}/></Tab.Pane>
                                         <Tab.Pane eventKey="third"><ButtonGroupNav item={"programs"}/></Tab.Pane>
                                         <Tab.Pane eventKey="fourth"><ButtonGroupNav item={"dataelements"}/></Tab.Pane>
+                                        <Tab.Pane eventKey="fifth"><ButtonGroupNav item={"programdataelements"}/></Tab.Pane>
                                     </Tab.Content>
                                 </div>
                             </Col>

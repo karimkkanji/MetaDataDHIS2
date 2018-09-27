@@ -66,6 +66,16 @@ class LetterResultsDetails extends Component {
                     })
                 })
         }
+        else if (item === "programDataElements") {
+            fetch(config.url+'programDataElements.json?fields=:all&paging=false', headers
+            ).then((Response) => Response.json())
+                .then((findresponse) => { //filter the findresponse using the filters variable to display only what is in the input
+                    console.log(findresponse.programDataElements); //hapa ndio jackpot
+                    this.setState({
+                        data: findresponse.programDataElements, isLoading: false
+                    })
+                })
+        }
     }
     render() {
         const {isLoading} = this.state;
