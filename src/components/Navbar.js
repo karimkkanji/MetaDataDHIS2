@@ -241,7 +241,7 @@ class NavbarCustom extends Component {
                                                 <MenuItem key="nav3" onClick={this.handleClick.bind(this,3)}>Indicators{this.state.selectedItem.item===3?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                                 <MenuItem key="nav4" onClick={this.handleClick.bind(this,4)}>Programs{this.state.selectedItem.item===4?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                                 <MenuItem key="nav5"onClick={this.handleClick.bind(this,5)}>Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
-                                                <MenuItem key="nav6"onClick={this.handleClick.bind(this,6)}>Program Data Elements{this.state.selectedItem.item===5?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
+                                                <MenuItem key="nav6"onClick={this.handleClick.bind(this,6)}>Program Data Elements{this.state.selectedItem.item===6?<Glyphicon glyph="ok" bsStyle={"primary"} className={"pull-right"}/>:null}</MenuItem>
                                             </DropdownButton>
                                         </InputGroup.Button>
                                         <FormControl type="text" placeholder={"Search metadata here..."} style={{width: 300}} id={"searchField"} onChange={()=>{this.handleInput()}}/>

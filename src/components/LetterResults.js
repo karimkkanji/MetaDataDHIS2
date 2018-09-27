@@ -1152,13 +1152,13 @@ class LetterResults extends Component {
 }
 function mapStateToProps(state) {
     //testing importing elements
-    //console.log('the state',state.dataElements);
+    console.log('the state',state.programDataElements);
     return{
         programs: state.programs.programs,
         indicators: state.indicators.indicators.indicators,
         dataSets: state.dataSets.dataSet.dataSets,
         dataElements: state.dataElements.dataElements.dataElements,
-        programDataElements: state.programDataElements.programDataElements.programDataElements,
+        programDataElements: state.programDataElements,
     }
 }
 export default connect(mapStateToProps)(LetterResults);

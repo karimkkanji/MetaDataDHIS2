@@ -7,13 +7,13 @@ const headers ={
 
 export function fetchProgramDataElements(){
     return function(dispatch){
-        fetch(config.url+'/dataElements.json?paging=false&fields=:all', headers)
+        fetch(config.url+'/programDataElements.json?paging=false&fields=:all', headers)
             .then(res => res.json())
             .then((response) => {
                 dispatch({
                     type: 'FETCH_PROGRAMDATAELEMENTS_FULLFILLED',
                     payload: response});
-                //console.log('dataelements fetched')
+                console.log('program dataelements fetched')
             })
             .catch((err) => {
                 dispatch({ type: 'FETCH_PROGRAMDATAELEMENTS_REJECTED', payload: err })

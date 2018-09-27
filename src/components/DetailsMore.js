@@ -430,7 +430,7 @@ class DetailsMore extends Component {
                                                 case "indicators": this.getIndicatorTypes(); this.getIndicatorGroups(); this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
                                                 case "programs": return programs(deets);
                                                 case "dataElements": return dataelements(deets);
-                                                case "dataElements": return programdataelements(deets);
+                                                case "ProgramDataElements": return programdataelements(deets);
                                                 default: return "#FFFFFF";
                                             }
                                         })()

@@ -44,6 +44,15 @@ const DataElements = ({match}) => (
         {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
     </div>
 );
+const ProgramDataElements = ({match}) => (
+    <div>
+        {/*This is the navbar component*/}
+        <Navbar item="Program Data Elements"/>
+        <DetailsMore id={match.params.child} item={"programDataElements"}/>
+        {/*Tabpane component shows the tabs*/}
+        {/*this.state.showTabs ? <Tabpane changeHandler={this.changeStuff.bind(this)} /> : <DetailsMore />*/}
+    </div>
+);
 const Datasets = ({match}) => (
     <div>
         {/*This is the navbar component*/}
@@ -112,6 +121,7 @@ class App extends Component{
                             <Route path={"/indicators/:child"} component={Indicators}/>
                             <Route path={"/dataelements/:child"} component={DataElements}/>
                             <Route path={"/datasets/:child"} component={Datasets}/>
+                            <Route path={"/programdataelements/:child"} component={ProgramDataElements}/>
                             <Route path={"/search"} component={Search}/>
                             <Route component={Home}/>
                         </Switch>
