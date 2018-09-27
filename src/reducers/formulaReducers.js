@@ -3,8 +3,8 @@ export default function reducer(state = {
     fetching: false,
     fetched: false,
     error: null,
-}, action){
-    switch(action.type){
+}, action) {
+    switch (action.type) {
         case 'FETCH_EXPRESSION': {
             return {...state, fetching: true} //curently fetching
         }

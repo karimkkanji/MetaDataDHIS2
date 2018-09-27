@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import config from '../actions/config';
 import ReactDOM from 'react-dom';
-import {Row, Col, Panel, Label, Dropdown, MenuItem, Glyphicon, Breadcrumb, Table} from 'react-bootstrap';
+import {Breadcrumb, Col, Dropdown, Glyphicon, Label, MenuItem, Panel, Row, Table} from 'react-bootstrap';
 import './Tabpane.css';
 import ButtonGroupDetails from './ButtonGroupDetails';
 import Link from "react-router-dom/es/Link";
+
 const headers = {
     headers: {
-        'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
+        'Authorization': `Basic ${btoa(config.username + ":" + config.password)}`
     }
 };
 const dataSets = (deets) => (<tbody>
@@ -30,7 +31,8 @@ const dataSets = (deets) => (<tbody>
     <td className="text-primary"
         style={{borderRight: '2px solid black'}}>Description:
     </td>
-    <td>{(deets.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:deets.description}</td>
+    <td>{(deets.description === undefined) ?
+        <div style={{color: "#ff0000"}}>No description provided.</div> : deets.description}</td>
 
 </tr>
 <tr>
@@ -94,7 +96,8 @@ const indicators = (deets) => (<tbody>
     <td className="text-primary"
         style={{borderRight: '2px solid black'}}>Description:
     </td>
-    <td>{(deets.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:deets.description}</td>
+    <td>{(deets.description === undefined) ?
+        <div style={{color: "#ff0000"}}>No description provided.</div> : deets.description}</td>
 
 </tr>
 <tr>
@@ -111,7 +114,7 @@ const indicators = (deets) => (<tbody>
 <tr>
     <td className="text-primary" style={{borderRight: '2px solid black'}}>Annualised:
     </td>
-    <td>{(deets.annualized===false)?<span>No</span>:<span>Yes</span>}</td>
+    <td>{(deets.annualized === false) ? <span>No</span> : <span>Yes</span>}</td>
 </tr>
 <tr>
     <td className="text-primary" style={{borderRight: '2px solid black'}}>Short
@@ -174,7 +177,8 @@ const programs = (deets) => (<tbody>
     <td className="text-primary"
         style={{borderRight: '2px solid black'}}>Description:
     </td>
-    <td>{(deets.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:deets.description}</td>
+    <td>{(deets.description === undefined) ?
+        <div style={{color: "#ff0000"}}>No description provided.</div> : deets.description}</td>
 
 </tr>
 <tr>
@@ -213,7 +217,8 @@ const dataelements = (deets) => (<tbody>
     <td className="text-primary"
         style={{borderRight: '2px solid black'}}>Description:
     </td>
-    <td>{(deets.description===undefined)?<div style={{color:"#ff0000"}}>No description provided.</div>:deets.description}</td>
+    <td>{(deets.description === undefined) ?
+        <div style={{color: "#ff0000"}}>No description provided.</div> : deets.description}</td>
 
 </tr>
 <tr>
@@ -256,26 +261,30 @@ const dataelements = (deets) => (<tbody>
 {/* End of Datasets*/}
 
 </tbody>);
-const numDenom = (deets) =>(<div>
+const numDenom = (deets) => (<div>
     <h5>Numerator Description</h5>
     <code>{deets.numeratorDescription}</code>
-<h5>Denominator Description</h5>
-<code>{deets.denominatorDescription}</code>
-    </div>);
-function IndicatorGroup({groupsGotten}){
+    <h5>Denominator Description</h5>
+    <code>{deets.denominatorDescription}</code>
+</div>);
+
+function IndicatorGroup({groupsGotten}) {
     return <div>-{groupsGotten.name}</div>;
 }
-function IndicatorGroupList({indicatorGroups}){
+
+function IndicatorGroupList({indicatorGroups}) {
     return (
         <div>{indicatorGroups.map((groups) => <IndicatorGroup groupsGotten={groups} key={groups.name}/>)}</div>
     );
 }
+
 class DetailsMore extends Component {
     state = {
         activeDetails: [],
-        myNumerator:[]
+        myNumerator: []
     };
-    componentDidMount () {
+
+    componentDidMount() {
         fetch(`http://197.136.81.99:8082/test/api/${this.props.item}/${this.props.id}`, headers
         ).then((Response) => Response.json())
             .then((findresponse) => {
@@ -285,7 +294,7 @@ class DetailsMore extends Component {
             });
     };
 
-    render(){
+    render() {
         const deets = this.state.activeDetails;
         return (
             <div className={"detailsMoreBody container"}>
@@ -341,7 +350,7 @@ class DetailsMore extends Component {
                                 <Label bsStyle="primary">Primary</Label>{' '}
                                 <Label bsStyle="success">Success</Label>
                                 <hr/>
-                                {this.props.item==="indicators"?numDenom(deets):null}
+                                {this.props.item === "indicators" ? numDenom(deets) : null}
                             </Panel.Body>
                         </Panel>
                         <Panel>
@@ -355,11 +364,20 @@ class DetailsMore extends Component {
                                     {
                                         (() => {
                                             switch (this.props.item) {
-                                                case "dataSets":   return dataSets(deets);
-                                                case "indicators":  this.getIndicatorTypes();this.getIndicatorGroups(); this.getFormula("numerator"); this.getFormula("denominator"); return indicators(deets);
-                                                case "programs":  return programs(deets);
-                                                case "dataElements":  return dataelements(deets);
-                                                default:      return "#FFFFFF";
+                                                case "dataSets":
+                                                    return dataSets(deets);
+                                                case "indicators":
+                                                    this.getIndicatorTypes();
+                                                    this.getIndicatorGroups();
+                                                    this.getFormula("numerator");
+                                                    this.getFormula("denominator");
+                                                    return indicators(deets);
+                                                case "programs":
+                                                    return programs(deets);
+                                                case "dataElements":
+                                                    return dataelements(deets);
+                                                default:
+                                                    return "#FFFFFF";
                                             }
                                         })()
                                     }
@@ -371,33 +389,35 @@ class DetailsMore extends Component {
             </div>
         );
     }
+
     getFormula(whattofetch) {
-            const deets = this.state.activeDetails;
-            let expression;
-            if(whattofetch==="numerator"){
-                expression = "" + deets.numerator + "";
-            }
-            else{
-                expression = "" + deets.denominator + "";
-            }
-            expression = expression.replace(/#/g, "%23");
-            expression = expression.replace(/{/g, "%7B");
-            expression = expression.replace(/}/g, "%7D");
-            expression = expression.replace(/\s/g, "%20");
-            expression = expression.replace(/\+/g, "%2B");
-            fetch('http://197.136.81.99:8082/test/api/26/expressions/description.json?expression=' + expression, headers)
-                .then(
-                    function (response) {
-                        return response.json();
-                    }
-                ).then(function (jsonData) {
-                //handle json data processing here
-                    ReactDOM.render(jsonData.description, document.querySelector("#"+whattofetch));
-                });
+        const deets = this.state.activeDetails;
+        let expression;
+        if (whattofetch === "numerator") {
+            expression = "" + deets.numerator + "";
         }
+        else {
+            expression = "" + deets.denominator + "";
+        }
+        expression = expression.replace(/#/g, "%23");
+        expression = expression.replace(/{/g, "%7B");
+        expression = expression.replace(/}/g, "%7D");
+        expression = expression.replace(/\s/g, "%20");
+        expression = expression.replace(/\+/g, "%2B");
+        fetch('http://197.136.81.99:8082/test/api/26/expressions/description.json?expression=' + expression, headers)
+            .then(
+                function (response) {
+                    return response.json();
+                }
+            ).then(function (jsonData) {
+            //handle json data processing here
+            ReactDOM.render(jsonData.description, document.querySelector("#" + whattofetch));
+        });
+    }
+
     getIndicatorGroups() {
         let expression = this.props.id;
-        fetch('http://197.136.81.99:8082/test/api/indicators/'+expression+'.json?fields=indicatorGroups[name]', headers)
+        fetch('http://197.136.81.99:8082/test/api/indicators/' + expression + '.json?fields=indicatorGroups[name]', headers)
             .then(
                 function (response) {
                     return response.json();
@@ -405,12 +425,14 @@ class DetailsMore extends Component {
             ).then(function (jsonData) {
             //handle json data processing here
             //console.log(jsonData.indicatorGroups);
-            ReactDOM.render(<IndicatorGroupList indicatorGroups={jsonData.indicatorGroups}/>, document.querySelector("#indicatorGroups"));
+            ReactDOM.render(<IndicatorGroupList
+                indicatorGroups={jsonData.indicatorGroups}/>, document.querySelector("#indicatorGroups"));
         });
     }
+
     getIndicatorTypes() {
         let expression = this.props.id;
-        fetch('http://197.136.81.99:8082/test/api/indicators/'+expression+'.json?fields=indicatorType[name]', headers)
+        fetch('http://197.136.81.99:8082/test/api/indicators/' + expression + '.json?fields=indicatorType[name]', headers)
             .then(
                 function (response) {
                     return response.json();

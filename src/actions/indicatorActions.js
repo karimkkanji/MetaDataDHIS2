@@ -1,13 +1,14 @@
 import config from "./config";
 
-const headers ={
-    headers:{
-        'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
+const headers = {
+    headers: {
+        'Authorization': `Basic ${btoa(config.username + ":" + config.password)}`
     }
 };
-export function fetchIndicators(){
-    return function(dispatch){
-        fetch(config.url+'indicators.json?paging=false&fields=:all', headers)
+
+export function fetchIndicators() {
+    return function (dispatch) {
+        fetch(config.url + 'indicators.json?paging=false&fields=:all', headers)
             .then(res => res.json())
             .then((response) => {
                 dispatch({

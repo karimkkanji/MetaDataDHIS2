@@ -1,15 +1,15 @@
 import config from "./config";
 
-const headers ={
-    headers:{
-        'Authorization': `Basic ${btoa(config.username+":"+config.password)}`
+const headers = {
+    headers: {
+        'Authorization': `Basic ${btoa(config.username + ":" + config.password)}`
     }
 };
 
 
-export function fetchDataSets(){
-    return function(dispatch){
-        fetch(config.url+'dataSets.json?paging=false&fields=:all', headers)
+export function fetchDataSets() {
+    return function (dispatch) {
+        fetch(config.url + 'dataSets.json?paging=false&fields=:all', headers)
             .then(res => res.json())
             .then((response) => {
                 dispatch({
