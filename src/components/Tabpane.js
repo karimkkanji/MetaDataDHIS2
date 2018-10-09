@@ -112,6 +112,7 @@ class Tabpane extends Component {
         super();
         this.state = {
             viewTabs: true,
+            current_url : '',
             selectedGroup: "Filter",
             data: [],
             selectedItem: "datasets",
@@ -124,11 +125,19 @@ class Tabpane extends Component {
         this.showAllButton = this.showAllButton.bind(this);
         this.removeAllButton = this.removeAllButton.bind(this);
     }
+    componentWillMount(){
+        this.dispUrl()
+    }
 
     handleClick(id) {
         switch (id) {
             case 1:
-                this.setState({selectedItem: "Filter", selectedItemdd: {"item": 1, "name": "All"}});
+                this.setState({
+                    selectedItem: "Filter",
+                     selectedItemdd: {
+                         "item": 1, 
+                         "name": "All"}
+                        });
                 break;
             case 2:
                 this.setState({
@@ -171,6 +180,12 @@ class Tabpane extends Component {
         this.setState({viewTabs: false});
         ReactDOM.render(<ShowAll groups={this.state.selectedItem}
                                  id={this.state.selectedId}/>, document.querySelector("#displayHereAfter"))
+    }
+    dispUrl(name = 'dataSets'){
+        this.setState({
+            current_url: 'http://197.136.81.99:8082/test/api/'+ name
+        })
+        console.log(this.state.current_url)
     }
 
     removeAllButton() {
@@ -219,16 +234,17 @@ class Tabpane extends Component {
     }
 
     render() {
+    
         return (
             <div className="tabpanebody">
                 <div className="container">
                     <hr/>
                     <Row>
                         <label style={{marginLeft: 10}}>Filter by Groups</label>&nbsp;
-                        <DropdownButton id="input-dropdown-addon"
-                                        title={this.state.selectedItemdd.name}>
-                            <MenuItem key="nav2" onClick={this.handleClick.bind(this, 2)}>Data
-                                Sets{this.state.selectedItemdd.item === 2 ? <Glyphicon glyph="ok" bsStyle={"primary"}
+                        <DropdownButton id="input-dropdown-addon" title={this.state.selectedItemdd.name}>
+
+                            <MenuItem key="nav2" onClick={this.handleClick.bind(this, 2)}>
+                            DataSets{this.state.selectedItemdd.item === 2 ? <Glyphicon glyph="ok" bsStyle={"primary"}
                                                                                        className={"pull-right"}/> : null}</MenuItem>
                             <MenuItem key="nav3"
                                       onClick={this.handleClick.bind(this, 3)}>Indicators{this.state.selectedItemdd.item === 3 ?
@@ -241,9 +257,11 @@ class Tabpane extends Component {
                                     <Glyphicon glyph="ok" bsStyle={"primary"}
                                                className={"pull-right"}/> : null}</MenuItem>
                         </DropdownButton>&nbsp;
+
                         <Dropdown id="dropdown-custom-menu">
                             <CustomToggle bsRole="toggle">{this.state.selectedGroup} <span
                                 className={"caret"}/></CustomToggle>
+                              
                             <CustomMenu bsRole="menu">
                                 {this.state.data.map((dynamicData, key) =>
                                     <MenuItem onClick={this.handleGroup.bind(this, dynamicData.name, dynamicData.id)}
@@ -261,12 +279,29 @@ class Tabpane extends Component {
                         <Row className="clearfix">
                             <Col sm={12}>
                                 <Nav bsStyle="tabs">
-                                    <NavItem eventKey="first">Datasets</NavItem>
-                                    <NavItem eventKey="second">Indicators</NavItem>
-                                    <NavItem eventKey="third">Programs</NavItem>
-                                    <NavItem eventKey="fourth">Data Elements</NavItem>
+                                    <NavItem eventKey="first" onClick={this.dispUrl.bind(this,'dataSets')}>Datasets</NavItem>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                    <NavItem eventKey="second" onClick={this.dispUrl.bind(this,'indicators')}>Indicators</NavItem>
+                                    <NavItem eventKey="third" onClick={this.dispUrl.bind(this,'programs')}>Programs</NavItem>
+                                    <NavItem eventKey="fourth" onClick={this.dispUrl.bind(this,'dataElements')}>Data Elements</NavItem>
                                 </Nav>
                             </Col>
+                            <br/>
+                            {/* ------------------------------------------ */}
+                            <Col xs={3} md={3}>
+                                <Dropdown id="dropdown-custom-1">
+                                    <Dropdown.Toggle>
+                                        <Glyphicon glyph="print"/>&nbsp;Export All
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu className="super-colors">
+                                        <MenuItem eventKey="1" href={this.state.current_url+".csv"}>CSV</MenuItem>
+                                      
+                                        <MenuItem eventKey="2" href={this.state.current_url+".xlsx"}>Excel</MenuItem>
+                                        <MenuItem eventKey="3" href={this.state.current_url+".pdf"}>PDF</MenuItem>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Col>
+                           
+                            {/* -------------------------------------------------- */}
                             <Col sm={12}>
                                 <div className={"container content"}>
                                     <Tab.Content animation>
