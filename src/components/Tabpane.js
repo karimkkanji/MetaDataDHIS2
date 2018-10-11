@@ -183,7 +183,7 @@ class Tabpane extends Component {
     }
     dispUrl(name = 'dataSets'){
         this.setState({
-            current_url: 'http://197.136.81.99:8082/test/api/'+ name
+            current_url: 'https://hiskenya.org/api/'+ name
         })
         console.log(this.state.current_url)
     }
@@ -200,7 +200,7 @@ class Tabpane extends Component {
 
     callGroups(itemCalled) {
         if (itemCalled === "dataelements") {
-            fetch(`http://197.136.81.99:8082/test/api/dataElementGroups.json?fields=:all?&paging=false`, headers)
+            fetch(`https://hiskenya.org/api/dataElementGroups.json?fields=:all?&paging=false`, headers)
                 .then(response => {
                     return response.json();
                 }).then(findresponse => {
@@ -213,7 +213,7 @@ class Tabpane extends Component {
             });
         }
         else if (itemCalled === "indicators") {
-            fetch(`http://197.136.81.99:8082/test/api/indicatorGroups.json?fields=:all?&paging=false`, headers)
+            fetch(`https://hiskenya.org/api/indicatorGroups.json?fields=:all?&paging=false`, headers)
                 .then(response => {
                     return response.json();
                 }).then(findresponse => {
