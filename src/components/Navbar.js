@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import config from '../actions/config'
+import config from '../actions/config';
+import './Navbar.css';
+
 import {
     Button,
     ButtonGroup,
@@ -114,8 +116,8 @@ class NavbarCustom extends Component {
     render() {
         const indicator_Items = this.state.ind_results.map( post => (
             <div key={post.id}>
-                <Panel>
-                    <Panel.Body>
+                <Panel >
+                    <Panel.Body className='indresults'>
                         <h4>{post.displayName}</h4>
                         <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                             <ButtonGroup>
@@ -134,9 +136,9 @@ class NavbarCustom extends Component {
         ));
 
         const dataSets_Items = this.state.ds_results.map( post => (
-            <div key={post.id}>
-                <Panel>
-                    <Panel.Body>
+            <div key={post.id} >
+                <Panel >
+                    <Panel.Body className='dsresults'>
                         <h4>{post.displayName}</h4>
                         <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                             <ButtonGroup>
@@ -157,7 +159,7 @@ class NavbarCustom extends Component {
         const dataElements_Items = this.state.dataElements_results.map( post => (
             <div key={post.id}>
                 <Panel>
-                    <Panel.Body>
+                    <Panel.Body className='dEresults' >
                         <h4>{post.displayName}</h4>
                         <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                             <ButtonGroup>
@@ -179,7 +181,7 @@ class NavbarCustom extends Component {
         const programs_Items = this.state.programs_results.map( post => (
             <div key={post.id}>
                 <Panel>
-                    <Panel.Body>
+                    <Panel.Body className='progresults' >
                         <h4>{post.displayName}</h4>
                         <ButtonToolbar bsClass="pull-right" style={{marginRight: 10}}>
                             <ButtonGroup>
@@ -262,11 +264,12 @@ class NavbarCustom extends Component {
                         <h3>Search results:</h3>
                         <hr/>
                         <Online>
-                        {this.state.selectedItem.item===1?(this.state.ds_results.length>0||this.state.ind_results.length>0||this.state.programs_results.length>0||this.state.dataElements_results.length>0)?<div>{dataSets_Items}{indicator_Items}{programs_Items}{dataElements_Items}</div>:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
-                        {this.state.selectedItem.item===2?this.state.ds_results.length>0?dataSets_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
-                        {this.state.selectedItem.item===3?this.state.ind_results.length>0?indicator_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
-                        {this.state.selectedItem.item===4?this.state.programs_results.length>0?programs_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
-                        {this.state.selectedItem.item===5?this.state.dataElements_results.length>0?dataElements_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}
+                            <div >{this.state.selectedItem.item===1?(this.state.ds_results.length>0||this.state.ind_results.length>0||this.state.programs_results.length>0||this.state.dataElements_results.length>0)?<div>{dataSets_Items}{indicator_Items}{programs_Items}{dataElements_Items}</div>:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}</div>
+                            <div >{this.state.selectedItem.item===2?this.state.ds_results.length>0?dataSets_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}</div>
+                            <div >{this.state.selectedItem.item===3?this.state.ind_results.length>0?indicator_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}</div>
+                            <div > {this.state.selectedItem.item===4?this.state.programs_results.length>0?programs_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}</div>
+                            <div >{this.state.selectedItem.item===5?this.state.dataElements_results.length>0?dataElements_Items:<h4 style={{color:"#ff0000"}}>No results found</h4>:null}</div>
+
                         </Online>
                         <Offline>
                             <Alert bsStyle={"danger"}>You are offline. Check your internet connection and try again</Alert>
