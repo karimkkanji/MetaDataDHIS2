@@ -1,5 +1,5 @@
-1: Opening the App
-==================
+9: Reporting Errors and general feedback
+========================================
 
 1.A user is required to have a working Dhis2 account.
 

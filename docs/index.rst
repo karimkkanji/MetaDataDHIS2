@@ -28,13 +28,22 @@ DHIS is an open source software platform for reporting, analysis and disseminati
 
 
 .. image:: /images/landingpage.png
-Contents:
+
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    chapter01
+   chapter02
+   chapter03
+   chapter04
+   chapter05
+   chapter06
+   chapter07
+   chapter08
+   chapter09
+   chapter10
 
 
 

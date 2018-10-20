@@ -1,5 +1,5 @@
-1: Opening the App
-==================
+8:Editing the Descriptions
+==========================
 
 1.A user is required to have a working Dhis2 account.
 

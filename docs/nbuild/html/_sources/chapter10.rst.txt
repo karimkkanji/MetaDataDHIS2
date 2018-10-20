@@ -1,5 +1,5 @@
-1: Opening the App
-==================
+10: How can i contribute 
+==================================
 
 1.A user is required to have a working Dhis2 account.
 
