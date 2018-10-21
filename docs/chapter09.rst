@@ -3,7 +3,7 @@
 
 You can contact the developers via email 
 
-- karimkan.......
+- karimkanji101@gmail.com
 - evanpersie3@gmail.com
 - labankiplagat81@gmail.com
 - carol......
