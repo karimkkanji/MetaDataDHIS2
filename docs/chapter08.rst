@@ -1,14 +1,20 @@
 8:Editing the Descriptions
 ==========================
 
-1.A user is required to have a working Dhis2 account.
+Editing the descriptions is one of the major tasks of the Metadata appand is achieved as follows
 
-2. Log in to the Dhis2 website.
+.. image:: /images/landingpage.png
 
-3.After a successful log in, on the top-right corner of the Dashboard locate the search bar and type in Metadata app or scroll down the listings to find the app(Metadata App).
+the user should then click on the tab(datasets,indicators,data elements,programs) he/she is interested indicators
 
-4. The image below extracted from a Dhis2 instance shows a way to go through to achieve the above.
+.. image:: /images/view1.png
 
-5. The above shows a list of the installed DHIS2 instance applications. From the list the Metadata app can be found.
+the user should then click on the required data value accordion and more options will be displayed
 
-.. image:: /images/open.png
+.. image:: /images/view2.png
+
+among the options their is an edit functionality where after clicking a popup window will appear with a text field to allow the user to enter their new descriptions
+
+.. image:: /images/view3.png
+
+the user will then be met with a successfull message on successfull editing of the data

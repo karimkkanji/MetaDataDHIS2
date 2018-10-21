@@ -1,14 +1,16 @@
 10: How can i contribute 
 ==================================
 
-1.A user is required to have a working Dhis2 account.
+1) fork the repo (to be a contributor)
 
-2. Log in to the Dhis2 website.
+.. note::  https://github.com/kanji-karanja/MetaDataDHIS2/network/members
 
-3.After a successful log in, on the top-right corner of the Dashboard locate the search bar and type in Metadata app or scroll down the listings to find the app(Metadata App).
+2) git clone the repo
 
-4. The image below extracted from a Dhis2 instance shows a way to go through to achieve the above.
+.. note:: https://github.com/kanji-karanja/MetaDataDHIS2.git
 
-5. The above shows a list of the installed DHIS2 instance applications. From the list the Metadata app can be found.
+3) install npm 
 
-.. image:: /images/open.png
+.. note:: npm install
+
+4) start development
