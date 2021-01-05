@@ -4,7 +4,7 @@
   "description": "A metadata dictionary is an application in DHIS2 that shows data about metadata and what it entails, such information as descriptions of the metadata thus allowing users to view and edit them in real time so as to assist users using DHIS2 in whatever instance.",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "history": "^1.13.1",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",
